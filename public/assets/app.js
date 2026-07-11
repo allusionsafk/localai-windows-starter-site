@@ -56,11 +56,11 @@
 
   /* Capability-tier chips. Values mirror the repo README's tier table. */
   var tiers = {
-    S:   { vram: '≥16 GB', model: 'qwen2.5:14b class — ~14B dense @32k', size: '~12.5 GB', note: 'The biggest models that still stay fully on the GPU.' },
-    A:   { vram: '12 GB', model: 'qwen3.5:9b-32k — ~9B dense @32k', size: '~9.5 GB', note: 'The sweet spot: a fast daily driver that runs 100% on the GPU.' },
-    B:   { vram: '8 GB', model: 'qwen3.5:4b-16k — ~7B dense @16k', size: '~7.0 GB', note: 'Solid quality with a smaller context window.' },
-    C:   { vram: '4 GB', model: 'qwen3.5:2b-8k — ~3B dense @8k', size: '~3.7 GB', note: 'Light but genuinely usable for everyday chat.' },
-    CPU: { vram: 'none', model: 'qwen3.5:2b-8k (small models only)', size: '—', note: 'Runs without a GPU, but slow. The installer warns you honestly.' }
+    S:   { vram: '≥16 GB', model: 'qwen2.5:14b class (~14B dense @32k)', size: '~12.5 GB', note: 'The biggest models that still stay fully on the GPU.' },
+    A:   { vram: '12 GB', model: 'qwen3.5:9b-32k (~9B dense @32k)', size: '~9.5 GB', note: 'The sweet spot: a fast daily driver that runs 100% on the GPU.' },
+    B:   { vram: '8 GB', model: 'qwen3.5:4b-16k (~7B dense @16k)', size: '~7.0 GB', note: 'Solid quality with a smaller context window.' },
+    C:   { vram: '4 GB', model: 'qwen3.5:2b-8k (~3B dense @8k)', size: '~3.7 GB', note: 'Light but genuinely usable for everyday chat.' },
+    CPU: { vram: 'none', model: 'qwen3.5:2b-8k (small models only)', size: 'n/a', note: 'Runs without a GPU, but slow. The installer warns you honestly.' }
   };
   var tierOut = document.getElementById('tierOut');
   function renderTier(key) {
@@ -68,7 +68,7 @@
     if (!t || !tierOut) return;
     tierOut.innerHTML =
       '<b>' + t.vram + '</b> → <b>' + escapeHtml(t.model) + '</b>' +
-      (t.size !== '—' ? ' <span class="muted">(' + t.size + ' on GPU)</span>' : '') +
+      (t.size !== 'n/a' ? ' <span class="muted">(' + t.size + ' on GPU)</span>' : '') +
       '<br><span class="small muted">' + t.note + '</span>';
   }
   document.querySelectorAll('.chip').forEach(function (chip) {

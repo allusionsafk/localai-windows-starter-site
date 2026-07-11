@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Landing + docs site for localai-windows-starter. Static assets + a Cloudflare Worker for live release info.",
+  "description": "AFK-LocalAI website: landing + docs for localai-windows-starter. Static assets + a Cloudflare Worker for live release info.",
   "license": "MIT",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "node tests/test-worker.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

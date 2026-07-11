@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>localai — private local AI for Windows</title>
-  <meta name="description" content="localai-windows-starter: a private, local, ChatGPT-style AI workspace for Windows. Open WebUI + SearXNG + Ollama on your own GPU. Loopback-only and manual-start by design." />
-  <meta property="og:title" content="localai — private local AI for Windows" />
-  <meta property="og:description" content="Self-hosted ChatGPT alternative for Windows: chat, private web search, and local voice on your own GPU. Nothing leaves your PC unless you turn it on yourself." />
+  <title>AFK-LocalAI · private local AI for Windows</title>
+  <meta name="description" content="AFK-LocalAI (localai-windows-starter): a private, ChatGPT-style AI workspace that runs on your own Windows PC. Open WebUI, SearXNG, and Ollama on your GPU. Loopback-only and manual-start by design." />
+  <meta property="og:title" content="AFK-LocalAI · private local AI for Windows" />
+  <meta property="og:description" content="AFK-LocalAI: a self-hosted ChatGPT alternative for Windows. Chat, private web search, and local voice on your own GPU. Nothing leaves your PC unless you turn it on yourself." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
+  <link rel="canonical" href="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Crect x='7' y='7' width='18' height='18' rx='5' fill='%2310b981'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +44,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="header">
   <div class="wrap topbar">
-    <a class="brand" href="#top" aria-label="localai home"><span class="mark" aria-hidden="true"></span><span>localai</span></a>
+    <a class="brand" href="#top" aria-label="AFK-LocalAI home"><span class="mark" aria-hidden="true"></span><span>AFK-LocalAI</span></a>
     <nav class="nav" aria-label="Primary">
       <a href="#install">Install</a><a href="#features">Features</a><a href="#security">Security</a><a href="#tiers">Hardware</a><a href="#cli">CLI</a><a href="#releases">Download</a>
     </nav>
@@ -59,7 +61,7 @@
       <div class="hero-grid grid">
         <div>
           <h1>Your own private AI, running on your own PC.</h1>
-          <p class="lede">localai is a self-hosted, ChatGPT-style workspace for Windows: a chat UI, a private web-search engine, and local voice — with models served by <strong>Ollama</strong> on your own GPU. Nothing leaves your PC unless you explicitly turn it on. One double-click to install.</p>
+          <p class="lede">AFK-LocalAI is a self-hosted, ChatGPT-style workspace for Windows: a chat UI, a private web-search engine, and local voice, with models served by <strong>Ollama</strong> on your own GPU. Nothing leaves your PC unless you explicitly turn it on. Install with one double-click.</p>
           <div class="actions" style="margin-bottom:20px">
             <a class="btn primary" id="downloadBtn" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download the installer</a>
             <a class="btn" href="#install">See install options</a>
@@ -72,13 +74,13 @@
         <aside class="card pad sticky-cta">
           <div class="kicker">What you get</div>
           <ul class="clean small" style="margin-top:6px">
-            <li><strong>Chat UI</strong> — Open WebUI at <code>localhost:3000</code></li>
-            <li><strong>Private web search</strong> — SearXNG at <code>localhost:8080</code></li>
-            <li><strong>Local voice</strong> — Kokoro TTS + Whisper, CPU-only</li>
-            <li><strong>Local images</strong> — optional ComfyUI in-chat</li>
+            <li><strong>Chat UI:</strong> Open WebUI at <code>localhost:3000</code></li>
+            <li><strong>Private web search:</strong> SearXNG at <code>localhost:8080</code></li>
+            <li><strong>Local voice:</strong> Kokoro TTS + Whisper, CPU-only</li>
+            <li><strong>Local images:</strong> optional ComfyUI in-chat</li>
           </ul>
           <div class="divider"></div>
-          <p class="small muted" style="margin:0">Loopback-only and manual-start by default. Share to your own devices only via an explicit Tailscale opt-in — never a raw LAN bind.</p>
+          <p class="small muted" style="margin:0">Loopback-only and manual-start by default. Sharing to your own devices is an explicit Tailscale opt-in. It never binds to your LAN.</p>
         </aside>
       </div>
     </div>
@@ -88,7 +90,7 @@
     <div class="wrap">
       <div class="kicker">Install</div>
       <h2>Three ways in. Pick your comfort level.</h2>
-      <p class="sub">Windows 11 with an NVIDIA GPU and Docker Desktop. The installer picks models that fit <em>your</em> hardware — see <a href="#tiers" style="text-decoration:underline">capability tiers</a>.</p>
+      <p class="sub">You need Windows 11 with an NVIDIA GPU and Docker Desktop. The installer picks models that fit <em>your</em> hardware (see <a href="#tiers" style="text-decoration:underline">capability tiers</a>).</p>
       <div class="tabs" role="tablist" aria-label="Install methods">
         <button class="tab active" data-tab="easy">Double-click (.cmd)</button><button class="tab" data-tab="guided">Guided (PowerShell)</button><button class="tab" data-tab="manual">Manual (CLI)</button>
       </div>
@@ -96,8 +98,8 @@
       <div class="card pad panel" data-panel-tab="easy">
         <div class="cols">
           <div>
-            <h3 style="margin-top:0">Easiest — no typing</h3>
-            <p class="sub">Download <strong>Install Local AI.cmd</strong> from the latest release and double-click it. Windows shows a security box because the file was downloaded — choose <strong>More info → Run anyway</strong>. It vets your GPU, picks fitting models, and opens your chat at <code>127.0.0.1:3000</code>.</p>
+            <h3 style="margin-top:0">Easiest: no typing</h3>
+            <p class="sub">Download <strong>Install Local AI.cmd</strong> from the latest release and double-click it. Windows shows a security box because the file was downloaded; choose <strong>More info → Run anyway</strong>. The installer vets your GPU, picks fitting models, and opens your chat at <code>127.0.0.1:3000</code>.</p>
             <div class="actions" style="margin-top:14px"><a class="btn primary" id="downloadBtn2" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download installer</a></div>
           </div>
           <div>
@@ -112,8 +114,8 @@ Stop Local AI.cmd
 
       <div class="card pad panel hidden" data-panel-tab="guided">
         <h3 style="margin-top:0">Guided installer (the Friend Bootstrapper)</h3>
-        <p class="sub">Vets your hardware, picks fitting models, brings the stack up loopback-only, then hands off to health checks. The bootstrap is <strong>pinned and fails closed</strong> — it verifies the download against a released tag's commit SHA (or zip SHA-256) before running.</p>
-        <div class="code"><button class="copy">Copy</button><pre><code><span class="cmt"># In Windows PowerShell — download then run the pinned bootstrap:</span>
+        <p class="sub">Vets your hardware, picks fitting models, brings the stack up loopback-only, then hands off to health checks. The bootstrap is <strong>pinned and fails closed</strong>: it verifies the download against a released tag's commit SHA (or zip SHA-256) before running anything.</p>
+        <div class="code"><button class="copy">Copy</button><pre><code><span class="cmt"># In Windows PowerShell: download, then run the pinned bootstrap.</span>
 Invoke-WebRequest https://raw.githubusercontent.com/allusionsafk/localai-windows-starter/master/installer/bootstrap.ps1 -OutFile "$env:TEMP\localai-bootstrap.ps1"
 powershell -ExecutionPolicy Bypass -File "$env:TEMP\localai-bootstrap.ps1"</code></pre></div>
       </div>
@@ -125,7 +127,7 @@ powershell -ExecutionPolicy Bypass -File "$env:TEMP\localai-bootstrap.ps1"</code
 copy .env.example .env        <span class="cmt"># then set SEARXNG_SECRET to a long random string</span>
 localai start                 <span class="cmt"># Ollama (native) + the compose services</span>
 localai health                <span class="cmt"># end-to-end checks</span>
-<span class="cmt"># open http://localhost:3000  → create your admin account on first visit</span></code></pre></div>
+<span class="cmt"># open http://localhost:3000 and create your admin account on first visit</span></code></pre></div>
       </div>
     </div>
   </section>
@@ -134,14 +136,14 @@ localai health                <span class="cmt"># end-to-end checks</span>
     <div class="wrap">
       <div class="kicker">Features</div>
       <h2>A full local stack, not a demo.</h2>
-      <p class="sub">Every piece runs on your machine. These are the components the starter kit sets up for you.</p>
+      <p class="sub">Every piece runs on your machine. The starter kit sets all of it up for you.</p>
       <div class="feature-grid">
-        <article class="card feature"><h3>Chat UI</h3><p>Open WebUI — a familiar ChatGPT-style interface. The first account you create becomes the local admin.</p><div class="mini">localhost:3000</div></article>
-        <article class="card feature"><h3>Private web search</h3><p>SearXNG metasearch, wired into chat so the model can cite current sources — no API keys, no tracking.</p><div class="mini">localhost:8080</div></article>
+        <article class="card feature"><h3>Chat UI</h3><p>Open WebUI, the familiar ChatGPT-style interface. The first account you create becomes the local admin.</p><div class="mini">localhost:3000</div></article>
+        <article class="card feature"><h3>Private web search</h3><p>SearXNG metasearch, wired into chat so the model can cite current sources. No API keys, no tracking.</p><div class="mini">localhost:8080</div></article>
         <article class="card feature"><h3>Local voice</h3><p>Speak with local Whisper transcription; hear replies via the Kokoro neural voice. CPU-only, no VRAM cost.</p><div class="mini">Kokoro TTS · Whisper STT</div></article>
         <article class="card feature"><h3>Local images</h3><p>Optional in-chat image generation through a local ComfyUI backend when you want it.</p><div class="mini">ComfyUI (optional)</div></article>
-        <article class="card feature"><h3>Model scout</h3><p>Recommends models that actually fit your VRAM budget — per task category — with the honest tradeoffs stated.</p><div class="mini">localai model-scout</div></article>
-        <article class="card feature"><h3>Control Center</h3><p>One window to start, stop, health-check, warm, and scout — a native dashboard, no terminal required.</p><div class="mini">localai dashboard · :8765</div></article>
+        <article class="card feature"><h3>Model scout</h3><p>Recommends a model for each task category that truly fits your VRAM budget, with the tradeoffs stated honestly.</p><div class="mini">localai model-scout</div></article>
+        <article class="card feature"><h3>Control Center</h3><p>One window to start, stop, health-check, warm, and scout. A native dashboard; no terminal required.</p><div class="mini">localai dashboard · :8765</div></article>
       </div>
     </div>
   </section>
@@ -157,7 +159,7 @@ localai health                <span class="cmt"># end-to-end checks</span>
             <li><strong style="color:var(--text)">No autostart.</strong> No scheduled tasks, no Docker restart policies, no auto-launch. Starting the stack is always a manual choice.</li>
             <li><strong style="color:var(--text)">Secrets stay local.</strong> <code>.env</code> is gitignored; you generate your own <code>SEARXNG_SECRET</code>.</li>
             <li><strong style="color:var(--text)">First account = admin.</strong> Stored only in the local database on your PC.</li>
-            <li><strong style="color:var(--text)">Sharing is an explicit opt-in.</strong> Reach it from your phone via Tailscale Serve — private to your tailnet, never public.</li>
+            <li><strong style="color:var(--text)">Sharing is an explicit opt-in.</strong> Reach it from your phone via Tailscale Serve, private to your tailnet and never public.</li>
           </ul>
         </div>
         <div class="card pad">
@@ -180,7 +182,7 @@ localai health                <span class="cmt"># end-to-end checks</span>
     <div class="wrap">
       <div class="kicker">Capability tiers</div>
       <h2>It sizes the model to your card.</h2>
-      <p class="sub">VRAM is the binding limit. Assuming <code>q8_0</code> KV cache host-side, each tier's ceiling model stays on the GPU. Pick your VRAM to see the fit.</p>
+      <p class="sub">VRAM is the binding limit. Assuming a <code>q8_0</code> KV cache host-side, each tier's ceiling model stays on the GPU. Pick your VRAM to see the fit.</p>
       <div class="card pad">
         <div class="chips" aria-label="VRAM tier">
           <button class="chip" data-tier="S">≥16 GB</button><button class="chip active" data-tier="A">12 GB</button><button class="chip" data-tier="B">8 GB</button><button class="chip" data-tier="C">4 GB</button><button class="chip" data-tier="CPU">CPU only</button>
@@ -216,9 +218,9 @@ localai health                <span class="cmt"># end-to-end checks</span>
       <div class="kicker">Troubleshooting</div>
       <h2>The usual first-run snags.</h2>
       <div class="card pad">
-        <details open><summary>Windows blocks the installer</summary><p class="small muted ex">SmartScreen shows a security box because the file was downloaded — click <strong>More info → Run anyway</strong>. If there's <em>no</em> "Run anyway" option at all, <strong>Smart App Control</strong> is on and blocks unsigned scripts outright — turn it off under Windows Security → App &amp; browser control, or use the PowerShell install method.</p></details>
+        <details open><summary>Windows blocks the installer</summary><p class="small muted ex">SmartScreen shows a security box because the file was downloaded; click <strong>More info → Run anyway</strong>. If there is no "Run anyway" option at all, <strong>Smart App Control</strong> is on and blocks unsigned scripts outright. Turn it off under Windows Security → App &amp; browser control, or use the PowerShell install method.</p></details>
         <details><summary>Docker Desktop needs one launch first</summary><p class="small muted ex">If setup can't reach Docker, open Docker Desktop once and let it finish starting, then re-run the installer.</p></details>
-        <details><summary>My GPU is AMD or Intel</summary><p class="small muted ex">This stack is <strong>NVIDIA/CUDA-only</strong>. On AMD/Intel it runs CPU-only and is slow — the installer says so plainly rather than pretending otherwise. See the CPU tier.</p></details>
+        <details><summary>My GPU is AMD or Intel</summary><p class="small muted ex">This stack is <strong>NVIDIA/CUDA-only</strong>. On AMD or Intel it runs CPU-only and is slow; the installer says so plainly instead of pretending otherwise. See the CPU tier.</p></details>
         <details><summary>First chat is slow / no model loaded</summary><p class="small muted ex">Cold-loading a model reads it off disk into VRAM. The installer picks a model that fits your card; use <code>localai warm</code> to preload, or <code>localai model-scout</code> to choose a lighter one.</p></details>
       </div>
     </div>
@@ -251,8 +253,8 @@ localai health                <span class="cmt"># end-to-end checks</span>
       <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener noreferrer">Open WebUI</a>,
       <a href="https://github.com/searxng/searxng" target="_blank" rel="noopener noreferrer">SearXNG</a>,
       <a href="https://github.com/remsky/Kokoro-FastAPI" target="_blank" rel="noopener noreferrer">Kokoro</a>, and
-      <a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" rel="noopener noreferrer">ComfyUI</a> — each under its own license.</p>
-    <p class="small muted">Not affiliated with, or endorsed by, mudler/LocalAI or localai.io — this is a different, independently-built project that happens to share the “local AI” name.</p>
+      <a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" rel="noopener noreferrer">ComfyUI</a>, each under its own license.</p>
+    <p class="small muted">Not affiliated with, or endorsed by, mudler/LocalAI or localai.io. AFK-LocalAI is a different, independently built project that happens to share the "local AI" name.</p>
   </div>
 </footer>
 <div class="toast" id="toast">Copied</div>
