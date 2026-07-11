@@ -2,6 +2,10 @@ name = "localai-windows-starter-site"
 main = "worker.js"
 compatibility_date = "2024-11-01"
 
+# Keep the public *.workers.dev URL enabled on every deploy so it can't get
+# silently turned off. (The URL is free, permanent, and HTTPS.)
+workers_dev = true
+
 # Static site in ./public served by the assets binding (also processes _headers).
 # The Worker (worker.js) only runs for non-asset routes, i.e. /api/release.
 [assets]
