@@ -100,6 +100,16 @@
     .then(function (data) {
       if (!data || !data.tag) throw new Error('empty');
 
+      // Defense-in-depth: the function already validates these shapes, but never
+      // wire a button to a URL outside the repo's own pages (blocks e.g. a
+      // javascript: or foreign href if the upstream response were ever tampered).
+      var DL = 'https://github.com/allusionsafk/localai-windows-starter/releases/download/';
+      var REPO = 'https://github.com/allusionsafk/localai-windows-starter';
+      if (data.installer_url && data.installer_url.indexOf(DL) !== 0) data.installer_url = null;
+      if (!data.html_url || data.html_url.indexOf(REPO) !== 0) data.html_url = REPO + '/releases/latest';
+      var sha = (typeof data.installer_sha256 === 'string' && /^sha256:[0-9a-f]{64}$/.test(data.installer_sha256))
+        ? data.installer_sha256.slice(7) : null;
+
       // Point both download buttons at the actual installer asset when present.
       if (data.installer_url) {
         ['downloadBtn', 'downloadBtn2'].forEach(function (id) {
@@ -123,7 +133,10 @@
           '<div class="actions" style="margin-top:14px">' +
             '<a class="btn primary" href="' + escapeHtml(data.installer_url || data.html_url) + '" target="_blank" rel="noopener noreferrer">Download installer</a>' +
             '<a class="btn" href="' + escapeHtml(data.html_url) + '" target="_blank" rel="noopener noreferrer">Release notes</a>' +
-          '</div>';
+          '</div>' +
+          // Integrity: show the asset's SHA-256 so a downloaded file can be
+          // verified (PowerShell: Get-FileHash '.\Install.Local.AI.cmd').
+          (sha ? '<p class="small muted" style="margin:12px 0 0;font-family:var(--mono);font-size:.78rem;word-break:break-all">SHA-256 ' + escapeHtml(sha) + '</p>' : '');
       }
     })
     .catch(function () {
