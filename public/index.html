@@ -12,33 +12,8 @@
   <link rel="canonical" href="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#f6f8fc;--panel:#ffffff;--panel-2:#f3f6fb;--text:#0a0c14;--muted:#5b6980;--accent:#2563eb;--accent-2:#10b981;--line:#dbe4f0;--shadow:0 10px 30px -10px rgb(0 0 0 / 0.08);--radius:12px;--mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;--sans:'Inter',system-ui,sans-serif}
-    [data-theme='dark']{--bg:#090d18;--panel:#0f1627;--panel-2:#121b30;--text:#eef2ff;--muted:#94a3b8;--line:#253049;--accent:#7aa2ff;--accent-2:#5eead4;--shadow:0 24px 70px rgba(0,0,0,.30)}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:var(--sans);background:radial-gradient(circle at top,rgba(15,98,254,.08),transparent 30%),var(--bg);color:var(--text);line-height:1.55} a{color:inherit;text-decoration:none} button,input{font:inherit} .wrap{max-width:1200px;margin:0 auto;padding:0 24px} .skip{position:absolute;left:-999px;top:12px;background:var(--panel);padding:10px 14px;border:1px solid var(--line);border-radius:12px}.skip:focus{left:16px;z-index:20}
-    .header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:color-mix(in srgb, var(--bg) 82%, transparent);border-bottom:1px solid color-mix(in srgb, var(--line) 82%, transparent)}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;padding:8px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:700}.mark{width:30px;height:30px;flex:none}.nav{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.95rem}.nav a:hover{color:var(--text)} .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 13px;border-radius:9999px;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease}.btn:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--accent) 22%, var(--line))}.btn.primary{background:var(--text);color:var(--bg);border-color:transparent}.btn.primary:hover{filter:brightness(1.05)} .btn.ghost{background:transparent}
-    .hero{padding:120px 0 56px} .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:.84rem;letter-spacing:.04em;margin-bottom:18px}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent-2) 18%, transparent)} h1{font-size:clamp(3rem,6vw,4.4rem);line-height:.98;letter-spacing:-.04em;margin:0 0 20px;max-width:14ch;font-weight:700} .lede{font-size:1.05rem;line-height:1.65;color:var(--muted);max-width:64ch;margin:0 0 26px} .status{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.98rem}.status strong{color:var(--text)}
-    .grid{display:grid;gap:20px}.hero-grid{grid-template-columns:1.25fr .75fr;align-items:start;margin-top:34px} .card{background:color-mix(in srgb,var(--panel) 96%, transparent);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)} .card.pad{padding:28px} .section{padding:80px 0 0;position:relative}.section:before{content:"";position:absolute;left:0;right:0;top:24px;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);opacity:.55} .kicker{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px} h2{font-size:clamp(2rem,3vw,2.8rem);letter-spacing:-.04em;margin:0 0 12px;font-weight:700} .sub{color:var(--muted);max-width:68ch;margin:0;font-size:1.05rem;line-height:1.65}
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 18px;padding:4px;background:var(--panel-2);border:1px solid var(--line);border-radius:9999px}.tab{padding:10px 14px;border-radius:9999px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease}.tab:hover{color:var(--text);transform:translateY(-1px)}.tab.active{color:var(--text);background:var(--panel);border-color:var(--line)} .panel{padding:24px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)} .panel.hidden{display:none}
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px} .code{position:relative;border-radius:12px;overflow:hidden;background:#0b1020;border:1px solid rgba(255,255,255,.08)} .code pre{margin:0;padding:18px;overflow:auto;font-size:.9rem;line-height:1.65;tab-size:2;color:#e6ecff} .code code{font-family:var(--mono);white-space:pre} .code .cmt{color:#7f8db0} .copy{position:absolute;top:10px;right:10px;padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;font-size:.82rem;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}.copy:hover{transform:translateY(-1px);background:rgba(255,255,255,.12)}.copy.done{background:rgba(34,197,94,.22);border-color:rgba(34,197,94,.35)}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 18px}.chip{padding:9px 12px;border-radius:9999px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease}.chip:hover{border-color:color-mix(in srgb,var(--accent) 18%, var(--line));color:var(--text);transform:translateY(-1px)}.chip.active{background:color-mix(in srgb,var(--accent) 16%, var(--panel));color:var(--text);border-color:color-mix(in srgb,var(--accent) 35%, var(--line))}
-    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{padding:22px;border-radius:12px;transition:transform .18s ease,border-color .18s ease}.feature:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 18%, var(--line))}.feature h3{margin:0 0 10px;font-size:1.02rem}.feature p{margin:0;color:var(--muted)} .feature .mini{margin-top:12px;font-family:var(--mono);font-size:.84rem;color:color-mix(in srgb,var(--text) 80%, var(--muted))}
-    details{border-top:1px solid var(--line);padding:14px 0} summary{cursor:pointer;font-weight:600;list-style:none} summary::-webkit-details-marker{display:none} .ex{margin-top:12px}
-    table.cli{width:100%;border-collapse:collapse;font-size:.94rem}table.cli td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}table.cli tr:first-child td{border-top:0}table.cli td:first-child{font-family:var(--mono);color:var(--text);white-space:nowrap;padding-right:18px}table.cli td:last-child{color:var(--muted)}
-    .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);color:var(--muted);font-size:.8rem;font-family:var(--mono)}
-    .tier-out{margin-top:6px;padding:14px 16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line)}.tier-out b{color:var(--text)}
-    .rel-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}.rel-row:first-child{border-top:0}.rel-tag{font-family:var(--mono);font-weight:600;color:var(--text)}.rel-pre{font-size:.72rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}.rel-date{margin-left:auto;color:var(--muted);font-size:.85rem}
-    .foot{padding:52px 0 64px;color:var(--muted);font-size:.95rem}.foot a{text-decoration:underline;text-underline-offset:2px}.muted{color:var(--muted)} .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(18px);opacity:0;background:var(--text);color:var(--bg);padding:10px 14px;border-radius:999px;transition:.25s;z-index:80}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-    .divider{height:1px;background:var(--line);margin:24px 0} .small{font-size:.9rem;line-height:1.6} .meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.92rem} .meta a{text-decoration:underline;text-underline-offset:2px} .sticky-cta{position:sticky;top:86px} .two{display:grid;grid-template-columns:1fr 1fr;gap:20px} ul.clean{padding-left:18px;margin:0;display:grid;gap:10px}
-    @media (max-width: 980px){.hero-grid,.cols,.feature-grid,.two{grid-template-columns:1fr}.topbar{flex-wrap:wrap}.nav{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:16px;padding-bottom:2px}}
-    @media (max-width: 640px){.wrap{padding:0 16px}.hero{padding-top:40px} h1{max-width:100%}.tab,.chip{font-size:.92rem;padding:9px 12px}}
-    :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-  </style>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -62,7 +37,7 @@
         <div>
           <h1>Your own private AI, running on your own PC.</h1>
           <p class="lede">AFK-LocalAI is a self-hosted, ChatGPT-style workspace for Windows: a chat UI, a private web-search engine, and local voice, with models served by <strong>Ollama</strong> on your own GPU. Nothing leaves your PC unless you explicitly turn it on. Install with one double-click.</p>
-          <div class="actions" style="margin-bottom:20px">
+          <div class="actions u-mb20">
             <a class="btn primary" id="downloadBtn" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download the installer</a>
             <a class="btn" href="#install">See install options</a>
             <span class="badge" id="verBadge" hidden></span>
@@ -73,14 +48,14 @@
         </div>
         <aside class="card pad sticky-cta">
           <div class="kicker">What you get</div>
-          <ul class="clean small" style="margin-top:6px">
+          <ul class="clean small u-mt6">
             <li><strong>Chat UI:</strong> Open WebUI at <code>localhost:3000</code></li>
             <li><strong>Private web search:</strong> SearXNG at <code>localhost:8080</code></li>
             <li><strong>Local voice:</strong> Kokoro TTS + Whisper, CPU-only</li>
             <li><strong>Local images:</strong> optional ComfyUI in-chat</li>
           </ul>
           <div class="divider"></div>
-          <p class="small muted" style="margin:0">Loopback-only and manual-start by default. Sharing to your own devices is an explicit Tailscale opt-in. It never binds to your LAN.</p>
+          <p class="small muted u-m0">Loopback-only and manual-start by default. Sharing to your own devices is an explicit Tailscale opt-in. It never binds to your LAN.</p>
         </aside>
       </div>
     </div>
@@ -90,20 +65,20 @@
     <div class="wrap">
       <div class="kicker">Install</div>
       <h2>Three ways in. Pick your comfort level.</h2>
-      <p class="sub">You need Windows 11 with an NVIDIA GPU and Docker Desktop. The installer picks models that fit <em>your</em> hardware (see <a href="#tiers" style="text-decoration:underline">capability tiers</a>).</p>
+      <p class="sub">You need Windows 11 with an NVIDIA GPU and Docker Desktop. The installer picks models that fit <em>your</em> hardware (see <a href="#tiers">capability tiers</a>).</p>
       <div class="tabs" role="tablist" aria-label="Install methods">
-        <button class="tab active" data-tab="easy">Double-click (.cmd)</button><button class="tab" data-tab="guided">Guided (PowerShell)</button><button class="tab" data-tab="manual">Manual (CLI)</button>
+        <button class="tab active" data-tab="easy" id="tab-easy" role="tab" aria-selected="true" aria-controls="panel-easy">Double-click (.cmd)</button><button class="tab" data-tab="guided" id="tab-guided" role="tab" aria-selected="false" aria-controls="panel-guided">Guided (PowerShell)</button><button class="tab" data-tab="manual" id="tab-manual" role="tab" aria-selected="false" aria-controls="panel-manual">Manual (CLI)</button>
       </div>
 
-      <div class="card pad panel" data-panel-tab="easy">
+      <div class="card pad panel" data-panel-tab="easy" id="panel-easy" role="tabpanel" aria-labelledby="tab-easy">
         <div class="cols">
           <div>
-            <h3 style="margin-top:0">Easiest: no typing</h3>
+            <h3 class="u-mt0">Easiest: no typing</h3>
             <p class="sub">Download <strong>Install Local AI.cmd</strong> from the latest release and double-click it. Windows shows a security box because the file was downloaded; choose <strong>More info → Run anyway</strong>. The installer vets your GPU, picks fitting models, and opens your chat at <code>127.0.0.1:3000</code>.</p>
-            <div class="actions" style="margin-top:14px"><a class="btn primary" id="downloadBtn2" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download installer</a></div>
+            <div class="actions u-mt14"><a class="btn primary" id="downloadBtn2" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download installer</a></div>
           </div>
           <div>
-            <div class="code"><button class="copy">Copy</button><pre><code><span class="cmt"># After it finishes, start/stop with no typing:</span>
+            <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code><span class="cmt"># After it finishes, start/stop with no typing:</span>
 Start Local AI.cmd
 Stop Local AI.cmd
 
@@ -112,18 +87,18 @@ Stop Local AI.cmd
         </div>
       </div>
 
-      <div class="card pad panel hidden" data-panel-tab="guided">
-        <h3 style="margin-top:0">Guided installer (the Friend Bootstrapper)</h3>
+      <div class="card pad panel hidden" data-panel-tab="guided" id="panel-guided" role="tabpanel" aria-labelledby="tab-guided">
+        <h3 class="u-mt0">Guided installer (the Friend Bootstrapper)</h3>
         <p class="sub">Vets your hardware, picks fitting models, brings the stack up loopback-only, then hands off to health checks. The bootstrap is <strong>pinned and fails closed</strong>: it verifies the download against a released tag's commit SHA (or zip SHA-256) before running anything.</p>
-        <div class="code"><button class="copy">Copy</button><pre><code><span class="cmt"># In Windows PowerShell: download, then run the pinned bootstrap.</span>
+        <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code><span class="cmt"># In Windows PowerShell: download, then run the pinned bootstrap.</span>
 Invoke-WebRequest https://raw.githubusercontent.com/allusionsafk/localai-windows-starter/master/installer/bootstrap.ps1 -OutFile "$env:TEMP\localai-bootstrap.ps1"
 powershell -ExecutionPolicy Bypass -File "$env:TEMP\localai-bootstrap.ps1"</code></pre></div>
       </div>
 
-      <div class="card pad panel hidden" data-panel-tab="manual">
-        <h3 style="margin-top:0">Manual bring-up</h3>
+      <div class="card pad panel hidden" data-panel-tab="manual" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual">
+        <h3 class="u-mt0">Manual bring-up</h3>
         <p class="sub">For when you already have the repo checked out and want each step explicit. Requires Python 3.12+.</p>
-        <div class="code"><button class="copy">Copy</button><pre><code>pip install -e .
+        <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code>pip install -e .
 copy .env.example .env        <span class="cmt"># then set SEARXNG_SECRET to a long random string</span>
 localai start                 <span class="cmt"># Ollama (native) + the compose services</span>
 localai health                <span class="cmt"># end-to-end checks</span>
@@ -155,11 +130,11 @@ localai health                <span class="cmt"># end-to-end checks</span>
           <div class="kicker">Security contract</div>
           <h2>Local-first, and locked down by default.</h2>
           <ul class="clean small muted">
-            <li><strong style="color:var(--text)">No network exposure by default.</strong> Every port binds to <code>127.0.0.1</code>. No raw LAN or <code>0.0.0.0</code> binds.</li>
-            <li><strong style="color:var(--text)">No autostart.</strong> No scheduled tasks, no Docker restart policies, no auto-launch. Starting the stack is always a manual choice.</li>
-            <li><strong style="color:var(--text)">Secrets stay local.</strong> <code>.env</code> is gitignored; you generate your own <code>SEARXNG_SECRET</code>.</li>
-            <li><strong style="color:var(--text)">First account = admin.</strong> Stored only in the local database on your PC.</li>
-            <li><strong style="color:var(--text)">Sharing is an explicit opt-in.</strong> Reach it from your phone via Tailscale Serve, private to your tailnet and never public.</li>
+            <li><strong>No network exposure by default.</strong> Every port binds to <code>127.0.0.1</code>. No raw LAN or <code>0.0.0.0</code> binds.</li>
+            <li><strong>No autostart.</strong> No scheduled tasks, no Docker restart policies, no auto-launch. Starting the stack is always a manual choice.</li>
+            <li><strong>Secrets stay local.</strong> <code>.env</code> is gitignored; you generate your own <code>SEARXNG_SECRET</code>.</li>
+            <li><strong>First account = admin.</strong> Stored only in the local database on your PC.</li>
+            <li><strong>Sharing is an explicit opt-in.</strong> Reach it from your phone via Tailscale Serve, private to your tailnet and never public.</li>
           </ul>
         </div>
         <div class="card pad">
@@ -185,10 +160,10 @@ localai health                <span class="cmt"># end-to-end checks</span>
       <p class="sub">VRAM is the binding limit. Assuming a <code>q8_0</code> KV cache host-side, each tier's ceiling model stays on the GPU. Pick your VRAM to see the fit.</p>
       <div class="card pad">
         <div class="chips" aria-label="VRAM tier">
-          <button class="chip" data-tier="S">≥16 GB</button><button class="chip active" data-tier="A">12 GB</button><button class="chip" data-tier="B">8 GB</button><button class="chip" data-tier="C">4 GB</button><button class="chip" data-tier="CPU">CPU only</button>
+          <button class="chip" data-tier="S" aria-pressed="false">≥16 GB</button><button class="chip active" data-tier="A" aria-pressed="true">12 GB</button><button class="chip" data-tier="B" aria-pressed="false">8 GB</button><button class="chip" data-tier="C" aria-pressed="false">4 GB</button><button class="chip" data-tier="CPU" aria-pressed="false">CPU only</button>
         </div>
         <div class="tier-out" id="tierOut" aria-live="polite"></div>
-        <p class="small muted" style="margin:14px 0 0">Honest tradeoff: large context and large models can still spill to CPU when VRAM is insufficient, which slows generation. <code>localai model-scout</code> shows the picks <em>and</em> the tradeoffs for your box.</p>
+        <p class="small muted tier-note">Honest tradeoff: large context and large models can still spill to CPU when VRAM is insufficient, which slows generation. <code>localai model-scout</code> shows the picks <em>and</em> the tradeoffs for your box.</p>
       </div>
     </div>
   </section>
@@ -232,15 +207,15 @@ localai health                <span class="cmt"># end-to-end checks</span>
       <h2>Get the latest build.</h2>
       <div class="two">
         <div class="card pad">
-          <h3 style="margin-top:0">Latest release</h3>
+          <h3 class="u-mt0">Latest release</h3>
           <div id="releaseList" aria-live="polite"><p class="small muted">Loading the latest release…</p></div>
           <div class="divider"></div>
           <p class="small muted">Release info is fetched live from the GitHub API through a cached edge function, so the download link and version stay current as the project ships.</p>
         </div>
         <div class="card pad">
-          <h3 style="margin-top:0">Source &amp; contributing</h3>
+          <h3 class="u-mt0">Source &amp; contributing</h3>
           <p class="small muted">The full stack, scripts, Modelfiles, and installer are open source under MIT. Issues and pull requests welcome.</p>
-          <div class="meta small" style="margin-top:12px"><a href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">Repository</a><a href="https://github.com/allusionsafk/localai-windows-starter/releases" target="_blank" rel="noopener noreferrer">All releases</a><a href="https://github.com/allusionsafk/localai-windows-starter/issues" target="_blank" rel="noopener noreferrer">Issues</a></div>
+          <div class="meta small u-mt12"><a href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">Repository</a><a href="https://github.com/allusionsafk/localai-windows-starter/releases" target="_blank" rel="noopener noreferrer">All releases</a><a href="https://github.com/allusionsafk/localai-windows-starter/issues" target="_blank" rel="noopener noreferrer">Issues</a></div>
         </div>
       </div>
     </div>
@@ -257,7 +232,7 @@ localai health                <span class="cmt"># end-to-end checks</span>
     <p class="small muted">Not affiliated with, or endorsed by, mudler/LocalAI or localai.io. AFK-LocalAI is a different, independently built project that happens to share the "local AI" name.</p>
   </div>
 </footer>
-<div class="toast" id="toast">Copied</div>
+<div class="toast" id="toast" role="status">Copied</div>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

@@ -1,12 +1,13 @@
-# Cloudflare Pages security headers. Applied at the edge to every response.
+# Security headers, applied at the edge to every static response.
 # CSP notes:
-#   script-src 'self'      — all JS is in /assets/app.js; no inline <script>.
-#   style-src  'unsafe-inline' is kept ONLY for inline style attributes + the
-#              <style> block (styles can't run code); scripts stay locked down.
-#   connect-src 'self'     — the only fetch() target is same-origin /api/release.
-#   Google Fonts are the sole third-party origins, pinned explicitly.
+#   script-src 'self'  — all JS is in /assets/app.js; no inline <script>.
+#   style-src  'self'  — all CSS is in /assets/site.css; no <style> blocks and
+#                        no style="" attributes anywhere (including JS-built markup).
+#   font-src   'self'  — fonts are self-hosted woff2 in /assets/fonts/.
+#   connect-src 'self' — the only fetch() target is same-origin /api/release.
+#   Zero third-party origins.
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -15,6 +16,10 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
 
-# Long-cache the fingerprint-free static assets (safe: content is versioned by deploy).
+# Long-cache the static assets (content is versioned by deploy).
 /assets/*
   Cache-Control: public, max-age=3600, must-revalidate
+
+# Fonts never change once shipped; cache them hard.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

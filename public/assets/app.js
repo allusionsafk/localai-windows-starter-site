@@ -1,6 +1,7 @@
-/* localai-windows-starter site — all interactivity.
+/* AFK-LocalAI site — all interactivity.
    Kept in an external file (not inline) so the Content-Security-Policy can set
-   script-src 'self' with no 'unsafe-inline' for scripts. */
+   script-src 'self' with no 'unsafe-inline'. Generated markup uses classes
+   only (no style attributes) because style-src is also 'self'. */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -14,12 +15,16 @@
     showToast._t = setTimeout(function () { toast.classList.remove('show'); }, 1500);
   }
 
-  /* Theme: follow the OS preference, let the button flip it. */
+  /* Theme: stored choice wins, then OS preference. localStorage only — the
+     site sets no cookies. */
   var themeBtn = document.getElementById('themeBtn');
-  root.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  var storedTheme = null;
+  try { storedTheme = localStorage.getItem('afk-theme'); } catch (e) {}
+  root.dataset.theme = storedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
       root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('afk-theme', root.dataset.theme); } catch (e) {}
       showToast('Theme updated');
     });
   }
@@ -43,14 +48,25 @@
     });
   });
 
-  /* Install-method tabs. */
-  document.querySelectorAll('.tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      document.querySelectorAll('[data-panel-tab]').forEach(function (p) { p.classList.add('hidden'); });
-      var panel = document.querySelector('[data-panel-tab="' + tab.dataset.tab + '"]');
-      if (panel) panel.classList.remove('hidden');
+  /* Install-method tabs: click + roving arrow-key navigation. */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function selectTab(tab) {
+    tabs.forEach(function (t) {
+      var active = t === tab;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    document.querySelectorAll('[data-panel-tab]').forEach(function (p) { p.classList.add('hidden'); });
+    var panel = document.querySelector('[data-panel-tab="' + tab.dataset.tab + '"]');
+    if (panel) panel.classList.remove('hidden');
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { selectTab(tab); });
+    tab.addEventListener('keydown', function (ev) {
+      var next = null;
+      if (ev.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+      if (ev.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+      if (next) { ev.preventDefault(); next.focus(); selectTab(next); }
     });
   });
 
@@ -73,8 +89,12 @@
   }
   document.querySelectorAll('.chip').forEach(function (chip) {
     chip.addEventListener('click', function () {
-      document.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('active'); });
+      document.querySelectorAll('.chip').forEach(function (x) {
+        x.classList.remove('active');
+        x.setAttribute('aria-pressed', 'false');
+      });
       chip.classList.add('active');
+      chip.setAttribute('aria-pressed', 'true');
       renderTier(chip.dataset.tier);
     });
   });
@@ -100,7 +120,7 @@
     .then(function (data) {
       if (!data || !data.tag) throw new Error('empty');
 
-      // Defense-in-depth: the function already validates these shapes, but never
+      // Defense-in-depth: the Worker already validates these shapes, but never
       // wire a button to a URL outside the repo's own pages (blocks e.g. a
       // javascript: or foreign href if the upstream response were ever tampered).
       var DL = 'https://github.com/allusionsafk/localai-windows-starter/releases/download/';
@@ -129,14 +149,14 @@
             (data.prerelease ? '<span class="rel-pre">pre-release</span>' : '') +
             (d ? '<span class="rel-date">' + d + '</span>' : '') +
           '</div>' +
-          (data.name ? '<p class="small muted" style="margin:10px 0 0">' + escapeHtml(data.name) + '</p>' : '') +
-          '<div class="actions" style="margin-top:14px">' +
+          (data.name ? '<p class="small muted rel-name">' + escapeHtml(data.name) + '</p>' : '') +
+          '<div class="actions rel-actions">' +
             '<a class="btn primary" href="' + escapeHtml(data.installer_url || data.html_url) + '" target="_blank" rel="noopener noreferrer">Download installer</a>' +
             '<a class="btn" href="' + escapeHtml(data.html_url) + '" target="_blank" rel="noopener noreferrer">Release notes</a>' +
           '</div>' +
           // Integrity: show the asset's SHA-256 so a downloaded file can be
           // verified (PowerShell: Get-FileHash '.\Install.Local.AI.cmd').
-          (sha ? '<p class="small muted" style="margin:12px 0 0;font-family:var(--mono);font-size:.78rem;word-break:break-all">SHA-256 ' + escapeHtml(sha) + '</p>' : '');
+          (sha ? '<p class="small muted rel-sha">SHA-256 ' + escapeHtml(sha) + '</p>' : '');
       }
     })
     .catch(function () {

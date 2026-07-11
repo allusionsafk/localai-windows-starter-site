@@ -1,0 +1,20 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "bricolage grotesque",
+        "reason": "User chose Bricolage Grotesque as the display face in the AFK-LocalAI D3 decision (2026-07-11)",
+        "createdAt": "2026-07-11T19:54:53.388Z"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "ibm plex mono",
+        "reason": "User confirmed keeping IBM Plex Mono for code in the D3 decision (2026-07-11)",
+        "createdAt": "2026-07-11T19:54:53.450Z"
+      }
+    ]
+  }
+}
