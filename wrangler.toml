@@ -1,5 +1,9 @@
-# Optional — only needed for `wrangler pages dev/deploy` from the CLI.
-# The Cloudflare dashboard Git integration does not require this file.
-name = "localai-windows-starter"
-pages_build_output_dir = "public"
+name = "localai-windows-starter-site"
+main = "worker.js"
 compatibility_date = "2024-11-01"
+
+# Static site in ./public served by the assets binding (also processes _headers).
+# The Worker (worker.js) only runs for non-asset routes, i.e. /api/release.
+[assets]
+directory = "./public"
+binding = "ASSETS"

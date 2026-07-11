@@ -2,13 +2,14 @@
   "name": "localai-windows-starter-site",
   "version": "1.0.0",
   "private": true,
-  "description": "Landing + docs site for localai-windows-starter. Static frontend + a Cloudflare Pages Function for live release info.",
+  "type": "module",
+  "description": "Landing + docs site for localai-windows-starter. Static assets + a Cloudflare Worker for live release info.",
   "license": "MIT",
   "scripts": {
-    "dev": "wrangler pages dev",
-    "deploy": "wrangler pages deploy"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "wrangler": "^3.90.0"
+    "wrangler": "^4.0.0"
   }
 }
