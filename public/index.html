@@ -25,7 +25,7 @@
   <div class="wrap topbar">
     <a class="brand" href="#top" aria-label="AFK-LocalAI home"><svg class="mark" aria-hidden="true" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><rect x="3" y="5" width="58" height="54" rx="14" fill="url(#mkg)"/><rect x="9" y="9" width="46" height="42" rx="9" fill="rgba(255,255,255,.92)"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="19" letter-spacing="-0.5" fill="#0a0c14">AFK</text><rect x="9" y="44" width="46" height="7" rx="3.5" fill="rgba(10,12,20,.12)"/></svg><span>AFK-LocalAI</span></a>
     <nav class="nav" aria-label="Primary">
-      <a href="#install">Install</a><a href="#features">Features</a><a href="#security">Security</a><a href="#tiers">Hardware</a><a href="#cli">CLI</a><a href="#releases">Download</a>
+      <a href="#install">Install</a><a href="#features">Features</a><a href="#phone">Phone</a><a href="#showcase">Showcase</a><a href="#security">Security</a><a href="#tiers">Hardware</a><a href="#cli">CLI</a><a href="#releases">Download</a>
     </nav>
     <div class="actions">
       <button class="btn ghost" id="themeBtn" aria-label="Toggle theme">Theme</button>
@@ -59,7 +59,7 @@
             <li><strong>Local images:</strong> optional ComfyUI in-chat</li>
           </ul>
           <div class="divider"></div>
-          <p class="small muted u-m0">Loopback-only and manual-start by default. Sharing to your own devices is an explicit Tailscale opt-in. It never binds to your LAN.</p>
+          <p class="small muted u-m0">Loopback-only and manual-start by default. Sharing to your own devices is an explicit <a class="ulink" href="#phone">Tailscale opt-in</a>. It never binds to your LAN.</p>
         </aside>
       </div>
     </div>
@@ -124,6 +124,101 @@ localai health                <span class="cmt"># end-to-end checks</span>
         <article class="card feature"><h3>Model scout</h3><p>Recommends a model for each task category that truly fits your VRAM budget, with the tradeoffs stated honestly.</p><div class="mini">localai model-scout</div></article>
         <article class="card feature"><h3>Control Center</h3><p>One window to start, stop, health-check, warm, and scout. A native dashboard; no terminal required.</p><div class="mini">localai dashboard · :8765</div></article>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="phone">
+    <div class="wrap">
+      <div class="kicker">On your phone</div>
+      <h2>Your AI in your pocket. The GPU stays home.</h2>
+      <p class="sub">iPhone or Android, same chat. Tailscale links your phone to your PC over an encrypted private network, so the stack keeps running on your desk while you use it from anywhere.</p>
+      <div class="cols phone-cols">
+        <ol class="steps">
+          <li>
+            <h3>Publish from the PC, once</h3>
+            <p>Run <code>localai anywhere --apply</code>. It uses Tailscale Serve to put your chat on your private tailnet over HTTPS. No Tailscale yet? <code>localai anywhere --install-tailscale</code> sets it up first.</p>
+          </li>
+          <li>
+            <h3>Put Tailscale on the phone</h3>
+            <p>Install the Tailscale app from the App Store or Google Play and sign in to the same tailnet as the PC. That's the whole pairing step.</p>
+          </li>
+          <li>
+            <h3>Open your private URL</h3>
+            <p>Visit <code>https://your-pc.your-tailnet.ts.net</code> in Safari or Chrome. Use <strong>Add to Home Screen</strong> and the chat opens full-screen like a native app.</p>
+          </li>
+          <li>
+            <h3>Chat from anywhere</h3>
+            <p>Home Wi-Fi, campus, LTE. It works wherever the phone has internet, as long as the PC at home is awake with the stack started.</p>
+          </li>
+        </ol>
+        <div>
+          <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code><span class="cmt"># On the Windows PC (one time):</span>
+localai anywhere --install-tailscale  <span class="cmt"># only if Tailscale is missing</span>
+localai anywhere --apply              <span class="cmt"># publish chat to your tailnet</span>
+localai anywhere                      <span class="cmt"># re-check status any time</span>
+
+<span class="cmt"># On the phone: install Tailscale, sign in,</span>
+<span class="cmt"># then open your URL:</span>
+https://your-pc.your-tailnet.ts.net</code></pre></div>
+          <div class="card pad u-mt14">
+            <h3 class="u-mt0">Honest notes</h3>
+            <ul class="clean small muted">
+              <li><strong>Tailnet-only.</strong> The URL works only for devices signed into your own Tailscale network. It is never published to the open internet.</li>
+              <li><strong>Encrypted end to end.</strong> Phone-to-PC traffic runs inside WireGuard tunnels.</li>
+              <li><strong>The phone stays cool.</strong> Generation happens on your GPU at home; the phone just renders the page.</li>
+              <li><strong>Off is one command.</strong> <code>tailscale serve reset</code> stops the sharing, and stopping the stack does too.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="showcase">
+    <div class="wrap">
+      <div class="kicker">Built on this stack</div>
+      <h2>What a home GPU really does all day.</h2>
+      <p class="sub">The stack behind the chat window is a platform. Two working builds from the author run on the exact models this kit installs, with nothing sent to any cloud.</p>
+      <div class="showcase">
+        <div>
+          <h3 class="u-mt0">ValClip: Valorant kills to Shorts, fully local</h3>
+          <p class="sub">Point ValClip at a gameplay recording and it finds your kills with pixel and audio analysis. A local vision model ranks the highlights and writes the hook, Whisper captions your comms, Kokoro speaks the voice line, and FFmpeg renders a vertical 1080&times;1920 Short on the GPU. Nothing is uploaded at any step.</p>
+          <p class="small muted">A companion project by the same author, running against the same Ollama install this kit sets up. Opening up as its own release.</p>
+          <p class="small muted"><code>Node.js + FFmpeg + Ollama vision &middot; localhost:5177</code></p>
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="ph-screen">
+            <div class="ph-hook">3K in 6 seconds</div>
+            <div class="ph-feed">
+              <div class="ph-frow you"></div>
+              <div class="ph-frow"></div>
+            </div>
+            <div class="ph-cross"></div>
+            <div class="ph-caption">wait for the <b>last</b> one</div>
+            <div class="ph-counter">x3</div>
+          </div>
+        </div>
+      </div>
+      <details class="seemore">
+        <summary>See more: the Arduino room sensor that talks to the stack</summary>
+        <div class="cols ex2">
+          <div>
+            <p class="small muted">A pocket-money ESP8266 board watches indoor and outdoor climate and serves its own tiny dashboard. It runs perfectly with the AI stack off. When the stack comes up, the board notices and upgrades itself.</p>
+            <ul class="clean small muted">
+              <li><strong>LOCAL CORE, always.</strong> Deterministic readings and a prioritized next action, computed on the board. No AI required, ever.</li>
+              <li><strong>AI ENHANCED, when offered.</strong> A lightweight capability probe detects Ollama and adds a locally generated room-voice line. Stop the stack and it falls back cleanly.</li>
+            </ul>
+          </div>
+          <div>
+            <ul class="clean small muted">
+              <li><strong>Local news briefing.</strong> The dashboard embeds a sandboxed SearXNG frame with direct results, labeled plainly as not AI-summarized.</li>
+              <li><strong>Fail-closed firmware.</strong> Filesystem autoformat is disabled, and the firmware has no code path that can start anything on the PC.</li>
+              <li><strong>One-hole firewall.</strong> The PC allows exactly one sensor address to reach Ollama; every other local AI port stays blocked on physical networks, and <code>localai firewall</code> audits that this stays true.</li>
+            </ul>
+            <p class="small muted u-mt12"><code>ESP8266 NodeMCU &middot; Arduino C++ &middot; 80 KB RAM</code></p>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 

@@ -30,7 +30,38 @@ table.cli{width:100%;border-collapse:collapse;font-size:.94rem}table.cli td{padd
 .foot{padding:52px 0 64px;color:var(--muted);font-size:.95rem}.foot a{text-decoration:underline;text-underline-offset:2px}.muted{color:var(--muted)} .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(18px);opacity:0;background:var(--text);color:var(--bg);padding:10px 14px;border-radius:999px;transition:.25s;z-index:80}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .divider{height:1px;background:var(--line);margin:24px 0} .small{font-size:.9rem;line-height:1.6} .meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.92rem} .meta a{text-decoration:underline;text-underline-offset:2px} .sticky-cta{position:sticky;top:86px} .two{display:grid;grid-template-columns:1fr 1fr;gap:20px} ul.clean{padding-left:18px;margin:0;display:grid;gap:10px} ul.clean strong{color:var(--text)}
 .u-mt0{margin-top:0}.u-mt6{margin-top:6px}.u-mt12{margin-top:12px}.u-mt14{margin-top:14px}.u-mb20{margin-bottom:20px}.u-m0{margin:0}
-@media (max-width: 980px){.hero-grid,.cols,.feature-grid,.two{grid-template-columns:1fr}.topbar{flex-wrap:wrap}.nav{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:16px;padding-bottom:2px}}
+.ulink{text-decoration:underline;text-underline-offset:2px}
+/* Phone-access steps (#phone). A real sequence, so the numbers carry meaning. */
+.phone-cols{margin-top:28px;align-items:start}
+.steps{list-style:none;counter-reset:step;margin:0;padding:0;display:grid;gap:22px}
+.steps li{counter-increment:step;position:relative;padding-left:52px}
+.steps li:before{content:counter(step);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:600;font-size:.95rem;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%, var(--panel));border:1px solid color-mix(in srgb,var(--accent) 30%, var(--line))}
+.steps h3{margin:4px 0 6px;font-size:1.05rem}
+.steps p{margin:0;color:var(--muted);line-height:1.6}
+/* Showcase (#showcase): ValClip mock Short in a phone frame. The screen is
+   "footage", so its colors are fixed dark in both themes. */
+.showcase{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin-top:30px}
+.phone{width:min(240px,72vw);aspect-ratio:9/19;margin:0 auto;border-radius:34px;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);padding:10px}
+.ph-screen{position:relative;height:100%;border-radius:26px;overflow:hidden;background:radial-gradient(120% 90% at 50% 32%, #1a2340 0%, #0b1020 62%, #070b16 100%);color:#eef2ff}
+.ph-hook{position:absolute;top:9%;left:0;right:0;text-align:center;font-family:var(--display);font-weight:800;font-size:1.02rem;letter-spacing:-.01em;text-transform:uppercase;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.55)}
+.ph-feed{position:absolute;top:21%;left:16%;right:16%;display:grid;gap:5px}
+.ph-frow{height:11px;border-radius:4px;background:rgba(255,255,255,.14)}
+.ph-frow.you{background:rgba(239,68,68,.36);border:1px solid rgba(239,68,68,.7);animation:phkill 2.6s ease-in-out infinite}
+@keyframes phkill{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}45%{box-shadow:0 0 14px 2px rgba(239,68,68,.45)}}
+.ph-cross{position:absolute;top:50%;left:50%;width:18px;height:18px;transform:translate(-50%,-50%)}
+.ph-cross:before,.ph-cross:after{content:"";position:absolute;background:rgba(94,234,212,.9)}
+.ph-cross:before{left:8px;top:0;width:2px;height:18px}
+.ph-cross:after{top:8px;left:0;height:2px;width:18px}
+.ph-caption{position:absolute;bottom:23%;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.7rem;color:#e6ecff;opacity:.92}
+.ph-caption b{color:#5eead4}
+.ph-counter{position:absolute;right:9%;bottom:9%;font-family:var(--display);font-weight:800;font-size:1.1rem;color:#fff;background:rgba(239,68,68,.32);border:1px solid rgba(239,68,68,.7);border-radius:10px;padding:2px 9px}
+/* "See more" expander for the Arduino build. */
+.seemore{margin-top:30px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow);padding:6px 22px}
+.seemore summary{display:flex;align-items:center;gap:10px;padding:14px 0}
+.seemore summary:after{content:"+";margin-left:auto;font-family:var(--mono);font-size:1.15rem;color:var(--muted)}
+.seemore[open] summary:after{content:"\2212"}
+.seemore .ex2{padding:4px 0 20px}
+@media (max-width: 980px){.hero-grid,.cols,.feature-grid,.two,.showcase{grid-template-columns:1fr}.topbar{flex-wrap:wrap}.nav{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:16px;padding-bottom:2px}.phone{margin-top:8px}}
 @media (max-width: 640px){.wrap{padding:0 16px}.hero{padding-top:40px} h1{max-width:100%}.tab,.chip{font-size:.92rem;padding:9px 12px}}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *,*::before,*::after{transition:none !important;animation:none !important}}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}

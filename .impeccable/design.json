@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-24T00:00:00Z",
+  "title": "Design System: AFK-LocalAI site",
+  "extensions": {
+    "colorMeta": {
+      "accent-blue": { "role": "primary", "displayName": "Accent Blue", "canonical": "#2563eb", "tonalRamp": ["oklch(20% 0.09 262)", "oklch(30% 0.13 262)", "oklch(40% 0.17 262)", "oklch(50% 0.19 262)", "oklch(58% 0.19 262)", "oklch(70% 0.14 262)", "oklch(84% 0.08 262)", "oklch(95% 0.03 262)"] },
+      "accent-blue-dark": { "role": "primary", "displayName": "Accent Blue (dark theme)", "canonical": "#7aa2ff", "tonalRamp": ["oklch(24% 0.08 265)", "oklch(36% 0.11 265)", "oklch(48% 0.14 265)", "oklch(60% 0.15 265)", "oklch(72% 0.13 265)", "oklch(80% 0.10 265)", "oklch(88% 0.06 265)", "oklch(96% 0.02 265)"] },
+      "signal-emerald": { "role": "secondary", "displayName": "Signal Emerald", "canonical": "#10b981", "tonalRamp": ["oklch(22% 0.06 165)", "oklch(34% 0.09 165)", "oklch(46% 0.11 165)", "oklch(58% 0.13 165)", "oklch(70% 0.14 165)", "oklch(80% 0.12 165)", "oklch(90% 0.07 165)", "oklch(97% 0.02 165)"] },
+      "signal-emerald-dark": { "role": "secondary", "displayName": "Signal Emerald (dark theme)", "canonical": "#5eead4", "tonalRamp": ["oklch(24% 0.05 175)", "oklch(38% 0.07 175)", "oklch(52% 0.09 175)", "oklch(66% 0.11 175)", "oklch(78% 0.12 175)", "oklch(86% 0.10 175)", "oklch(92% 0.07 175)", "oklch(97% 0.03 175)"] },
+      "day-sky": { "role": "neutral", "displayName": "Day Sky", "canonical": "#f6f8fc", "tonalRamp": ["oklch(18% 0.01 255)", "oklch(30% 0.01 255)", "oklch(45% 0.01 255)", "oklch(60% 0.01 255)", "oklch(75% 0.008 255)", "oklch(86% 0.007 255)", "oklch(93% 0.006 255)", "oklch(98% 0.004 255)"] },
+      "night-sky": { "role": "neutral", "displayName": "Night Sky", "canonical": "#090d18", "tonalRamp": ["oklch(13% 0.02 262)", "oklch(18% 0.02 262)", "oklch(25% 0.02 262)", "oklch(35% 0.02 262)", "oklch(50% 0.02 262)", "oklch(65% 0.015 262)", "oklch(80% 0.01 262)", "oklch(93% 0.005 262)"] },
+      "day-ink": { "role": "neutral", "displayName": "Day Ink", "canonical": "#0a0c14", "tonalRamp": ["oklch(12% 0.01 262)", "oklch(20% 0.01 262)", "oklch(32% 0.01 262)", "oklch(45% 0.01 262)", "oklch(58% 0.01 262)", "oklch(72% 0.008 262)", "oklch(85% 0.006 262)", "oklch(95% 0.004 262)"] },
+      "night-ink": { "role": "neutral", "displayName": "Night Ink", "canonical": "#eef2ff", "tonalRamp": ["oklch(15% 0.01 265)", "oklch(28% 0.01 265)", "oklch(42% 0.01 265)", "oklch(56% 0.01 265)", "oklch(70% 0.01 265)", "oklch(82% 0.01 265)", "oklch(90% 0.01 265)", "oklch(97% 0.008 265)"] },
+      "day-muted": { "role": "neutral", "displayName": "Day Muted", "canonical": "#5b6980", "tonalRamp": ["oklch(16% 0.015 255)", "oklch(26% 0.02 255)", "oklch(36% 0.025 255)", "oklch(48% 0.025 255)", "oklch(58% 0.02 255)", "oklch(70% 0.02 255)", "oklch(82% 0.015 255)", "oklch(94% 0.008 255)"] },
+      "night-muted": { "role": "neutral", "displayName": "Night Muted", "canonical": "#94a3b8", "tonalRamp": ["oklch(18% 0.015 255)", "oklch(30% 0.02 255)", "oklch(42% 0.02 255)", "oklch(54% 0.02 255)", "oklch(66% 0.02 255)", "oklch(74% 0.02 255)", "oklch(84% 0.015 255)", "oklch(95% 0.008 255)"] },
+      "day-line": { "role": "neutral", "displayName": "Day Line", "canonical": "#dbe4f0", "tonalRamp": ["oklch(20% 0.01 255)", "oklch(34% 0.015 255)", "oklch(48% 0.02 255)", "oklch(62% 0.02 255)", "oklch(74% 0.02 255)", "oklch(84% 0.02 255)", "oklch(91% 0.015 255)", "oklch(97% 0.008 255)"] },
+      "night-line": { "role": "neutral", "displayName": "Night Line", "canonical": "#253049", "tonalRamp": ["oklch(16% 0.02 262)", "oklch(24% 0.03 262)", "oklch(32% 0.035 262)", "oklch(44% 0.035 262)", "oklch(56% 0.03 262)", "oklch(70% 0.025 262)", "oklch(83% 0.015 262)", "oklch(94% 0.008 262)"] },
+      "day-panel": { "role": "neutral", "displayName": "Day Panel", "canonical": "#ffffff", "tonalRamp": ["oklch(20% 0 0)", "oklch(35% 0 0)", "oklch(50% 0 0)", "oklch(65% 0 0)", "oklch(78% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(100% 0 0)"] },
+      "day-panel-2": { "role": "neutral", "displayName": "Day Panel 2", "canonical": "#f3f6fb", "tonalRamp": ["oklch(20% 0.006 255)", "oklch(34% 0.006 255)", "oklch(48% 0.006 255)", "oklch(62% 0.006 255)", "oklch(76% 0.006 255)", "oklch(87% 0.005 255)", "oklch(94% 0.005 255)", "oklch(98% 0.004 255)"] },
+      "night-panel": { "role": "neutral", "displayName": "Night Panel", "canonical": "#0f1627", "tonalRamp": ["oklch(14% 0.025 262)", "oklch(19% 0.028 262)", "oklch(26% 0.03 262)", "oklch(36% 0.03 262)", "oklch(50% 0.025 262)", "oklch(66% 0.02 262)", "oklch(81% 0.012 262)", "oklch(94% 0.006 262)"] },
+      "night-panel-2": { "role": "neutral", "displayName": "Night Panel 2", "canonical": "#121b30", "tonalRamp": ["oklch(15% 0.03 262)", "oklch(20% 0.032 262)", "oklch(28% 0.034 262)", "oklch(38% 0.032 262)", "oklch(52% 0.028 262)", "oklch(68% 0.02 262)", "oklch(82% 0.012 262)", "oklch(94% 0.006 262)"] },
+      "code-well": { "role": "neutral", "displayName": "Code Well", "canonical": "#0b1020", "tonalRamp": ["oklch(13% 0.03 265)", "oklch(18% 0.035 265)", "oklch(26% 0.04 265)", "oklch(36% 0.04 265)", "oklch(50% 0.035 265)", "oklch(66% 0.025 265)", "oklch(80% 0.015 265)", "oklch(93% 0.008 265)"] },
+      "code-comment": { "role": "neutral", "displayName": "Code Comment", "canonical": "#7f8db0", "tonalRamp": ["oklch(18% 0.02 265)", "oklch(30% 0.03 265)", "oklch(42% 0.04 265)", "oklch(54% 0.04 265)", "oklch(64% 0.04 265)", "oklch(74% 0.03 265)", "oklch(85% 0.02 265)", "oklch(95% 0.01 265)"] },
+      "code-text": { "role": "neutral", "displayName": "Code Text", "canonical": "#e6ecff", "tonalRamp": ["oklch(16% 0.02 265)", "oklch(30% 0.025 265)", "oklch(44% 0.03 265)", "oklch(58% 0.03 265)", "oklch(72% 0.025 265)", "oklch(84% 0.02 265)", "oklch(92% 0.015 265)", "oklch(97% 0.01 265)"] },
+      "copy-done": { "role": "secondary", "displayName": "Copy Done Green", "canonical": "#22c55e", "tonalRamp": ["oklch(22% 0.07 150)", "oklch(34% 0.10 150)", "oklch(46% 0.13 150)", "oklch(58% 0.16 150)", "oklch(70% 0.17 150)", "oklch(80% 0.14 150)", "oklch(90% 0.09 150)", "oklch(97% 0.03 150)"] },
+      "footage-red": { "role": "tertiary", "displayName": "Footage Red", "canonical": "#ef4444", "tonalRamp": ["oklch(24% 0.09 25)", "oklch(36% 0.13 25)", "oklch(48% 0.17 25)", "oklch(60% 0.20 25)", "oklch(68% 0.19 25)", "oklch(78% 0.14 25)", "oklch(88% 0.08 25)", "oklch(96% 0.03 25)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero h1 only; Bricolage Grotesque 700." },
+      "headline": { "displayName": "Headline", "purpose": "Section h2; Bricolage Grotesque 700." },
+      "lede": { "displayName": "Lede", "purpose": "Section subs, 64-68ch max." },
+      "body": { "displayName": "Body", "purpose": "System stack prose." },
+      "label": { "displayName": "Kicker", "purpose": "One uppercase tracked kicker per section; deliberate brand system." },
+      "mono": { "displayName": "Mono", "purpose": "Commands, ports, model names, hashes; IBM Plex Mono." }
+    },
+    "shadows": [
+      { "name": "card-soft", "value": "0 10px 30px -10px rgb(0 0 0 / 0.08)", "purpose": "The single card shadow (light theme)." },
+      { "name": "card-soft-dark", "value": "0 24px 70px rgba(0,0,0,.30)", "purpose": "Dark-theme counterpart of card-soft." }
+    ],
+    "motion": [
+      { "name": "ease-ui", "value": "0.18s ease", "purpose": "Hover lifts, border tints, tab/chip state changes." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "980px" },
+      { "name": "mobile", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The download CTA: ink pill that inverts against the page.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Download the installer</a>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:8px; background:#0a0c14; color:#f6f8fc; padding:10px 13px; border-radius:9999px; border:1px solid transparent; text-decoration:none; transition:transform .18s ease, filter .18s ease; } .ds-btn-primary:hover { transform:translateY(-1px); filter:brightness(1.05); } .ds-btn-primary:focus-visible { outline:2px solid #2563eb; outline-offset:3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Secondary pill action with hairline border.",
+      "html": "<button class=\"ds-btn\">See install options</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; gap:8px; background:#ffffff; color:#0a0c14; padding:10px 13px; border-radius:9999px; border:1px solid #dbe4f0; cursor:pointer; transition:transform .18s ease, border-color .18s ease; } .ds-btn:hover { transform:translateY(-1px); border-color:#b9c8ea; } .ds-btn:focus-visible { outline:2px solid #2563eb; outline-offset:3px; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The standard content card.",
+      "html": "<div class=\"ds-card\"><h3>Chat UI</h3><p>Open WebUI, the familiar ChatGPT-style interface.</p><div class=\"ds-mini\">localhost:3000</div></div>",
+      "css": ".ds-card { background:#ffffff; border:1px solid #dbe4f0; border-radius:12px; box-shadow:0 10px 30px -10px rgb(0 0 0 / 0.08); padding:28px; color:#0a0c14; } .ds-card h3 { margin:0 0 10px; font-size:1.02rem; } .ds-card p { margin:0; color:#5b6980; } .ds-mini { margin-top:12px; font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:.84rem; color:#22304a; }"
+    },
+    {
+      "name": "Code Block",
+      "kind": "custom",
+      "refersTo": "code-block",
+      "description": "Always-dark terminal well with floating Copy pill.",
+      "html": "<div class=\"ds-code\"><button class=\"ds-copy\">Copy</button><pre>localai anywhere --apply</pre></div>",
+      "css": ".ds-code { position:relative; border-radius:12px; background:#0b1020; border:1px solid rgba(255,255,255,.08); } .ds-code pre { margin:0; padding:18px; color:#e6ecff; font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:.9rem; line-height:1.65; } .ds-copy { position:absolute; top:10px; right:10px; padding:8px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.08); color:#fff; font-size:.82rem; cursor:pointer; transition:transform .18s ease, background .18s ease; } .ds-copy:hover { transform:translateY(-1px); background:rgba(255,255,255,.12); }"
+    },
+    {
+      "name": "Tier Chip",
+      "kind": "chip",
+      "refersTo": "button",
+      "description": "VRAM tier pill toggle with aria-pressed state.",
+      "html": "<button class=\"ds-chip ds-chip-active\">12 GB</button> <button class=\"ds-chip\">8 GB</button>",
+      "css": ".ds-chip { padding:9px 12px; border-radius:9999px; border:1px solid #dbe4f0; background:#ffffff; color:#5b6980; cursor:pointer; transition:background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease; } .ds-chip:hover { color:#0a0c14; transform:translateY(-1px); } .ds-chip-active { background:#dbe7fb; color:#0a0c14; border-color:#9db9ea; }"
+    },
+    {
+      "name": "Step Item",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Numbered sequence item for the phone-access guide.",
+      "html": "<ol class=\"ds-steps\"><li><h3>Publish from the PC, once</h3><p>Run the command and the chat lands on your private tailnet.</p></li></ol>",
+      "css": ".ds-steps { list-style:none; counter-reset:step; margin:0; padding:0; display:grid; gap:22px; } .ds-steps li { counter-increment:step; position:relative; padding-left:52px; } .ds-steps li:before { content:counter(step); position:absolute; left:0; top:0; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; color:#2563eb; background:#e7edfb; border:1px solid #a9c0ec; } .ds-steps h3 { margin:4px 0 6px; font-size:1.05rem; color:#0a0c14; } .ds-steps p { margin:0; color:#5b6980; line-height:1.6; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Honest Workbench",
+    "overview": "A bright, airy landing page whose credibility IS the aesthetic: every claim is verifiable, every tradeoff stated in place, every machine fact set in mono. Bricolage Grotesque display over a plain system body, one blue accent, an emerald signal color, and a true dark theme mirrored through CSS variables.",
+    "keyCharacteristics": [
+      "Zero third-party origins: self-hosted fonts, no analytics, CSP 'self' only.",
+      "Class-only styling; no inline styles ever.",
+      "One page, real anchors, progressive disclosure via details elements.",
+      "Honest copy: no em dashes, no hype adjectives, tradeoffs beside features."
+    ],
+    "rules": [
+      { "name": "The Color-Is-State Rule", "body": "If something is colored, it carries meaning (status, action, focus). Decoration stays neutral.", "section": "colors" },
+      { "name": "The Machine-Speaks-Mono Rule", "body": "Commands, ports, model names, and hashes are always mono; prose never is.", "section": "typography" }
+    ],
+    "dos": [
+      "Do keep every port, command, and model name in IBM Plex Mono.",
+      "Do state the honest tradeoff next to every capability claim.",
+      "Do use classes for all styling; the CSP forbids inline styles.",
+      "Do mirror any new light-theme value with a dark-theme counterpart.",
+      "Do keep sequences numbered only when order genuinely matters."
+    ],
+    "donts": [
+      "Don't add any third-party origin (fonts, scripts, images, embeds).",
+      "Don't use em dashes in copy, hype adjectives, or urgency patterns.",
+      "Don't ship SaaS gradient-wash, vanity metrics, or glassmorphism.",
+      "Don't color decoration; color is state, action, or focus.",
+      "Don't let the footage mock's reds/teals leak into page chrome."
+    ]
+  }
+}
