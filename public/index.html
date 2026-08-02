@@ -25,7 +25,7 @@
   <div class="wrap topbar">
     <a class="brand" href="#top" aria-label="AFK-LocalAI home"><svg class="mark" aria-hidden="true" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><rect x="3" y="5" width="58" height="54" rx="14" fill="url(#mkg)"/><rect x="9" y="9" width="46" height="42" rx="9" fill="rgba(255,255,255,.92)"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="19" letter-spacing="-0.5" fill="#0a0c14">AFK</text><rect x="9" y="44" width="46" height="7" rx="3.5" fill="rgba(10,12,20,.12)"/></svg><span>AFK-LocalAI</span></a>
     <nav class="nav" aria-label="Primary">
-      <a href="#install">Install</a><a href="#features">Features</a><a href="#phone">Phone</a><a href="#showcase">Showcase</a><a href="#security">Security</a><a href="#tiers">Hardware</a><a href="#cli">CLI</a><a href="#releases">Download</a>
+      <a href="#install">Install</a><a href="#features">Features</a><a href="#pulse">Roadmap</a><a href="#phone">Phone</a><a href="#showcase">Showcase</a><a href="#security">Security</a><a href="#tiers">Hardware</a><a href="#cli">CLI</a><a href="#releases">Download</a>
     </nav>
     <div class="actions">
       <button class="btn ghost" id="themeBtn" aria-label="Toggle theme">Theme</button>
@@ -47,6 +47,7 @@
             <span class="badge" id="verBadge" hidden></span>
           </div>
           <div class="status"><strong>Free &amp; open source (MIT).</strong><span>Built on Ollama, Open WebUI, and SearXNG.</span></div>
+          <p class="small muted u-mt12">Actively developed — <a class="ulink" href="#pulse">see what is in review right now</a>.</p>
           <div class="divider"></div>
           <div class="meta small"><span>Repo:</span><a href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">allusionsafk/localai-windows-starter</a></div>
         </div>
@@ -124,6 +125,53 @@ localai health                <span class="cmt"># end-to-end checks</span>
         <article class="card feature"><h3>Model scout</h3><p>Recommends a model for each task category that truly fits your VRAM budget, with the tradeoffs stated honestly.</p><div class="mini">localai model-scout</div></article>
         <article class="card feature"><h3>Control Center</h3><p>One window to start, stop, health-check, warm, and scout. A native dashboard; no terminal required.</p><div class="mini">localai dashboard · :8765</div></article>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="pulse">
+    <div class="wrap">
+      <div class="kicker">Development pulse · updated Jul 30, 2026</div>
+      <h2>The download is stable. The work is not standing still.</h2>
+      <p class="sub">A release date is a poor proxy for whether a project is alive. Every item below carries the stage it is actually at, and none of it is in the current installer yet — this tracks the working branches, not the download.</p>
+      <div class="pulse-grid">
+        <article class="card pulse-item">
+          <div class="pulse-head"><span class="stage stage-ship">Shipping</span><span class="pulse-when">Jul 16, 2026</span></div>
+          <h3>v0.1.5 — the installer on this page</h3>
+          <p>The Docker and Open WebUI stack everything above describes: double-click install, loopback-only binds, models fitted to your VRAM. This is what the download button gives you today, and it stays the stable path until the work below earns a release.</p>
+        </article>
+        <article class="card pulse-item">
+          <div class="pulse-head"><span class="stage stage-review">In review</span><span class="pulse-when">CI green · 3 OSes</span></div>
+          <h3>Portable hardware reporting</h3>
+          <p>The GPU, VRAM, CPU, RAM and disk probe behind <code>localai vet</code> is being split from its Windows-only implementation into a capability-reporting seam. It is the prerequisite for the Apple Silicon and Linux ARM64 targets in the roadmap, not a claim that they work yet.</p>
+        </article>
+        <article class="card pulse-item">
+          <div class="pulse-head"><span class="stage stage-review">In review</span><span class="pulse-when">CI green · 3 OSes</span></div>
+          <h3>Guarded control-state ledger</h3>
+          <p>A local SQLite control database, integrity-checked receipts written atomically, and jobs that are safe to repeat. If an install or update is interrupted, the next start reconciles it instead of leaving a half-configured machine behind. Adds a <code>localai state</code> command that shows the record.</p>
+        </article>
+        <article class="card pulse-item">
+          <div class="pulse-head"><span class="stage stage-review">In review</span><span class="pulse-when">CI green · 3 OSes</span></div>
+          <h3>Ports you choose</h3>
+          <p>Service ports stop being constants baked through the codebase. Each service gets one of three modes, and the resolved address propagates to every link and health check rather than being guessed in several places.</p>
+          <ul class="clean small muted u-mt12">
+            <li><strong>Auto</strong> keeps the familiar port when it is free, and records the one it actually landed on when it is not.</li>
+            <li><strong>Fixed</strong> is honored exactly. A conflict reports the process holding the port; it never quietly moves and never kills the other program.</li>
+            <li><strong>External</strong> points at a service you already run, without taking ownership of its lifecycle.</li>
+          </ul>
+          <p class="small muted u-mt12">Changing a port never changes the loopback-only bind. This first slice is the registry core; wiring every legacy script through it comes after.</p>
+        </article>
+        <article class="card pulse-item">
+          <div class="pulse-head"><span class="stage">In design</span><span class="pulse-when">Spec written</span></div>
+          <h3>A Docker-free path</h3>
+          <p>Docker Desktop is the single biggest install obstacle people hit on Windows. The design under review is a native, Ollama-first workbench that removes the container requirement, with the current Docker stack kept as the compatibility route rather than ripped out. Design only so far — there is no implementation to point at.</p>
+        </article>
+        <article class="card pulse-item">
+          <div class="pulse-head"><span class="stage stage-preview">Preview</span><span class="pulse-when">Not wired</span></div>
+          <h3>ValClip as an optional capability</h3>
+          <p>The highlight builder in the <a class="ulink" href="#showcase">showcase below</a> is a working companion project, but it is not part of this kit. The plan is an opt-in capability that states its requirements and disk cost up front and installs only after you say yes. The contract is drafted; nothing is wired, and nothing will install itself.</p>
+        </article>
+      </div>
+      <p class="small muted u-mt14">The next-generation work sits in a private repository while it is under review, so these branches have no public links yet. They reach this page the same way everything else did: as a release, after a clean-install run passes on real hardware.</p>
     </div>
   </section>
 
