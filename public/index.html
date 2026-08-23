@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AFK-LocalAI · private local AI for Windows</title>
-  <meta name="description" content="AFK-LocalAI (localai-windows-starter): a private, ChatGPT-style AI workspace that runs on your own Windows PC. Open WebUI, SearXNG, and Ollama on your GPU. Loopback-only and manual-start by design." />
-  <meta property="og:title" content="AFK-LocalAI · private local AI for Windows" />
-  <meta property="og:description" content="AFK-LocalAI: a self-hosted ChatGPT alternative for Windows. Chat, private web search, and local voice on your own GPU. Nothing leaves your PC unless you turn it on yourself." />
+  <title>AFK AI · private local AI for Windows</title>
+  <meta name="description" content="AFK AI sets up a private, ChatGPT-style AI workspace that runs on your own Windows PC. Core AI chat runs locally on your GPU. Friend Beta 0.1.7rc1." />
+  <meta property="og:title" content="AFK AI · private local AI for Windows" />
+  <meta property="og:description" content="A private, ChatGPT-style AI workspace that runs on your own Windows PC. Core AI chat runs locally on your GPU, and every port binds to 127.0.0.1. Friend Beta 0.1.7rc1." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
   <meta property="og:image" content="https://localai-windows-starter-site.allusionsafk.workers.dev/assets/og-image.png" />
@@ -14,373 +14,266 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
-  <meta name="theme-color" content="#0b1020" />
+  <meta name="theme-color" content="#f6f8fc" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+
 <header class="header">
   <div class="wrap topbar">
-    <a class="brand" href="#top" aria-label="AFK-LocalAI home"><svg class="mark" aria-hidden="true" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><rect x="3" y="5" width="58" height="54" rx="14" fill="url(#mkg)"/><rect x="9" y="9" width="46" height="42" rx="9" fill="rgba(255,255,255,.92)"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="19" letter-spacing="-0.5" fill="#0a0c14">AFK</text><rect x="9" y="44" width="46" height="7" rx="3.5" fill="rgba(10,12,20,.12)"/></svg><span>AFK-LocalAI</span></a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#install">Install</a><a href="#features">Features</a><a href="#pulse">Roadmap</a><a href="#phone">Phone</a><a href="#showcase">Showcase</a><a href="#security">Security</a><a href="#tiers">Hardware</a><a href="#cli">CLI</a><a href="#releases">Download</a>
+    <a class="brand" href="#top" aria-label="AFK AI home">
+      <svg class="mark" aria-hidden="true" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><rect x="3" y="5" width="58" height="54" rx="14" fill="url(#mkg)"/><rect x="9" y="9" width="46" height="42" rx="9" fill="rgba(255,255,255,.94)"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="19" letter-spacing="-0.5" fill="#0a0c14">AFK</text><rect x="9" y="44" width="46" height="7" rx="3.5" fill="rgba(10,12,20,.12)"/></svg>
+      <span>AFK AI</span>
+    </a>
+
+    <nav class="topnav" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#control">Control Center</a>
+      <a href="#local">Local by default</a>
     </nav>
-    <div class="actions">
-      <button class="btn ghost" id="themeBtn" aria-label="Toggle theme">Theme</button>
-      <a class="btn" href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+    <div class="topacts">
+      <button class="btn ghost icon-only" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <span class="btn-label">Theme</span>
+      </button>
+      <a class="btn primary compact" href="/download">Download</a>
     </div>
   </div>
 </header>
+
 <main id="main">
+
+  <!-- ================= HERO ================= -->
   <section class="hero" id="top">
+    <div class="wrap hero-grid">
+
+      <div class="hero-copy">
+        <p class="kicker">Windows 11 · NVIDIA GPU</p>
+        <h1>Your AI. Your PC.</h1>
+        <p class="lede">AFK AI sets up a private, ChatGPT-style workspace that runs on your own machine. Core AI chat runs locally on your PC.</p>
+
+        <div class="cta-row">
+          <a class="btn primary big" href="/download">
+            <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+            Download AFK AI for Windows
+          </a>
+
+          <p class="status-chip">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="status-name">Friend Beta</span>
+            <span class="mono status-ver">0.1.7rc1</span>
+          </p>
+        </div>
+
+        <p class="mono req">Free · about 40 GB of disk · hardware virtualization must be on</p>
+        <p class="small muted hero-note">Not a finished release. Expect rough edges, and a Copy Diagnostic Report button when you hit one.</p>
+      </div>
+
+      <aside class="hero-panel" aria-labelledby="panel-h">
+        <p class="kicker" id="panel-h">Once it is running</p>
+        <dl class="portlist">
+          <div class="portrow"><dt>Chat</dt><dd class="mono">127.0.0.1:3000</dd></div>
+          <div class="portrow"><dt>Private search</dt><dd class="mono">127.0.0.1:8080</dd></div>
+          <div class="portrow"><dt>Control Center</dt><dd class="mono">127.0.0.1:8765</dd></div>
+        </dl>
+        <p class="panel-foot">
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+          <span>Every port binds to <span class="mono">127.0.0.1</span>, your own machine. Nothing is opened to your network unless you choose to share it.</span>
+        </p>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section band" id="how">
     <div class="wrap">
-      <div class="eyebrow"><span class="dot"></span> Windows 11 · NVIDIA GPU · loopback-only by design</div>
-      <div class="hero-grid grid">
+      <p class="kicker">How it works</p>
+      <h2>Three steps, one evening.</h2>
+      <p class="lede">The installer does the fiddly parts. You mostly wait, and restart once if Windows asks.</p>
+
+      <ol class="steps">
+        <li class="step card pad">
+          <p class="step-head"><span class="mono num" aria-hidden="true">1</span><span class="step-title">Download AFK AI</span></p>
+          <p>One file. Double-click it and the guided installer opens in its own window.</p>
+          <p class="mono step-foot">Install AFK AI.cmd</p>
+        </li>
+        <li class="step card pad">
+          <p class="step-head"><span class="mono num" aria-hidden="true">2</span><span class="step-title">Run the installer</span></p>
+          <p>It checks your PC, installs what is missing, and picks a model that fits your graphics card.</p>
+          <p class="mono step-foot">Docker · Python · your model</p>
+        </li>
+        <li class="step card pad">
+          <p class="step-head"><span class="mono num" aria-hidden="true">3</span><span class="step-title">Open it and chat</span></p>
+          <p>AFK AI opens by itself when everything is ready, and reopens from the Start menu after that.</p>
+          <p class="mono step-foot">127.0.0.1:3000</p>
+        </li>
+      </ol>
+
+      <p class="note">
+        <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+        <span>First setup is not instant, and not fully hands-off. It downloads several gigabytes, Docker Desktop usually has to be opened once so it can finish its own setup, and Windows may ask to restart. Docker also needs hardware virtualization enabled in your PC firmware, which is where setup stops if it is switched off.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= CONTROL CENTER ================= -->
+  <section class="section" id="control">
+    <div class="wrap">
+      <p class="kicker">Control Center</p>
+      <h2>One window to run the whole thing.</h2>
+      <p class="lede">Start it, stop it, check that it is healthy, and copy a diagnostic report when something looks wrong. No terminal required.</p>
+
+      <ul class="proof">
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>
+          <div>
+            <h3>Live engine status</h3>
+            <p>See at a glance whether the model engine and services are up, before you wonder why chat is slow.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
+          <div>
+            <h3>System health</h3>
+            <p>A health check you can re-run any time. It reports passing, warnings and failures rather than one vague light.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/></svg>
+          <div>
+            <h3>This machine at a glance</h3>
+            <p>Your graphics card and memory, and which model AFK AI recommends for them.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+          <div>
+            <h3>Copy Diagnostic Report</h3>
+            <p>One button produces a report you can paste to whoever set this up. It leaves out your chats, documents, prompts and passwords.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= LOCAL BY DEFAULT ================= -->
+  <section class="section dark" id="local">
+    <div class="wrap local-grid">
+      <div>
+        <p class="kicker">Local by default</p>
+        <h2>It runs on your machine.</h2>
+        <p class="lede">The model runs on your own graphics card. There is no account, no cloud tier, and nothing to pay for.</p>
+        <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">loopback-only by default</span></p>
+      </div>
+
+      <ul class="claims">
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+          <div>
+            <h3>Nothing is opened to your network</h3>
+            <p>Every port binds to <span class="mono">127.0.0.1</span>, which is your own PC and nothing else. Reaching it from your phone is a separate, deliberate step.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+          <div>
+            <h3>No autostart</h3>
+            <p>Nothing runs in the background after a reboot. Starting AFK AI is always something you choose, so it never quietly eats your GPU mid-game.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+          <div>
+            <h3>Diagnostics stay clean</h3>
+            <p>The report you send for help carries no chats, documents, prompts, passwords or file contents.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+          <div>
+            <h3>What does use the internet</h3>
+            <p>Downloading the installer and the models themselves, and web results if you switch search on. Those are ordinary internet requests. Your conversations are not among them.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="section" id="download-cta">
+    <div class="wrap">
+      <div class="closing card">
         <div>
-          <h1>Your own private AI, running on your own PC.</h1>
-          <p class="lede">AFK-LocalAI is a self-hosted, ChatGPT-style workspace for Windows: a chat UI, a private web-search engine, and local voice, with models served by <strong>Ollama</strong> on your own GPU. Nothing leaves your PC unless you explicitly turn it on. Install with one double-click.</p>
-          <div class="actions u-mb20">
-            <a class="btn primary" id="downloadBtn" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download the installer</a>
-            <a class="btn" href="#install">See install options</a>
-            <span class="badge" id="verBadge" hidden></span>
-          </div>
-          <div class="status"><strong>Free &amp; open source (MIT).</strong><span>Built on Ollama, Open WebUI, and SearXNG.</span></div>
-          <p class="small muted u-mt12">Actively developed — <a class="ulink" href="#pulse">see what is in review right now</a>.</p>
-          <div class="divider"></div>
-          <div class="meta small"><span>Repo:</span><a href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">allusionsafk/localai-windows-starter</a></div>
+          <h2>Try it on your own PC.</h2>
+          <p class="lede">You are one of the first people to run this. If something breaks, press Copy Diagnostic Report in the Control Center and send it over.</p>
         </div>
-        <aside class="card pad sticky-cta">
-          <div class="kicker">What you get</div>
-          <ul class="clean small u-mt6">
-            <li><strong>Chat UI:</strong> Open WebUI at <code>localhost:3000</code></li>
-            <li><strong>Private web search:</strong> SearXNG at <code>localhost:8080</code></li>
-            <li><strong>Local voice:</strong> Kokoro TTS + Whisper, CPU-only</li>
-            <li><strong>Local images:</strong> optional ComfyUI in-chat</li>
-          </ul>
-          <div class="divider"></div>
-          <p class="small muted u-m0">Loopback-only and manual-start by default. Sharing to your own devices is an explicit <a class="ulink" href="#phone">Tailscale opt-in</a>. It never binds to your LAN.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="install">
-    <div class="wrap">
-      <div class="kicker">Install</div>
-      <h2>Three ways in. Pick your comfort level.</h2>
-      <p class="sub">You need Windows 11 with an NVIDIA GPU and Docker Desktop. The installer picks models that fit <em>your</em> hardware (see <a href="#tiers">capability tiers</a>).</p>
-      <div class="tabs" role="tablist" aria-label="Install methods">
-        <button class="tab active" data-tab="easy" id="tab-easy" role="tab" aria-selected="true" aria-controls="panel-easy">Double-click (.cmd)</button><button class="tab" data-tab="guided" id="tab-guided" role="tab" aria-selected="false" aria-controls="panel-guided">Guided (PowerShell)</button><button class="tab" data-tab="manual" id="tab-manual" role="tab" aria-selected="false" aria-controls="panel-manual">Manual (CLI)</button>
-      </div>
-
-      <div class="card pad panel" data-panel-tab="easy" id="panel-easy" role="tabpanel" aria-labelledby="tab-easy">
-        <div class="cols">
-          <div>
-            <h3 class="u-mt0">Easiest: no typing</h3>
-            <p class="sub">Download <strong>Install Local AI.cmd</strong> from the latest release and double-click it. Windows shows a security box because the file was downloaded; choose <strong>More info → Run anyway</strong>. The installer vets your GPU, picks fitting models, and opens your chat at <code>127.0.0.1:3000</code>.</p>
-            <div class="actions u-mt14"><a class="btn primary" id="downloadBtn2" href="https://github.com/allusionsafk/localai-windows-starter/releases/latest" target="_blank" rel="noopener noreferrer">Download installer</a></div>
-          </div>
-          <div>
-            <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code><span class="cmt"># After it finishes, start/stop with no typing:</span>
-Start Local AI.cmd
-Stop Local AI.cmd
-
-<span class="cmt"># They live in %USERPROFILE%\localai</span></code></pre></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card pad panel hidden" data-panel-tab="guided" id="panel-guided" role="tabpanel" aria-labelledby="tab-guided">
-        <h3 class="u-mt0">Guided installer (the Friend Bootstrapper)</h3>
-        <p class="sub">Vets your hardware, picks fitting models, brings the stack up loopback-only, then hands off to health checks. The bootstrap is <strong>pinned and fails closed</strong>: it verifies the download against a released tag's commit SHA (or zip SHA-256) before running anything.</p>
-        <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code><span class="cmt"># In Windows PowerShell: download, then run the pinned bootstrap.</span>
-Invoke-WebRequest https://raw.githubusercontent.com/allusionsafk/localai-windows-starter/master/installer/bootstrap.ps1 -OutFile "$env:TEMP\localai-bootstrap.ps1"
-powershell -ExecutionPolicy Bypass -File "$env:TEMP\localai-bootstrap.ps1"</code></pre></div>
-      </div>
-
-      <div class="card pad panel hidden" data-panel-tab="manual" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual">
-        <h3 class="u-mt0">Manual bring-up</h3>
-        <p class="sub">For when you already have the repo checked out and want each step explicit. Requires Python 3.12+.</p>
-        <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code>pip install -e .
-copy .env.example .env        <span class="cmt"># then set SEARXNG_SECRET to a long random string</span>
-localai start                 <span class="cmt"># Ollama (native) + the compose services</span>
-localai health                <span class="cmt"># end-to-end checks</span>
-<span class="cmt"># open http://localhost:3000 and create your admin account on first visit</span></code></pre></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="features">
-    <div class="wrap">
-      <div class="kicker">Features</div>
-      <h2>A full local stack, not a demo.</h2>
-      <p class="sub">Every piece runs on your machine. The starter kit sets all of it up for you.</p>
-      <div class="feature-grid">
-        <article class="card feature"><h3>Chat UI</h3><p>Open WebUI, the familiar ChatGPT-style interface. The first account you create becomes the local admin.</p><div class="mini">localhost:3000</div></article>
-        <article class="card feature"><h3>Private web search</h3><p>SearXNG metasearch, wired into chat so the model can cite current sources. No API keys, no tracking.</p><div class="mini">localhost:8080</div></article>
-        <article class="card feature"><h3>Local voice</h3><p>Speak with local Whisper transcription; hear replies via the Kokoro neural voice. CPU-only, no VRAM cost.</p><div class="mini">Kokoro TTS · Whisper STT</div></article>
-        <article class="card feature"><h3>Local images</h3><p>Optional in-chat image generation through a local ComfyUI backend when you want it.</p><div class="mini">ComfyUI (optional)</div></article>
-        <article class="card feature"><h3>Model scout</h3><p>Recommends a model for each task category that truly fits your VRAM budget, with the tradeoffs stated honestly.</p><div class="mini">localai model-scout</div></article>
-        <article class="card feature"><h3>Control Center</h3><p>One window to start, stop, health-check, warm, and scout. A native dashboard; no terminal required.</p><div class="mini">localai dashboard · :8765</div></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="pulse">
-    <div class="wrap">
-      <div class="kicker">Development pulse · updated Jul 30, 2026</div>
-      <h2>The download is stable. The work is not standing still.</h2>
-      <p class="sub">A release date is a poor proxy for whether a project is alive. Every item below carries the stage it is actually at, and none of it is in the current installer yet — this tracks the working branches, not the download.</p>
-      <div class="pulse-grid">
-        <article class="card pulse-item">
-          <div class="pulse-head"><span class="stage stage-ship">Shipping</span><span class="pulse-when">Jul 16, 2026</span></div>
-          <h3>v0.1.5 — the installer on this page</h3>
-          <p>The Docker and Open WebUI stack everything above describes: double-click install, loopback-only binds, models fitted to your VRAM. This is what the download button gives you today, and it stays the stable path until the work below earns a release.</p>
-        </article>
-        <article class="card pulse-item">
-          <div class="pulse-head"><span class="stage stage-review">In review</span><span class="pulse-when">CI green · 3 OSes</span></div>
-          <h3>Portable hardware reporting</h3>
-          <p>The GPU, VRAM, CPU, RAM and disk probe behind <code>localai vet</code> is being split from its Windows-only implementation into a capability-reporting seam. It is intended to support broader hardware-aware experiences, including planned Apple Silicon and Linux ARM64 work.</p>
-        </article>
-        <article class="card pulse-item">
-          <div class="pulse-head"><span class="stage stage-review">In review</span><span class="pulse-when">CI green · 3 OSes</span></div>
-          <h3>Guarded control-state ledger</h3>
-          <p>A local SQLite control database, integrity-checked receipts written atomically, and jobs that are safe to repeat. If an install or update is interrupted, the next start reconciles it instead of leaving a half-configured machine behind. Adds a <code>localai state</code> command that shows the record.</p>
-        </article>
-        <article class="card pulse-item">
-          <div class="pulse-head"><span class="stage stage-review">In review</span><span class="pulse-when">CI green · 3 OSes</span></div>
-          <h3>Ports you choose</h3>
-          <p>Service ports stop being constants baked through the codebase. Each service gets one of three modes, and the resolved address propagates to every link and health check rather than being guessed in several places.</p>
-          <ul class="clean small muted u-mt12">
-            <li><strong>Auto</strong> keeps the familiar port when it is free, and records the one it actually landed on when it is not.</li>
-            <li><strong>Fixed</strong> is honored exactly. A conflict reports the process holding the port; it never quietly moves and never kills the other program.</li>
-            <li><strong>External</strong> points at a service you already run, without taking ownership of its lifecycle.</li>
-          </ul>
-          <p class="small muted u-mt12">Changing a port never changes the loopback-only bind. This first slice is the registry core; wiring every legacy script through it comes after.</p>
-        </article>
-        <article class="card pulse-item">
-          <div class="pulse-head"><span class="stage">In design</span><span class="pulse-when">Spec written</span></div>
-          <h3>A Docker-free path</h3>
-          <p>Docker Desktop is the single biggest install obstacle people hit on Windows. The design under review is a native, Ollama-first workbench that removes the container requirement, with the current Docker stack kept as the compatibility route rather than ripped out. Design only so far — there is no implementation to point at.</p>
-        </article>
-        <article class="card pulse-item">
-          <div class="pulse-head"><span class="stage stage-preview">Preview</span><span class="pulse-when">Not wired</span></div>
-          <h3>ValClip as an optional capability</h3>
-          <p>The highlight builder in the <a class="ulink" href="#showcase">showcase below</a> is a working companion project, but it is not part of this kit. The plan is an opt-in capability that states its requirements and disk cost up front and installs only after you say yes. The contract is drafted; nothing is wired, and nothing will install itself.</p>
-        </article>
-      </div>
-      <p class="small muted u-mt14">The next-generation work sits in a private repository while it is under review, so these branches have no public links yet. They reach this page the same way everything else did: as a release, after a clean-install run passes on real hardware.</p>
-    </div>
-  </section>
-
-  <section class="section" id="phone">
-    <div class="wrap">
-      <div class="kicker">On your phone</div>
-      <h2>Your AI in your pocket. The GPU stays home.</h2>
-      <p class="sub">iPhone or Android, same chat. Tailscale links your phone to your PC over an encrypted private network, so the stack keeps running on your desk while you use it from anywhere.</p>
-      <div class="cols phone-cols">
-        <ol class="steps">
-          <li>
-            <h3>Publish from the PC, once</h3>
-            <p>Run <code>localai anywhere --apply</code>. It uses Tailscale Serve to put your chat on your private tailnet over HTTPS. No Tailscale yet? <code>localai anywhere --install-tailscale</code> sets it up first.</p>
-          </li>
-          <li>
-            <h3>Put Tailscale on the phone</h3>
-            <p>Install the Tailscale app from the App Store or Google Play and sign in to the same tailnet as the PC. That's the whole pairing step.</p>
-          </li>
-          <li>
-            <h3>Open your private URL</h3>
-            <p>Visit <code>https://your-pc.your-tailnet.ts.net</code> in Safari or Chrome. Use <strong>Add to Home Screen</strong> and the chat opens full-screen like a native app.</p>
-          </li>
-          <li>
-            <h3>Chat from anywhere</h3>
-            <p>Home Wi-Fi, campus, LTE. It works wherever the phone has internet, as long as the PC at home is awake with the stack started.</p>
-          </li>
-        </ol>
-        <div>
-          <div class="code"><button class="copy" aria-label="Copy code">Copy</button><pre><code><span class="cmt"># On the Windows PC (one time):</span>
-localai anywhere --install-tailscale  <span class="cmt"># only if Tailscale is missing</span>
-localai anywhere --apply              <span class="cmt"># publish chat to your tailnet</span>
-localai anywhere                      <span class="cmt"># re-check status any time</span>
-
-<span class="cmt"># On the phone: install Tailscale, sign in,</span>
-<span class="cmt"># then open your URL:</span>
-https://your-pc.your-tailnet.ts.net</code></pre></div>
-          <div class="card pad u-mt14">
-            <h3 class="u-mt0">Honest notes</h3>
-            <ul class="clean small muted">
-              <li><strong>Tailnet-only.</strong> The URL works only for devices signed into your own Tailscale network. It is never published to the open internet.</li>
-              <li><strong>Encrypted end to end.</strong> Phone-to-PC traffic runs inside WireGuard tunnels.</li>
-              <li><strong>The phone stays cool.</strong> Generation happens on your GPU at home; the phone just renders the page.</li>
-              <li><strong>Off is one command.</strong> <code>tailscale serve reset</code> stops the sharing, and stopping the stack does too.</li>
-            </ul>
-          </div>
+        <div class="closing-acts">
+          <a class="btn primary big" href="/download">
+            <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+            Download AFK AI for Windows
+          </a>
+          <p class="status-chip bare">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="status-name">Friend Beta</span>
+            <span class="mono status-ver">0.1.7rc1</span>
+          </p>
+          <p class="mono req">Windows 11 · NVIDIA GPU · about 40 GB of disk</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="showcase">
-    <div class="wrap">
-      <div class="kicker">Built on this stack</div>
-      <h2>What a home GPU really does all day.</h2>
-      <p class="sub">The stack behind the chat window is a platform. Two working builds from the author run on the exact models this kit installs, with nothing sent to any cloud.</p>
-      <div class="showcase">
-        <div>
-          <h3 class="u-mt0">ValClip: Valorant kills to Shorts, fully local</h3>
-          <p class="sub">Point ValClip at a gameplay recording and it finds your kills with pixel and audio analysis. A local vision model ranks the highlights and writes the hook, Whisper captions your comms, Kokoro speaks the voice line, and FFmpeg renders a vertical 1080&times;1920 Short on the GPU. Nothing is uploaded at any step.</p>
-          <p class="small muted">A companion project by the same author, running against the same Ollama install this kit sets up.</p>
-          <p class="small muted"><code>Node.js + FFmpeg + Ollama vision &middot; localhost:5177</code></p>
-        </div>
-        <div class="phone" aria-hidden="true">
-          <div class="ph-screen">
-            <div class="ph-hook">3K in 6 seconds</div>
-            <div class="ph-feed">
-              <div class="ph-frow you"></div>
-              <div class="ph-frow"></div>
-            </div>
-            <div class="ph-cross"></div>
-            <div class="ph-caption">wait for the <b>last</b> one</div>
-            <div class="ph-counter">x3</div>
-          </div>
-        </div>
-      </div>
-      <details class="seemore">
-        <summary>See more: the Arduino room sensor that talks to the stack</summary>
-        <div class="cols ex2">
-          <div>
-            <p class="small muted">A pocket-money ESP8266 board watches indoor and outdoor climate and serves its own tiny dashboard. It runs perfectly with the AI stack off. When the stack comes up, the board notices and upgrades itself.</p>
-            <ul class="clean small muted">
-              <li><strong>LOCAL CORE, always.</strong> Deterministic readings and a prioritized next action, computed on the board. No AI required, ever.</li>
-              <li><strong>AI ENHANCED, when offered.</strong> A lightweight capability probe detects Ollama and adds a locally generated room-voice line. Stop the stack and it falls back cleanly.</li>
-            </ul>
-          </div>
-          <div>
-            <ul class="clean small muted">
-              <li><strong>Local news briefing.</strong> The dashboard embeds a sandboxed SearXNG frame with direct results, labeled plainly as not AI-summarized.</li>
-              <li><strong>Fail-closed firmware.</strong> Filesystem autoformat is disabled, and the firmware has no code path that can start anything on the PC.</li>
-              <li><strong>One-hole firewall.</strong> The PC allows exactly one sensor address to reach Ollama; every other local AI port stays blocked on physical networks, and <code>localai firewall</code> audits that this stays true.</li>
-            </ul>
-            <p class="small muted u-mt12"><code>ESP8266 NodeMCU &middot; Arduino C++ &middot; 80 KB RAM</code></p>
-          </div>
-        </div>
-      </details>
-    </div>
-  </section>
-
-  <section class="section" id="security">
-    <div class="wrap">
-      <div class="two">
-        <div class="card pad">
-          <div class="kicker">Security contract</div>
-          <h2>Local-first, and locked down by default.</h2>
-          <ul class="clean small muted">
-            <li><strong>No network exposure by default.</strong> Every port binds to <code>127.0.0.1</code>. No raw LAN or <code>0.0.0.0</code> binds.</li>
-            <li><strong>No autostart.</strong> No scheduled tasks, no Docker restart policies, no auto-launch. Starting the stack is always a manual choice.</li>
-            <li><strong>Secrets stay local.</strong> <code>.env</code> is gitignored; you generate your own <code>SEARXNG_SECRET</code>.</li>
-            <li><strong>First account = admin.</strong> Stored only in the local database on your PC.</li>
-            <li><strong>Sharing is an explicit opt-in.</strong> Reach it from your phone via Tailscale Serve, private to your tailnet and never public.</li>
-          </ul>
-        </div>
-        <div class="card pad">
-          <div class="kicker">Guardrails</div>
-          <h2>Verify it, don't trust it.</h2>
-          <p class="sub">The kit ships checks so the secure posture can't silently drift:</p>
-          <div class="divider"></div>
-          <table class="cli">
-            <tr><td>localai health</td><td>Ollama, services, search, localhost binding.</td></tr>
-            <tr><td>localai perf</td><td>Context/KV/GPU-residency drift guard.</td></tr>
-            <tr><td>localai firewall</td><td>Blocks the local ports on physical adapters.</td></tr>
-            <tr><td>localai public-audit</td><td>Scans for machine-specific markers before sharing.</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="tiers">
-    <div class="wrap">
-      <div class="kicker">Capability tiers</div>
-      <h2>It sizes the model to your card.</h2>
-      <p class="sub">VRAM is the binding limit. Assuming a <code>q8_0</code> KV cache host-side, each tier's ceiling model stays on the GPU. Pick your VRAM to see the fit.</p>
-      <div class="card pad">
-        <div class="chips" aria-label="VRAM tier">
-          <button class="chip" data-tier="S" aria-pressed="false">≥16 GB</button><button class="chip active" data-tier="A" aria-pressed="true">12 GB</button><button class="chip" data-tier="B" aria-pressed="false">8 GB</button><button class="chip" data-tier="C" aria-pressed="false">4 GB</button><button class="chip" data-tier="CPU" aria-pressed="false">CPU only</button>
-        </div>
-        <div class="tier-out" id="tierOut" aria-live="polite"></div>
-        <p class="small muted tier-note">Honest tradeoff: large context and large models can still spill to CPU when VRAM is insufficient, which slows generation. <code>localai model-scout</code> shows the picks <em>and</em> the tradeoffs for your box.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="cli">
-    <div class="wrap">
-      <div class="kicker">The localai CLI</div>
-      <h2>One command instead of a folder of scripts.</h2>
-      <p class="sub">A single Python entry point drives the whole stack. Run <code>localai --help</code> for the full list.</p>
-      <div class="card pad">
-        <table class="cli">
-          <tr><td>localai vet</td><td>Probe GPU / VRAM / CPU / RAM / disk → a capability tier.</td></tr>
-          <tr><td>localai start · stop</td><td>Bring the stack up or down.</td></tr>
-          <tr><td>localai health</td><td>End-to-end health checks (Ollama, services, search).</td></tr>
-          <tr><td>localai dashboard</td><td>The pywebview Control Center on localhost:8765.</td></tr>
-          <tr><td>localai model-scout</td><td>Recommend models that fit your VRAM budget.</td></tr>
-          <tr><td>localai webui-seed</td><td>Seed Open WebUI defaults (model, context length).</td></tr>
-          <tr><td>localai warm · perf · power</td><td>Warm models; performance and battery guards.</td></tr>
-          <tr><td>localai update</td><td>Update models, images, and Modelfiles.</td></tr>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="troubleshooting">
-    <div class="wrap">
-      <div class="kicker">Troubleshooting</div>
-      <h2>The usual first-run snags.</h2>
-      <div class="card pad">
-        <details open><summary>Windows blocks the installer</summary><p class="small muted ex">SmartScreen shows a security box because the file was downloaded; click <strong>More info → Run anyway</strong>. If there is no "Run anyway" option at all, <strong>Smart App Control</strong> is on and blocks unsigned scripts outright. Turn it off under Windows Security → App &amp; browser control, or use the PowerShell install method.</p></details>
-        <details><summary>Docker Desktop needs one launch first</summary><p class="small muted ex">If setup can't reach Docker, open Docker Desktop once and let it finish starting, then re-run the installer.</p></details>
-        <details><summary>My GPU is AMD or Intel</summary><p class="small muted ex">This stack is <strong>NVIDIA/CUDA-only</strong>. On AMD or Intel it runs CPU-only and is slow; the installer says so plainly instead of pretending otherwise. See the CPU tier.</p></details>
-        <details><summary>What hardware is planned next?</summary><p class="small muted ex">The current download still supports Windows 11 with NVIDIA CUDA. After Windows v1, an Apple Silicon M4 pilot comes first, using native Ollama with Metal acceleration and model fitting based on unified memory. Later validation includes native Windows and Linux ARM64, Windows NPUs from Intel, AMD, and Qualcomm through verified runtime providers, and NVIDIA DGX Spark as a Linux ARM64 and CUDA stretch target. NPU support is an evaluation path, not a claim that the current Ollama stack uses it. Each platform stays planned until the full install, Scout, Prepare, update, backup, recovery, and uninstall flow passes on real hardware.</p></details>
-        <details><summary>First chat is slow / no model loaded</summary><p class="small muted ex">Cold-loading a model reads it off disk into VRAM. The installer picks a model that fits your card; use <code>localai warm</code> to preload, or <code>localai model-scout</code> to choose a lighter one.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="releases">
-    <div class="wrap">
-      <div class="kicker">Download &amp; releases</div>
-      <h2>Get the latest build.</h2>
-      <div class="two">
-        <div class="card pad">
-          <h3 class="u-mt0">Latest release</h3>
-          <div id="releaseList" aria-live="polite"><p class="small muted">Loading the latest release…</p></div>
-          <div class="divider"></div>
-          <p class="small muted">Release info is fetched live from the GitHub API through a cached edge function, so the download link and version stay current as the project ships.</p>
-        </div>
-        <div class="card pad">
-          <h3 class="u-mt0">Source &amp; contributing</h3>
-          <p class="small muted">The full stack, scripts, Modelfiles, and installer are open source under MIT. Issues and pull requests welcome.</p>
-          <div class="meta small u-mt12"><a href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">Repository</a><a href="https://github.com/allusionsafk/localai-windows-starter/releases" target="_blank" rel="noopener noreferrer">All releases</a><a href="https://github.com/allusionsafk/localai-windows-starter/issues" target="_blank" rel="noopener noreferrer">Issues</a></div>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
+
 <footer class="foot">
-  <div class="wrap">
-    <p>Built by <a href="https://github.com/allusionsafk" target="_blank" rel="noopener noreferrer">allusionsafk</a> · MIT licensed. Stands on the shoulders of
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#top" aria-label="AFK AI home">
+        <svg class="mark" aria-hidden="true" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mkgf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><rect x="3" y="5" width="58" height="54" rx="14" fill="url(#mkgf)"/><rect x="9" y="9" width="46" height="42" rx="9" fill="rgba(255,255,255,.94)"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="19" letter-spacing="-0.5" fill="#0a0c14">AFK</text><rect x="9" y="44" width="46" height="7" rx="3.5" fill="rgba(10,12,20,.12)"/></svg>
+        <span>AFK AI</span>
+      </a>
+      <p class="mono small muted">MIT licensed · no analytics on this page</p>
+    </div>
+
+    <nav class="foot-links" aria-label="Footer">
+      <div>
+        <p class="kicker">Product</p>
+        <a href="#how">How it works</a>
+        <a href="#control">Control Center</a>
+        <a href="#local">Local by default</a>
+      </div>
+      <div>
+        <p class="kicker">Project</p>
+        <a href="https://github.com/allusionsafk/localai-windows-starter" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+        <a href="https://github.com/allusionsafk/localai-windows-starter/issues" target="_blank" rel="noopener noreferrer">Report a problem</a>
+        <a href="/.well-known/security.txt">Security contact</a>
+      </div>
+      <div>
+        <p class="kicker">Requires</p>
+        <span class="mono small muted">Windows 11</span>
+        <span class="mono small muted">NVIDIA GPU</span>
+        <span class="mono small muted">~40 GB free</span>
+      </div>
+    </nav>
+  </div>
+
+  <div class="wrap foot-legal">
+    <p class="small muted">Built by <a href="https://github.com/allusionsafk" target="_blank" rel="noopener noreferrer">allusionsafk</a>. Stands on the shoulders of
       <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">Ollama</a>,
       <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener noreferrer">Open WebUI</a>,
       <a href="https://github.com/searxng/searxng" target="_blank" rel="noopener noreferrer">SearXNG</a>,
       <a href="https://github.com/remsky/Kokoro-FastAPI" target="_blank" rel="noopener noreferrer">Kokoro</a>, and
       <a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" rel="noopener noreferrer">ComfyUI</a>, each under its own license.</p>
-    <p class="small muted">Not affiliated with, or endorsed by, mudler/LocalAI or localai.io. AFK-LocalAI is a different, independently built project that happens to share the "local AI" name.</p>
+    <p class="small muted">Not affiliated with, or endorsed by, mudler/LocalAI or localai.io. AFK AI is a different, independently built project.</p>
   </div>
 </footer>
-<div class="toast" id="toast" role="status">Copied</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

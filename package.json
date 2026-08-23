@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "AFK-LocalAI website: landing + docs for localai-windows-starter. Static assets + a Cloudflare Worker for live release info.",
+  "description": "AFK AI website: landing page for localai-windows-starter. Static assets + a Cloudflare Worker that serves the pinned friend-beta installer.",
   "license": "MIT",
   "scripts": {
     "dev": "wrangler dev",

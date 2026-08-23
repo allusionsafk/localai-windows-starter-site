@@ -1,14 +1,14 @@
-# AFK-LocalAI website
+# AFK AI website
 
 The landing and docs site for [**localai-windows-starter**](https://github.com/allusionsafk/localai-windows-starter),
-AFK-LocalAI's private, ChatGPT-style AI workspace for Windows.
+AFK AI's private, ChatGPT-style AI workspace for Windows.
 
-Static assets plus one small Cloudflare Worker that serves live release info, so
-the **Download** button and version badge stay current automatically.
+Static assets plus one small Cloudflare Worker that serves the pinned friend-beta
+installer, so the **Download** button hands over bytes this site has verified.
 
 Deployed as a **Cloudflare Worker with static assets** (`wrangler deploy`). The
 static files in `public/` are served directly; the Worker only runs for the
-`/api/release` route.
+`/download` route.
 
 ## Layout
 
@@ -21,7 +21,7 @@ static files in `public/` are served directly; the Worker only runs for the
 │   ├── robots.txt
 │   └── .well-known/security.txt  # vulnerability-report contact (RFC 9116)
 ├── tests/test-worker.mjs   # unit suite for the release Worker
-├── worker.js               # GET /api/release → latest release + installer URL + sha256
+├── worker.js               # GET /download → the pinned v0.1.7rc1 installer, SHA-256 verified
 ├── wrangler.toml           # name, main = worker.js, [assets] directory = ./public
 ├── LICENSE                 # MIT
 └── package.json            # wrangler dev/deploy/test scripts
@@ -34,7 +34,7 @@ outside `public/` on purpose, so they are never served as public URLs.
 
 ```bash
 npm install          # gets wrangler (dev dependency only)
-npm run dev          # wrangler dev: serves public/ + the /api/release Worker route
+npm run dev          # wrangler dev: serves public/ + the /download Worker route
 npm test             # unit suite for worker.js
 ```
 
@@ -48,7 +48,7 @@ server. Without the Worker, the page falls back to the `releases/latest` link.
 2. Cloudflare dashboard → **Workers & Pages → Create → Import a repository** →
    pick the repo. Deploy command: **`npx wrangler deploy`** (the default). No
    build command needed. The `[assets]` binding in `wrangler.toml` serves
-   `public/`; the Worker handles `/api/release`. Auto-deploys on push to `master`.
+   `public/`; the Worker handles `/download`. Auto-deploys on push to `master`.
 
 **Direct upload (CLI).**
 ```bash

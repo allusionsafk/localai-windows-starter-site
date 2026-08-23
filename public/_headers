@@ -4,7 +4,7 @@
 #   style-src  'self'  — all CSS is in /assets/site.css; no <style> blocks and
 #                        no style="" attributes anywhere (including JS-built markup).
 #   font-src   'self'  — fonts are self-hosted woff2 in /assets/fonts/.
-#   connect-src 'self' — the only fetch() target is same-origin /api/release.
+#   connect-src 'self' — the page makes no fetch() calls at all.
 #   Zero third-party origins.
 /*
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; upgrade-insecure-requests

@@ -1,66 +1,112 @@
-// Cloudflare Worker entry for the AFK-LocalAI site (Static Assets model).
+// Cloudflare Worker entry for the AFK AI site (Static Assets model).
 //
 // Static files live in ./public and are served automatically by the assets
-// binding (including _headers processing). This Worker only handles the one
-// dynamic route, /api/release, and delegates everything else to assets.
+// binding (including _headers processing). This Worker handles one dynamic
+// route, /download, and delegates everything else to assets.
 //
-// Hardening (CCCS ITSM.60.005):
-//   - GET/HEAD only; other methods on /api/release => 405.
+// WHY /download EXISTS
+// The friend beta is distributed from a PINNED TAG, not from a GitHub Release.
+// The previous /api/release route resolved through the releases API, which
+// still reports v0.1.5 because no Release was cut for v0.1.6 or v0.1.7rc1 —
+// so the site handed visitors a build three releases behind the candidate.
+// That mechanism is gone. Nothing on this site consults releases/latest.
+//
+// Serving (rather than redirecting to raw.githubusercontent.com) is deliberate:
+// raw responds text/plain, so a browser DISPLAYS the installer as source
+// instead of downloading it. Proxying lets us set a real attachment
+// disposition, give the file its product name, and verify the bytes first.
+//
+// Hardening:
+//   - GET/HEAD only; other methods => 405.
+//   - the payload is checked against a pinned SHA-256 before it is served.
+//     A mismatch fails CLOSED (502) rather than shipping unverified bytes.
 //   - cache key is normalized (query string stripped) so `?x=1` cache-busting
-//     can't bypass the edge cache and hammer the GitHub API (DoS vector).
-//   - a per-isolate memory cache backs the edge cache, so GitHub sees at most
-//     one request per isolate per TTL even where the Cache API is unavailable.
-//   - installer_url must match the repo's own /releases/download/ path; a
-//     compromised or malformed upstream response can't inject a foreign URL.
+//     cannot bypass the edge cache and hammer the upstream.
 //   - generic error shape only; upstream error details are never echoed.
+
 const REPO = 'allusionsafk/localai-windows-starter';
-const DOWNLOAD_PREFIX = `https://github.com/${REPO}/releases/download/`;
-const MEM_TTL_MS = 15 * 60 * 1000;
 
-// Per-isolate second cache layer: { body: string, ts: number }. Only 200s.
-let memCache = null;
+// The frozen friend-beta candidate. Bumping the beta means changing these three
+// lines and nothing else.
+const RC_TAG = 'v0.1.7rc1';
+const INSTALLER_SOURCE =
+  `https://raw.githubusercontent.com/${REPO}/${RC_TAG}/Install%20Local%20AI.cmd`;
+// SHA-256 of that exact blob at that exact tag. Verified against the local git
+// object and two independent downloads before it was pinned here.
+const INSTALLER_SHA256 =
+  '767e4f603c79c21ce9bebc01d42241d7b84ff9728c12fb13c43fff4d51c24356';
 
-// Test hook: isolates persist module state between handleRelease calls.
-export function _resetMemCacheForTests() { memCache = null; }
+// What the visitor's browser saves it as. The product is "AFK AI".
+const DOWNLOAD_FILENAME = 'Install AFK AI.cmd';
 
-function jsonResponse(body, status, isHead) {
-  return new Response(isHead ? null : body, {
-    status,
-    headers: {
-      'content-type': 'application/json; charset=utf-8',
-      'x-content-type-options': 'nosniff',
-      'content-security-policy': "default-src 'none'",
-      'x-frame-options': 'DENY',
-      'cache-control': status === 200
-        ? 'public, max-age=900, s-maxage=900, stale-while-revalidate=3600'
-        : 'public, max-age=60',
-    },
-  });
+const UPSTREAM_TIMEOUT_MS = 15000;
+
+function toHex(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let out = '';
+  for (let i = 0; i < bytes.length; i++) out += bytes[i].toString(16).padStart(2, '0');
+  return out;
+}
+
+function errorResponse(status) {
+  return new Response(
+    JSON.stringify({ error: 'installer_unavailable' }),
+    {
+      status,
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': 'no-store',
+        'x-content-type-options': 'nosniff',
+        'content-security-policy': "default-src 'none'",
+        'x-frame-options': 'DENY',
+      },
+    }
+  );
+}
+
+function installerHeaders(length) {
+  return {
+    // octet-stream + attachment is what makes this an actual download rather
+    // than a page of text.
+    'content-type': 'application/octet-stream',
+    'content-disposition': `attachment; filename="${DOWNLOAD_FILENAME}"`,
+    'content-length': String(length),
+    'x-content-type-options': 'nosniff',
+    'content-security-policy': "default-src 'none'",
+    'x-frame-options': 'DENY',
+    'cross-origin-resource-policy': 'same-origin',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    // Short cache: a pinned artifact is stable, but a beta pin may move.
+    'cache-control': 'public, max-age=900, s-maxage=900, stale-while-revalidate=3600',
+  };
 }
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/release') {
+    if (url.pathname === '/download') {
       if (request.method !== 'GET' && request.method !== 'HEAD') {
-        return new Response('Method Not Allowed', { status: 405, headers: { allow: 'GET, HEAD' } });
+        return new Response('Method Not Allowed', {
+          status: 405,
+          headers: { allow: 'GET, HEAD' },
+        });
       }
-      return handleRelease(request, ctx);
+      return handleDownload(request, ctx);
     }
     // Everything else → static assets in ./public (index.html, _headers, etc.).
     return env.ASSETS.fetch(request);
   },
 };
 
-export async function handleRelease(request, ctx) {
+// `opts` exists so the test suite can drive the integrity gate with synthetic
+// bytes. Production callers pass nothing and get the pinned constants above;
+// there is no way to relax the check from outside a request.
+export async function handleDownload(request, ctx, opts) {
+  const sourceUrl = (opts && opts.sourceUrl) || INSTALLER_SOURCE;
+  const expectedSha = (opts && opts.expectedSha) || INSTALLER_SHA256;
   const isHead = request.method === 'HEAD';
 
-  // Layer 1: per-isolate memory (works everywhere, including workers.dev).
-  if (memCache && Date.now() - memCache.ts < MEM_TTL_MS) {
-    return jsonResponse(memCache.body, 200, isHead);
-  }
-
-  // Layer 2: edge cache, keyed without the query string.
+  // Edge cache, keyed without the query string.
   const cache = caches.default;
   const keyUrl = new URL(request.url);
   keyUrl.search = '';
@@ -68,65 +114,59 @@ export async function handleRelease(request, ctx) {
 
   const hit = await cache.match(cacheKey);
   if (hit) {
-    const body = await hit.text();
-    memCache = { body, ts: Date.now() };
-    return jsonResponse(body, 200, isHead);
-  }
-
-  // Layer 3: the GitHub API.
-  let payload;
-  let status = 200;
-  try {
-    const gh = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`, {
-      headers: {
-        'Accept': 'application/vnd.github+json',
-        'User-Agent': 'localai-windows-starter-site',
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      cf: { cacheTtl: 900, cacheEverything: true },
+    const body = await hit.arrayBuffer();
+    return new Response(isHead ? null : body, {
+      status: 200,
+      headers: installerHeaders(body.byteLength),
     });
+  }
 
-    if (!gh.ok) throw new Error(`upstream ${gh.status}`);
-    const r = await gh.json();
-
-    const assets = Array.isArray(r.assets) ? r.assets : [];
-    const installer =
-      assets.find(a => /\.cmd$/i.test(a.name)) ||
-      assets.find(a => /install/i.test(a.name)) ||
-      assets[0];
-
-    const installerUrl =
-      installer && typeof installer.browser_download_url === 'string' &&
-      installer.browser_download_url.startsWith(DOWNLOAD_PREFIX)
-        ? installer.browser_download_url
-        : null;
-
-    const digest =
-      installer && typeof installer.digest === 'string' &&
-      /^sha256:[0-9a-f]{64}$/.test(installer.digest)
-        ? installer.digest
-        : null;
-
-    payload = {
-      tag: r.tag_name || null,
-      name: r.name || null,
-      html_url: r.html_url || `https://github.com/${REPO}/releases/latest`,
-      published_at: r.published_at || null,
-      prerelease: !!r.prerelease,
-      installer_url: installerUrl,
-      installer_name: installerUrl && installer ? installer.name : null,
-      installer_sha256: installerUrl ? digest : null,
-    };
+  let bytes;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+    let upstream;
+    try {
+      upstream = await fetch(sourceUrl, {
+        headers: { 'User-Agent': 'afk-ai-site' },
+        signal: controller.signal,
+        cf: { cacheTtl: 900, cacheEverything: true },
+      });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!upstream.ok) throw new Error(`upstream ${upstream.status}`);
+    bytes = await upstream.arrayBuffer();
   } catch (e) {
-    status = 502;
-    payload = { error: 'upstream_unavailable', html_url: `https://github.com/${REPO}/releases/latest` };
+    return errorResponse(502);
   }
 
-  const body = JSON.stringify(payload);
-  if (status === 200) {
-    memCache = { body, ts: Date.now() };
-    const cacheable = jsonResponse(body, 200, false);
-    ctx.waitUntil(cache.put(cacheKey, cacheable));
+  // Integrity gate. An upstream that has been tampered with, truncated, or
+  // silently repointed must not reach a visitor's machine as an executable.
+  const digest = toHex(await crypto.subtle.digest('SHA-256', bytes));
+  if (digest !== expectedSha) {
+    return errorResponse(502);
   }
-  return jsonResponse(body, status, isHead);
+
+  const cacheable = new Response(bytes, {
+    status: 200,
+    headers: installerHeaders(bytes.byteLength),
+  });
+  if (ctx && typeof ctx.waitUntil === 'function') {
+    ctx.waitUntil(cache.put(cacheKey, cacheable.clone()));
+  }
+
+  return new Response(isHead ? null : bytes, {
+    status: 200,
+    headers: installerHeaders(bytes.byteLength),
+  });
 }
+
+// Exported for the test suite.
+export const _config = {
+  REPO,
+  RC_TAG,
+  INSTALLER_SOURCE,
+  INSTALLER_SHA256,
+  DOWNLOAD_FILENAME,
+};
