@@ -83,7 +83,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offs
 .brand:hover{text-decoration:none}
 .mark{width:28px;height:28px;flex:0 0 auto}
 .topnav{display:none;gap:var(--s4);margin-left:var(--s4);font-size:.94rem}
-.topnav a{color:var(--muted)}
+.topnav a{color:var(--muted);min-height:var(--tap);display:inline-flex;align-items:center}
 .topnav a:hover{color:var(--text)}
 .topacts{display:flex;align-items:center;gap:10px;margin-left:auto}
 
@@ -221,11 +221,14 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offs
   .cta-row{flex-direction:row;align-items:center;flex-wrap:wrap}
   .cta-row .btn.big{width:auto}
   .closing-acts .btn.big{width:auto}
-  .steps{grid-template-columns:repeat(3,minmax(0,1fr))}
   .foot-links{grid-template-columns:repeat(3,minmax(0,auto));gap:var(--s6)}
 }
 @media (min-width:900px){
   .topnav{display:flex}
+  /* Three across only once each card can hold a heading without wrapping it to
+     three lines. Below this the cards stack full width, which reads better on
+     a tablet than a row of 180px slivers. */
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr))}
   .hero{padding:var(--s7) 0 var(--s6)}
   .hero-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)}
   .section{padding:var(--s7) 0}
