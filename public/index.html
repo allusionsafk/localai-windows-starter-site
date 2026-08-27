@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AFK AI · private local AI for Windows</title>
-  <meta name="description" content="AFK AI sets up a private, ChatGPT-style AI workspace that runs on your own Windows PC. Core AI chat runs locally on your GPU. Friend Beta 0.1.7rc1." />
+  <meta name="description" content="AFK AI sets up a private, ChatGPT-style AI workspace on Windows. Model inference and chat history stay on your PC; setup downloads and optional web search use the internet. Friend Beta 0.1.7rc1." />
   <meta property="og:title" content="AFK AI · private local AI for Windows" />
-  <meta property="og:description" content="A private, ChatGPT-style AI workspace that runs on your own Windows PC. Core AI chat runs locally on your GPU, and every port binds to 127.0.0.1. Friend Beta 0.1.7rc1." />
+  <meta property="og:description" content="A local-first AI workspace for Windows. Model inference runs on your own GPU, chat history stays on your PC, and every AFK AI port binds to 127.0.0.1 by default. Friend Beta 0.1.7rc1." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
   <meta property="og:image" content="https://localai-windows-starter-site.allusionsafk.workers.dev/assets/og-image.png" />
@@ -54,7 +54,7 @@
       <div class="hero-copy">
         <p class="kicker">Windows 11 · NVIDIA GPU</p>
         <h1>Your AI. Your PC.</h1>
-        <p class="lede">AFK AI sets up a private, ChatGPT-style workspace that runs on your own machine. Core AI chat runs locally on your PC.</p>
+        <p class="lede">AFK AI sets up a private, ChatGPT-style workspace on your own Windows PC. Model inference and chat history stay local; web search is optional.</p>
 
         <div class="cta-row">
           <a class="btn primary big" href="/download">
@@ -77,12 +77,12 @@
         <p class="kicker" id="panel-h">Once it is running</p>
         <dl class="portlist">
           <div class="portrow"><dt>Chat</dt><dd class="mono">127.0.0.1:3000</dd></div>
-          <div class="portrow"><dt>Private search</dt><dd class="mono">127.0.0.1:8080</dd></div>
+          <div class="portrow"><dt>Web search</dt><dd class="mono">127.0.0.1:8080</dd></div>
           <div class="portrow"><dt>Control Center</dt><dd class="mono">127.0.0.1:8765</dd></div>
         </dl>
         <p class="panel-foot">
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-          <span>Every port binds to <span class="mono">127.0.0.1</span>, your own machine. Nothing is opened to your network unless you choose to share it.</span>
+          <span>Every AFK AI port binds to <span class="mono">127.0.0.1</span>, your own machine. Nothing is opened to your network unless you choose to share it.</span>
         </p>
       </aside>
 
@@ -167,7 +167,7 @@
       <div>
         <p class="kicker">Local by default</p>
         <h2>It runs on your machine.</h2>
-        <p class="lede">The model runs on your own graphics card. There is no account, no cloud tier, and nothing to pay for.</p>
+        <p class="lede">The model runs on your own graphics card. There is no AFK AI cloud account or subscription; Open WebUI keeps its local account and chat database on your PC.</p>
         <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">loopback-only by default</span></p>
       </div>
 
@@ -176,7 +176,7 @@
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
           <div>
             <h3>Nothing is opened to your network</h3>
-            <p>Every port binds to <span class="mono">127.0.0.1</span>, which is your own PC and nothing else. Reaching it from your phone is a separate, deliberate step.</p>
+            <p>Every AFK AI port binds to <span class="mono">127.0.0.1</span>, which is your own PC and nothing else. Reaching it from your phone is a separate, deliberate step.</p>
           </div>
         </li>
         <li>
@@ -197,7 +197,7 @@
           <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
           <div>
             <h3>What does use the internet</h3>
-            <p>Downloading the installer and the models themselves, and web results if you switch search on. Those are ordinary internet requests. Your conversations are not among them.</p>
+            <p>Setup and model downloads use the internet. If you switch web search on, SearXNG sends search queries to external search providers. Local model inference and the chat database stay on your PC.</p>
           </div>
         </li>
       </ul>
