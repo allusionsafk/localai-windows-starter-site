@@ -1,99 +1,148 @@
 # AFK AI website
 
-The landing and docs site for [**localai-windows-starter**](https://github.com/allusionsafk/localai-windows-starter),
-AFK AI's private, ChatGPT-style AI workspace for Windows.
+The public landing site for [**AFK AI for Windows**](https://github.com/allusionsafk/localai-windows-starter),
+a local-first, ChatGPT-style AI workspace for Windows.
 
-Static assets plus one small Cloudflare Worker that serves the pinned friend-beta
-installer, so the **Download** button hands over bytes this site has verified.
+**Live site:** https://localai-windows-starter-site.allusionsafk.workers.dev/
+
+The site is intentionally small: static assets plus one Cloudflare Worker route
+that serves the pinned friend-beta installer only after verifying its SHA-256.
+The homepage itself has no analytics, account system, cookies, forms, or database.
+
+## Current friend-beta contract
+
+- Public status: **Friend Beta 0.1.7rc1**
+- Download CTA: `/download`
+- Installer source: exact pinned `v0.1.7rc1` tag blob
+- Download integrity: verified server-side before executable bytes are returned
+- On hash mismatch or upstream failure: fail closed with no installer bytes served
+
+The site's download route is deliberately independent of GitHub's
+`releases/latest`, which still points at an older public release.
+
+## Deployment
 
 Deployed as a **Cloudflare Worker with static assets** (`wrangler deploy`). The
-static files in `public/` are served directly; the Worker only runs for the
-`/download` route.
+static files in `public/` are served directly; `worker.js` only handles
+`/download`.
 
-## Layout
-
-```
+```text
 .
-├── public/                 # static assets, served directly by the assets binding
-│   ├── index.html          #   the page (self-contained; no build step)
-│   ├── assets/app.js       #   all interactivity (external file → strict CSP)
-│   ├── _headers            #   CSP + HSTS + security headers
+├── public/                      # static webroot
+│   ├── index.html               # landing page; no build step
+│   ├── assets/app.js            # theme + small UI behaviour
+│   ├── assets/site.css          # styles
+│   ├── assets/fonts/            # self-hosted fonts
+│   ├── _headers                 # CSP + HSTS + security headers
 │   ├── robots.txt
-│   └── .well-known/security.txt  # vulnerability-report contact (RFC 9116)
-├── tests/test-worker.mjs   # unit suite for the release Worker
-├── worker.js               # GET /download → the pinned v0.1.7rc1 installer, SHA-256 verified
-├── wrangler.toml           # name, main = worker.js, [assets] directory = ./public
-├── LICENSE                 # MIT
-└── package.json            # wrangler dev/deploy/test scripts
+│   └── .well-known/security.txt # RFC 9116 security contact
+├── tests/test-worker.mjs        # download/integrity route tests
+├── worker.js                    # GET/HEAD /download → pinned, SHA-256-verified installer
+├── wrangler.toml                # Worker + static-assets binding
+├── LICENSE                      # MIT
+└── package.json                 # dev/deploy/test scripts
 ```
 
-Repo-meta files (this README, `package.json`, `wrangler.toml`, `LICENSE`) sit
-outside `public/` on purpose, so they are never served as public URLs.
+Repository metadata (`README.md`, `DESIGN.md`, `PRODUCT.md`, `package.json`,
+`wrangler.toml`, `LICENSE`) sits outside `public/` so it is not served as part
+of the website.
 
 ## Local preview
 
 ```bash
-npm install          # gets wrangler (dev dependency only)
-npm run dev          # wrangler dev: serves public/ + the /download Worker route
-npm test             # unit suite for worker.js
+npm install
+npm run dev     # wrangler dev: public/ + the real /download Worker route
+npm test        # worker/download integrity tests
 ```
 
-Plain static preview (no Worker): serve the `public/` folder with any static
-server. Without the Worker, the page falls back to the `releases/latest` link.
+A plain static server can preview `public/`, but `/download` will not work
+without the Worker. That is intentional: the page does **not** fall back to an
+unpinned or `releases/latest` installer.
 
-## Deploy to Cloudflare (free)
+## Deploy to Cloudflare
 
-**Git integration (recommended).**
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → **Workers & Pages → Create → Import a repository** →
-   pick the repo. Deploy command: **`npx wrangler deploy`** (the default). No
-   build command needed. The `[assets]` binding in `wrangler.toml` serves
-   `public/`; the Worker handles `/download`. Auto-deploys on push to `master`.
+### Git integration
 
-**Direct upload (CLI).**
+1. Import the repository in **Workers & Pages**.
+2. Deploy command: `npx wrangler deploy`.
+3. No separate build command is required.
+4. The assets binding in `wrangler.toml` serves `public/`; the Worker owns only
+   `/download`.
+
+If Cloudflare repository integration is configured to deploy `master`, pushes
+to that branch can auto-deploy. The repository alone does not prove the active
+Cloudflare dashboard configuration, so this README does not treat auto-deploy as
+a repository guarantee.
+
+### Direct CLI deploy
+
 ```bash
-npx wrangler deploy      # runs `wrangler login` first (your Cloudflare account)
+npx wrangler deploy
 ```
 
 ## Security posture
 
-Audited against CCCS **ITSM.60.005** (Security considerations for your website).
-Most of that guidance targets dynamic sites; this site's strongest control is
-architectural: **no accounts, no cookies, no sessions, no forms, no database,
-no user input anywhere**.
+The site is intentionally low-state and low-input:
 
-In code:
-- **CSP** with `script-src 'self'`: no inline scripts; all JS is in `assets/app.js`.
-- **HSTS**, `X-Content-Type-Options`, `X-Frame-Options: DENY`, `Referrer-Policy`,
-  a locked-down `Permissions-Policy`, and COOP/CORP. See `public/_headers`.
-- The only third-party origins are Google Fonts, pinned explicitly in the CSP.
-- The release Worker is a **read-only, GET/HEAD-only** proxy to the public GitHub
-  API: normalized edge-cache key (query-string cache-busting can't bypass it),
-  installer URL validated against the repo's own `/releases/download/` path
-  (server-side *and* client-side), generic error shape (no upstream details),
-  no secrets, no user input.
-- **Download integrity**: the installer's SHA-256 (from the GitHub API) is shown
-  next to the download so users can verify with `Get-FileHash`.
-- `/.well-known/security.txt` publishes the vulnerability-report channel.
-- The webroot is `public/` only; repo-meta files are never served.
+- no user accounts;
+- no cookies or sessions;
+- no forms;
+- no database;
+- no analytics script;
+- no inline scripts;
+- self-hosted fonts and same-origin static assets;
+- `script-src 'self'` CSP;
+- HSTS, `X-Content-Type-Options`, `X-Frame-Options: DENY`,
+  `Referrer-Policy`, COOP/CORP, and a restrictive `Permissions-Policy`;
+- `/.well-known/security.txt` for vulnerability reports.
 
-### Post-deploy hardening (Cloudflare dashboard, one-time)
+### Download route
 
-1. **SSL/TLS → Edge Certificates → Minimum TLS Version: 1.2** (TLS 1.3 stays
-   enabled above it; the Cloudflare default minimum is 1.0). Applies when a
-   custom domain is attached; plain `workers.dev` is already HTTPS-only.
-2. **SSL/TLS → Always Use HTTPS: On** (custom domains).
-3. Turn on **MFA** for the Cloudflare account *and* the GitHub account that owns
-   the repo. They are this site's real admin interfaces.
-4. Watch **Workers & Pages → your project → Analytics/Logs** for anomalies;
-   Cloudflare's free tier includes baseline DDoS protection in front of it all.
+`worker.js` accepts only `GET` and `HEAD` on `/download`.
+
+The route:
+
+1. fetches the installer from the exact pinned Git tag URL;
+2. computes SHA-256 over the returned bytes;
+3. compares it with the committed expected digest;
+4. serves the bytes as `application/octet-stream` only on an exact match;
+5. fails closed with a generic error if the upstream fails or the digest differs;
+6. normalizes the cache key so query strings cannot bypass integrity checking.
+
+The browser is not asked to trust a dynamically discovered release. Integrity
+checking happens on the Worker before the installer is served.
+
+## Privacy wording
+
+The website intentionally distinguishes **local inference** from **offline-only**.
+AFK AI's model inference and chat history are local, but setup/model downloads
+use the internet, and optional web search sends search queries to external
+search providers through the local SearXNG service. The landing page should not
+claim that the product makes zero network requests.
+
+## Post-deploy hardening
+
+For a future custom domain:
+
+1. Set minimum TLS to 1.2 or newer.
+2. Keep **Always Use HTTPS** enabled.
+3. Require MFA on both the Cloudflare and GitHub accounts that can deploy.
+4. Watch Worker logs/analytics for unusual download-route failures.
+
+`workers.dev` is already HTTPS-only.
 
 ## Credits
 
-Built by [allusionsafk](https://github.com/allusionsafk). The stack it documents
-stands on [Ollama](https://ollama.com), [Open WebUI](https://github.com/open-webui/open-webui),
-[SearXNG](https://github.com/searxng/searxng), [Kokoro](https://github.com/remsky/Kokoro-FastAPI),
-and [ComfyUI](https://github.com/comfyanonymous/ComfyUI). Not affiliated with
-mudler/LocalAI or localai.io; AFK-LocalAI is an independent project.
+Built by [allusionsafk](https://github.com/allusionsafk). AFK AI stands on
+[Ollama](https://ollama.com),
+[Open WebUI](https://github.com/open-webui/open-webui),
+[SearXNG](https://github.com/searxng/searxng),
+[Kokoro](https://github.com/remsky/Kokoro-FastAPI), and
+[ComfyUI](https://github.com/comfyanonymous/ComfyUI), each under its own
+licence.
+
+AFK AI is not affiliated with, or endorsed by, mudler/LocalAI or localai.io.
+The repository's `localai-*` names are historical/internal naming, not a claim
+of affiliation.
 
 MIT licensed.

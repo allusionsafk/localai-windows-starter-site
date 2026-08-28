@@ -2,4 +2,4 @@ Contact: https://github.com/allusionsafk/localai-windows-starter/security/adviso
 Contact: https://github.com/allusionsafk/localai-windows-starter/issues
 Expires: 2027-07-11T00:00:00.000Z
 Preferred-Languages: en
-Policy: https://github.com/allusionsafk/localai-windows-starter#security-contract
+Policy: https://github.com/allusionsafk/localai-windows-starter/security/policy
