@@ -69,8 +69,10 @@ unpinned or `releases/latest` installer.
 4. The assets binding in `wrangler.toml` serves `public/`; the Worker owns only
    `/download`.
 
-The current setup auto-deploys `master` through Cloudflare's repository
-integration.
+If Cloudflare repository integration is configured to deploy `master`, pushes
+to that branch can auto-deploy. The repository alone does not prove the active
+Cloudflare dashboard configuration, so this README does not treat auto-deploy as
+a repository guarantee.
 
 ### Direct CLI deploy
 
