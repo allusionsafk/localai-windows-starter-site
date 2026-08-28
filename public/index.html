@@ -6,7 +6,7 @@
   <title>AFK AI · private local AI for Windows</title>
   <meta name="description" content="AFK AI sets up a private, ChatGPT-style AI workspace on Windows. Model inference and chat history stay on your PC; setup downloads and optional web search use the internet. Friend Beta 0.1.7rc1." />
   <meta property="og:title" content="AFK AI · private local AI for Windows" />
-  <meta property="og:description" content="A local-first AI workspace for Windows. Model inference runs on your own GPU, chat history stays on your PC, and every AFK AI port binds to 127.0.0.1 by default. Friend Beta 0.1.7rc1." />
+  <meta property="og:description" content="A local-first AI workspace for Windows. Model inference and chat history stay on your PC; user-facing services use loopback where possible, with a Windows Firewall guardrail for Ollama's Docker-reachable host bind. Friend Beta 0.1.7rc1." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
   <meta property="og:image" content="https://localai-windows-starter-site.allusionsafk.workers.dev/assets/og-image.png" />
@@ -69,8 +69,8 @@
           </p>
         </div>
 
-        <p class="mono req">Free · about 40 GB of disk · hardware virtualization must be on</p>
-        <p class="small muted hero-note">Not a finished release. Expect rough edges, and a Copy Diagnostic Report button when you hit one.</p>
+        <p class="mono req">MIT licensed · about 40 GB of disk · hardware virtualization must be on</p>
+        <p class="small muted hero-note">Not a finished release. Expect rough edges during setup; the current virtualization/WSL/Docker preflight is still incomplete.</p>
       </div>
 
       <aside class="hero-panel" aria-labelledby="panel-h">
@@ -82,7 +82,7 @@
         </dl>
         <p class="panel-foot">
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-          <span>Every AFK AI port binds to <span class="mono">127.0.0.1</span>, your own machine. Nothing is opened to your network unless you choose to share it.</span>
+          <span>Chat, web search, and the Control Center bind to <span class="mono">127.0.0.1</span>. Ollama uses a Docker-reachable host bind and is paired with a Windows Firewall guardrail on physical network adapters.</span>
         </p>
       </aside>
 
@@ -104,12 +104,12 @@
         </li>
         <li class="step card pad">
           <p class="step-head"><span class="mono num" aria-hidden="true">2</span><span class="step-title">Run the installer</span></p>
-          <p>It checks your PC, installs what is missing, and picks a model that fits your graphics card.</p>
+          <p>It checks your PC, installs the supported prerequisites it can, and picks a model that fits your graphics card.</p>
           <p class="mono step-foot">Docker · Python · your model</p>
         </li>
         <li class="step card pad">
           <p class="step-head"><span class="mono num" aria-hidden="true">3</span><span class="step-title">Open it and chat</span></p>
-          <p>When setup finishes, AFK AI takes you to the Control Center. After that, reopen it from the Start menu.</p>
+          <p>When setup finishes, the installer prints the local URLs and start/stop guidance. Open chat at <span class="mono">127.0.0.1:3000</span>; later, <span class="mono">Start Local AI.cmd</span> starts the stack and opens chat.</p>
           <p class="mono step-foot">127.0.0.1:3000</p>
         </li>
       </ol>
@@ -125,8 +125,8 @@
   <section class="section" id="control">
     <div class="wrap">
       <p class="kicker">Control Center</p>
-      <h2>One window to run the whole thing.</h2>
-      <p class="lede">Start it, stop it, check that it is healthy, and copy a diagnostic report when something looks wrong. No terminal required.</p>
+      <h2>A local window for health and diagnostics.</h2>
+      <p class="lede">The Control Center runs locally and exposes health, machine information, and support diagnostics in one place. It is a separate dashboard; the current installer does not yet promise to launch it automatically at the end of setup.</p>
 
       <ul class="proof">
         <li>
@@ -168,22 +168,22 @@
         <p class="kicker">Local by default</p>
         <h2>It runs on your machine.</h2>
         <p class="lede">The model runs on your own graphics card. There is no AFK AI cloud account or subscription; Open WebUI keeps its local account and chat database on your PC.</p>
-        <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">loopback-only by default</span></p>
+        <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">local-first · guarded network boundary</span></p>
       </div>
 
       <ul class="claims">
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
           <div>
-            <h3>Nothing is opened to your network</h3>
-            <p>Every AFK AI port binds to <span class="mono">127.0.0.1</span>, which is your own PC and nothing else. Reaching it from your phone is a separate, deliberate step.</p>
+            <h3>The network boundary is explicit</h3>
+            <p>Chat, web search, voice, and the Control Center use loopback endpoints. Ollama deliberately uses a host bind so Docker can reach it, and AFK AI's secure phase attempts to block its physical-network exposure with Windows Firewall. Remote sharing is a separate opt-in.</p>
           </div>
         </li>
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
           <div>
             <h3>Start it when you need it</h3>
-            <p>AFK AI does not need to run all the time. Use the Control Center when you want local AI running, and keep it out of the way when you do not.</p>
+            <p>AFK AI does not need to run all the time. Use the stack when you want local AI running, and keep it out of the way when you do not.</p>
           </div>
         </li>
         <li>
@@ -210,7 +210,7 @@
       <div class="closing card">
         <div>
           <h2>Try it on your own PC.</h2>
-          <p class="lede">You are one of the first people to run this. If something breaks, press Copy Diagnostic Report in the Control Center and send it over.</p>
+          <p class="lede">You are one of the first people to run this. If setup hits a blocker, keep the exact error text; once the Control Center is available, its Copy Diagnostic Report action can produce a support summary.</p>
         </div>
         <div class="closing-acts">
           <a class="btn primary big" href="/download">
