@@ -30,9 +30,14 @@ The download route is intentionally independent of GitHub
 
 ```text
 .
+├── .claude/
+│   └── launch.json
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   └── pull_request_template.md
+├── .impeccable/
+│   ├── config.json
+│   └── design.json
 ├── public/
 │   ├── index.html
 │   ├── assets/
@@ -50,16 +55,29 @@ The download route is intentionally independent of GitHub
 ├── README.md
 ├── SECURITY.md
 ├── SUPPORT.md
+├── package.json
+├── package-lock.json
 ├── worker.js
-├── wrangler.toml
-└── package.json
+└── wrangler.toml
 ```
 
 The homepage has no build step. `worker.js` handles `/download`; static assets
 are served from `public/`.
 
-Repository documents sit outside `public/` and are not part of the deployed
-webroot.
+Repository documents and developer metadata sit outside `public/` and are not
+part of the deployed webroot.
+
+### Checked-in developer metadata
+
+Two dot-directories are intentionally versioned:
+
+- `.claude/launch.json` is a small local-development launcher for `wrangler dev`
+- `.impeccable/` records design-system metadata and deliberate detector exceptions
+  so future visual work can preserve the choices documented in [DESIGN.md](DESIGN.md)
+
+Neither directory is required by the deployed website, and neither contains
+runtime secrets or customer data. They are repository tooling, not public-site
+assets.
 
 ## Local development
 
