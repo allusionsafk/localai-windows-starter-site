@@ -1,0 +1,60 @@
+name: Download problem
+description: Report a reproducible failure of the AFK AI website's pinned /download route.
+title: "[download] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The website serves a pinned Friend Beta installer through /download and verifies its SHA-256 before returning the file. Use this form only when that website route is the failing surface.
+  - type: input
+    id: time
+    attributes:
+      label: Approximate time of the failure
+      description: Include your time zone.
+      placeholder: 2026-08-29 14:30 EDT
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser or client
+      placeholder: Chrome 152, Edge 152, curl, PowerShell Invoke-WebRequest
+    validations:
+      required: true
+  - type: input
+    id: status
+    attributes:
+      label: HTTP status or visible error
+      placeholder: 502, 503, download did not start, browser error text
+    validations:
+      required: true
+  - type: dropdown
+    id: homepage
+    attributes:
+      label: Did the homepage load normally at the same time?
+      options:
+        - Yes
+        - No
+        - I did not check
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: State whether the failure also reproduces in another browser or private window if you checked.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Additional relevant details
+      description: Do not upload the installer itself, browser profiles, credentials, cookies, or unrelated diagnostics.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed credentials, tokens, cookies, private paths, and unrelated personal or machine information.
+          required: true
