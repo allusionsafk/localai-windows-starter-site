@@ -5,6 +5,8 @@ The public landing and download surface for
 
 **Live site:** https://localai-windows-starter-site.allusionsafk.workers.dev/
 
+[Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Product](PRODUCT.md) · [Design](DESIGN.md)
+
 AFK AI is a local-first AI workspace for Windows. This repository keeps the
 public site intentionally small: static HTML/CSS/JavaScript plus one Cloudflare
 Worker route for the pinned Friend Beta installer.
@@ -28,6 +30,9 @@ The download route is intentionally independent of GitHub
 
 ```text
 .
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   └── pull_request_template.md
 ├── public/
 │   ├── index.html
 │   ├── assets/
@@ -39,6 +44,12 @@ The download route is intentionally independent of GitHub
 │   ├── _headers
 │   └── robots.txt
 ├── tests/
+├── CONTRIBUTING.md
+├── DESIGN.md
+├── PRODUCT.md
+├── README.md
+├── SECURITY.md
+├── SUPPORT.md
 ├── worker.js
 ├── wrangler.toml
 └── package.json
@@ -47,8 +58,8 @@ The download route is intentionally independent of GitHub
 The homepage has no build step. `worker.js` handles `/download`; static assets
 are served from `public/`.
 
-Repository documents such as `README.md`, `PRODUCT.md`, and `DESIGN.md` sit
-outside `public/` and are not part of the deployed webroot.
+Repository documents sit outside `public/` and are not part of the deployed
+webroot.
 
 ## Local development
 
@@ -57,6 +68,9 @@ npm install
 npm run dev
 npm test
 ```
+
+For a reproducible dependency install that follows the lockfile exactly, use
+`npm ci` instead of `npm install`.
 
 `npm run dev` starts Wrangler with the real Worker route.
 
@@ -121,8 +135,9 @@ The site intentionally has very little state and very little input.
 - restrictive `Permissions-Policy`
 - `/.well-known/security.txt`
 
-Security reports use the central AFK AI policy in
-[SECURITY.md](SECURITY.md).
+Security reports use the central website policy in
+[SECURITY.md](SECURITY.md). General website-support routing is documented in
+[SUPPORT.md](SUPPORT.md).
 
 ## Privacy wording
 
@@ -141,6 +156,11 @@ The public voice and visual system are documented in:
 
 - [PRODUCT.md](PRODUCT.md)
 - [DESIGN.md](DESIGN.md)
+
+Contribution and support boundaries are documented in:
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [SUPPORT.md](SUPPORT.md)
 
 Core design principles:
 
