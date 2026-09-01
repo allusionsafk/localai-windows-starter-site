@@ -64,8 +64,8 @@ is.
 
 ### Typography
 
-**Display:** Bricolage Grotesque  
-**Body:** system UI stack  
+**Display:** Bricolage Grotesque
+**Body:** system UI stack
 **Machine facts:** IBM Plex Mono
 
 Use mono for:
