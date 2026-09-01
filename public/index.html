@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AFK AI · private local AI for Windows</title>
-  <meta name="description" content="AFK AI sets up a private, ChatGPT-style AI workspace on Windows. Model inference and chat history stay on your PC; setup downloads and optional web search use the internet. Friend Beta 0.1.7rc1." />
-  <meta property="og:title" content="AFK AI · private local AI for Windows" />
-  <meta property="og:description" content="A local-first AI workspace for Windows. Model inference and chat history stay on your PC; user-facing services use loopback where possible, with a Windows Firewall guardrail for Ollama's Docker-reachable host bind. Friend Beta 0.1.7rc1." />
+  <title>AFK AI · local AI for Windows</title>
+  <meta name="description" content="AFK AI sets up a local-first, ChatGPT-style AI workspace on Windows. Model inference and chat history stay on your PC; setup downloads and optional web search use the internet. Friend Beta 0.1.7rc1." />
+  <meta property="og:title" content="AFK AI · local AI for Windows" />
+  <meta property="og:description" content="Your AI. Your PC. A local-first Windows AI workspace with local inference, honest network boundaries, and a guided Friend Beta installer." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://localai-windows-starter-site.allusionsafk.workers.dev/" />
   <meta property="og:image" content="https://localai-windows-starter-site.allusionsafk.workers.dev/assets/og-image.png" />
@@ -47,14 +47,13 @@
 
 <main id="main">
 
-  <!-- ================= HERO ================= -->
   <section class="hero" id="top">
     <div class="wrap hero-grid">
 
       <div class="hero-copy">
         <p class="kicker">Windows 11 · NVIDIA GPU recommended</p>
         <h1>Your AI. Your PC.</h1>
-        <p class="lede">AFK AI sets up a private, ChatGPT-style workspace on your own Windows PC. Model inference and chat history stay local; web search is optional.</p>
+        <p class="lede">AFK AI sets up a local-first AI workspace on your Windows PC. Chat with a model running on your own hardware, keep your Open WebUI history local, and turn web search on only when you want it.</p>
 
         <div class="cta-row">
           <a class="btn primary big" href="/download">
@@ -69,12 +68,12 @@
           </p>
         </div>
 
-        <p class="mono req">MIT licensed · about 40 GB of disk · hardware virtualization must be on</p>
-        <p class="small muted hero-note">Not a finished release. Expect rough edges during setup; the current virtualization/WSL/Docker preflight is still incomplete.</p>
+        <p class="mono req">MIT licensed · about 40 GB free · hardware virtualization required</p>
+        <p class="small muted hero-note">Friend Beta is still proving the clean-machine setup path. Expect rough edges around virtualization, WSL, and Docker recovery.</p>
       </div>
 
       <aside class="hero-panel" aria-labelledby="panel-h">
-        <p class="kicker" id="panel-h">Once it is running</p>
+        <p class="kicker" id="panel-h">Local endpoints</p>
         <dl class="portlist">
           <div class="portrow"><dt>Chat</dt><dd class="mono">127.0.0.1:3000</dd></div>
           <div class="portrow"><dt>Web search</dt><dd class="mono">127.0.0.1:8080</dd></div>
@@ -82,135 +81,134 @@
         </dl>
         <p class="panel-foot">
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-          <span>Chat, web search, and the Control Center bind to <span class="mono">127.0.0.1</span>. Ollama uses a Docker-reachable host bind and is paired with a Windows Firewall guardrail on physical network adapters.</span>
+          <span>User-facing services use loopback. Ollama uses a Docker-reachable Windows host bind and is paired with a Windows Firewall guardrail for physical network adapters.</span>
         </p>
       </aside>
 
     </div>
   </section>
 
-  <!-- ================= HOW IT WORKS ================= -->
   <section class="section band" id="how">
     <div class="wrap">
       <p class="kicker">How it works</p>
-      <h2>Three steps, one evening.</h2>
-      <p class="lede">The installer does the fiddly parts. You mostly wait, and restart once if Windows asks.</p>
+      <h2>Download. Set up. Chat.</h2>
+      <p class="lede">One guided path handles the moving parts and tells you when Windows needs your attention.</p>
 
       <ol class="steps">
         <li class="step card pad">
           <p class="step-head"><span class="mono num" aria-hidden="true">1</span><span class="step-title">Download AFK AI</span></p>
-          <p>One file. Double-click it and the guided installer opens in its own window.</p>
+          <p>Get the pinned Friend Beta installer from this site.</p>
           <p class="mono step-foot">Install AFK AI.cmd</p>
         </li>
         <li class="step card pad">
-          <p class="step-head"><span class="mono num" aria-hidden="true">2</span><span class="step-title">Run the installer</span></p>
-          <p>It checks your PC, installs the supported prerequisites it can, and picks a model that fits your machine.</p>
-          <p class="mono step-foot">Docker · Python · your model</p>
+          <p class="step-head"><span class="mono num" aria-hidden="true">2</span><span class="step-title">Run the guided setup</span></p>
+          <p>AFK AI checks the machine, installs supported prerequisites, and selects a model sized for the detected hardware.</p>
+          <p class="mono step-foot">Windows · Docker · Ollama · model</p>
         </li>
         <li class="step card pad">
-          <p class="step-head"><span class="mono num" aria-hidden="true">3</span><span class="step-title">Open it and chat</span></p>
-          <p>When setup finishes, the installer prints the local URLs and start/stop guidance. Open chat at <span class="mono">127.0.0.1:3000</span>; later, <span class="mono">Start Local AI.cmd</span> starts the stack and opens chat.</p>
+          <p class="step-head"><span class="mono num" aria-hidden="true">3</span><span class="step-title">Open local chat</span></p>
+          <p>When setup completes, open Open WebUI at <span class="mono">127.0.0.1:3000</span>. The first Open WebUI account is local to your PC.</p>
           <p class="mono step-foot">127.0.0.1:3000</p>
         </li>
       </ol>
 
       <p class="note">
         <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
-        <span>First setup is not instant, and not fully hands-off. It downloads several gigabytes, Docker Desktop usually has to be opened once so it can finish its own setup, and Windows may ask to restart. Docker also needs hardware virtualization enabled in your PC firmware, which is where setup stops if it is switched off.</span>
+        <span>First setup downloads several gigabytes. Docker Desktop may need a first launch and Windows may ask for a restart. Hardware virtualization must be enabled. The current Friend Beta still discovers some virtualization, WSL, and Docker blockers later than intended.</span>
       </p>
     </div>
   </section>
 
-  <!-- ================= CONTROL CENTER ================= -->
   <section class="section" id="control">
     <div class="wrap">
       <p class="kicker">Control Center</p>
-      <h2>A local window for health and diagnostics.</h2>
-      <p class="lede">The Control Center runs locally and exposes health, machine information, and support diagnostics in one place. It is a separate dashboard; the current installer does not yet promise to launch it automatically at the end of setup.</p>
+      <h2>See what is running.</h2>
+      <p class="lede">A local dashboard for health, machine information, model guidance, and privacy-aware support diagnostics.</p>
 
       <ul class="proof">
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>
           <div>
-            <h3>Live engine status</h3>
-            <p>See at a glance whether the model engine and services are up, before you wonder why chat is slow.</p>
+            <h3>Engine status</h3>
+            <p>See whether the local model engine and AFK AI services are available.</p>
           </div>
         </li>
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
           <div>
-            <h3>System health</h3>
-            <p>A health check you can re-run any time. It reports passing, warnings and failures rather than one vague light.</p>
+            <h3>Health checks</h3>
+            <p>Run the stack checks again and see passing, warning, or failing results.</p>
           </div>
         </li>
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/></svg>
           <div>
-            <h3>This machine at a glance</h3>
-            <p>Your graphics card and memory, and which model AFK AI recommends for them.</p>
+            <h3>Hardware at a glance</h3>
+            <p>See the graphics hardware, memory, and the model AFK AI recommends for the machine.</p>
           </div>
         </li>
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
           <div>
             <h3>Copy Diagnostic Report</h3>
-            <p>One button produces a support report designed to leave out your chats, documents, prompts, credentials and file contents.</p>
+            <p>Produce a support summary designed to leave out chats, documents, prompts, credentials, and file contents.</p>
           </div>
         </li>
       </ul>
+
+      <p class="small muted">The Control Center is a separate local dashboard. The current installer does not promise to launch it automatically at the end of setup.</p>
     </div>
   </section>
 
-  <!-- ================= LOCAL BY DEFAULT ================= -->
   <section class="section dark" id="local">
     <div class="wrap local-grid">
       <div>
         <p class="kicker">Local by default</p>
-        <h2>It runs on your machine.</h2>
-        <p class="lede">The model runs on your own machine. An NVIDIA GPU is recommended for the current fast path; CPU-only fallback is supported with smaller models and much slower generation. There is no AFK AI cloud account or subscription; Open WebUI keeps its local account and chat database on your PC.</p>
-        <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">local-first · guarded network boundary</span></p>
+        <h2>Keep the model close.</h2>
+        <p class="lede">Model inference runs on your own machine. Open WebUI keeps its local account and chat database there too. AFK AI has no cloud account or subscription.</p>
+        <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">local-first · explicit network boundary</span></p>
       </div>
 
       <ul class="claims">
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
           <div>
-            <h3>The network boundary is explicit</h3>
-            <p>Chat, web search, voice, and the Control Center use loopback endpoints. Ollama deliberately uses a host bind so Docker can reach it, and AFK AI's secure phase attempts to block its physical-network exposure with Windows Firewall. Remote sharing is a separate opt-in.</p>
+            <h3>Local inference</h3>
+            <p>Ollama runs the model on your Windows PC. An NVIDIA GPU is recommended; smaller CPU-only models are available as a much slower fallback.</p>
           </div>
         </li>
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
           <div>
-            <h3>Start it when you need it</h3>
-            <p>AFK AI does not need to run all the time. Use the stack when you want local AI running, and keep it out of the way when you do not.</p>
+            <h3>Local user-facing services</h3>
+            <p>Chat, web search, voice, and the Control Center use loopback endpoints. Ollama uses a host bind so Docker can reach it, with a separate Windows Firewall guardrail for physical network adapters.</p>
           </div>
         </li>
         <li>
           <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
           <div>
-            <h3>Diagnostics stay clean</h3>
-            <p>The report you send for help is designed to leave out your chats, documents, prompts, credentials and file contents.</p>
+            <h3>Privacy-aware diagnostics</h3>
+            <p>Support reports are designed to exclude chats, documents, prompts, credentials, and file contents.</p>
           </div>
         </li>
         <li>
           <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
           <div>
-            <h3>What does use the internet</h3>
-            <p>Setup and model downloads use the internet. If you switch web search on, SearXNG sends search queries to external search providers. Local model inference and the chat database stay on your PC.</p>
+            <h3>The internet is still useful</h3>
+            <p>Setup, model downloads, and updates use the internet. Optional web search sends queries to external providers through SearXNG. Local-first does not mean permanently offline.</p>
           </div>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ================= CLOSING CTA ================= -->
   <section class="section" id="download-cta">
     <div class="wrap">
       <div class="closing card">
         <div>
-          <h2>Try it on your own PC.</h2>
-          <p class="lede">You are one of the first people to run this. If setup hits a blocker, keep the exact error text; once the Control Center is available, its Copy Diagnostic Report action can produce a support summary.</p>
+          <p class="kicker">Friend Beta</p>
+          <h2>Try AFK AI on your own PC.</h2>
+          <p class="lede">You are testing an early Windows build. If setup stops, keep the exact error text. Once the Control Center is available, its diagnostic report can make support much easier.</p>
         </div>
         <div class="closing-acts">
           <a class="btn primary big" href="/download">
@@ -222,7 +220,7 @@
             <span class="status-name">Friend Beta</span>
             <span class="mono status-ver">0.1.7rc1</span>
           </p>
-          <p class="mono req">Windows 11 · NVIDIA GPU recommended · about 40 GB of disk</p>
+          <p class="mono req">Windows 11 · NVIDIA GPU recommended · about 40 GB free</p>
         </div>
       </div>
     </div>
@@ -263,13 +261,13 @@
   </div>
 
   <div class="wrap foot-legal">
-    <p class="small muted">Built by <a href="https://github.com/allusionsafk" target="_blank" rel="noopener noreferrer">allusionsafk</a>. Stands on the shoulders of
+    <p class="small muted">Built by <a href="https://github.com/allusionsafk" target="_blank" rel="noopener noreferrer">allusionsafk</a>. Built with
       <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">Ollama</a>,
       <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener noreferrer">Open WebUI</a>,
       <a href="https://github.com/searxng/searxng" target="_blank" rel="noopener noreferrer">SearXNG</a>,
       <a href="https://github.com/remsky/Kokoro-FastAPI" target="_blank" rel="noopener noreferrer">Kokoro</a>, and
       <a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" rel="noopener noreferrer">ComfyUI</a>, each under its own license.</p>
-    <p class="small muted">Not affiliated with, or endorsed by, mudler/LocalAI or localai.io. AFK AI is a different, independently built project.</p>
+    <p class="small muted">Not affiliated with or endorsed by mudler/LocalAI or localai.io. AFK AI is an independent project.</p>
   </div>
 </footer>
 

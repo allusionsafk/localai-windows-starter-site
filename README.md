@@ -1,148 +1,210 @@
 # AFK AI website
 
-The public landing site for [**AFK AI for Windows**](https://github.com/allusionsafk/localai-windows-starter),
-a local-first, ChatGPT-style AI workspace for Windows.
+The public landing and download surface for
+[**AFK AI for Windows**](https://github.com/allusionsafk/localai-windows-starter).
 
 **Live site:** https://localai-windows-starter-site.allusionsafk.workers.dev/
 
-The site is intentionally small: static assets plus one Cloudflare Worker route
-that serves the pinned friend-beta installer only after verifying its SHA-256.
-The homepage itself has no analytics, account system, cookies, forms, or database.
+[Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Product](PRODUCT.md) · [Design](DESIGN.md)
 
-## Current friend-beta contract
+AFK AI is a local-first AI workspace for Windows. This repository keeps the
+public site intentionally small: static HTML/CSS/JavaScript plus one Cloudflare
+Worker route for the pinned Friend Beta installer.
 
-- Public status: **Friend Beta 0.1.7rc1**
-- Download CTA: `/download`
-- Installer source: exact pinned `v0.1.7rc1` tag blob
-- Download integrity: verified server-side before executable bytes are returned
-- On hash mismatch or upstream failure: fail closed with no installer bytes served
+## What this site guarantees
 
-The site's download route is deliberately independent of GitHub's
-`releases/latest`, which still points at an older public release.
+| Surface | Contract |
+|---|---|
+| Homepage | Static, no account system, no forms, no analytics |
+| Download CTA | `/download` |
+| Candidate | Friend Beta `0.1.7rc1` |
+| Installer source | Exact pinned `v0.1.7rc1` tag blob |
+| Integrity | SHA-256 verified before installer bytes are returned |
+| Failure mode | Fail closed on upstream or hash mismatch |
+| `releases/latest` | Not used for Friend Beta delivery |
 
-## Deployment
+The download route is intentionally independent of GitHub
+`releases/latest`, which currently points at an older public release.
 
-Deployed as a **Cloudflare Worker with static assets** (`wrangler deploy`). The
-static files in `public/` are served directly; `worker.js` only handles
-`/download`.
+## Architecture
 
 ```text
 .
-├── public/                      # static webroot
-│   ├── index.html               # landing page; no build step
-│   ├── assets/app.js            # theme + small UI behaviour
-│   ├── assets/site.css          # styles
-│   ├── assets/fonts/            # self-hosted fonts
-│   ├── _headers                 # CSP + HSTS + security headers
-│   ├── robots.txt
-│   └── .well-known/security.txt # RFC 9116 security contact
-├── tests/test-worker.mjs        # download/integrity route tests
-├── worker.js                    # GET/HEAD /download → pinned, SHA-256-verified installer
-├── wrangler.toml                # Worker + static-assets binding
-├── LICENSE                      # MIT
-└── package.json                 # dev/deploy/test scripts
+├── .claude/
+│   └── launch.json
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   └── pull_request_template.md
+├── .impeccable/
+│   ├── config.json
+│   └── design.json
+├── public/
+│   ├── index.html
+│   ├── assets/
+│   │   ├── app.js
+│   │   ├── site.css
+│   │   ├── fonts/
+│   │   └── og-image.png
+│   ├── .well-known/security.txt
+│   ├── _headers
+│   └── robots.txt
+├── tests/
+├── CONTRIBUTING.md
+├── DESIGN.md
+├── PRODUCT.md
+├── README.md
+├── SECURITY.md
+├── SUPPORT.md
+├── package.json
+├── package-lock.json
+├── worker.js
+└── wrangler.toml
 ```
 
-Repository metadata (`README.md`, `DESIGN.md`, `PRODUCT.md`, `package.json`,
-`wrangler.toml`, `LICENSE`) sits outside `public/` so it is not served as part
-of the website.
+The homepage has no build step. `worker.js` handles `/download`; static assets
+are served from `public/`.
 
-## Local preview
+Repository documents and developer metadata sit outside `public/` and are not
+part of the deployed webroot.
+
+### Checked-in developer metadata
+
+Two dot-directories are intentionally versioned:
+
+- `.claude/launch.json` is a small local-development launcher for `wrangler dev`
+- `.impeccable/` records design-system metadata and deliberate detector exceptions
+  so future visual work can preserve the choices documented in [DESIGN.md](DESIGN.md)
+
+Neither directory is required by the deployed website, and neither contains
+runtime secrets or customer data. They are repository tooling, not public-site
+assets.
+
+## Local development
 
 ```bash
 npm install
-npm run dev     # wrangler dev: public/ + the real /download Worker route
-npm test        # worker/download integrity tests
+npm run dev
+npm test
 ```
 
-A plain static server can preview `public/`, but `/download` will not work
-without the Worker. That is intentional: the page does **not** fall back to an
-unpinned or `releases/latest` installer.
+For a reproducible dependency install that follows the lockfile exactly, use
+`npm ci` instead of `npm install`.
 
-## Deploy to Cloudflare
+`npm run dev` starts Wrangler with the real Worker route.
 
-### Git integration
+A plain static server can preview the visual page, but `/download` will not
+work. That is intentional. The site does not fall back to an unpinned installer.
+
+## Deployment
+
+### Cloudflare repository integration
 
 1. Import the repository in **Workers & Pages**.
-2. Deploy command: `npx wrangler deploy`.
+2. Use `npx wrangler deploy` as the deploy command.
 3. No separate build command is required.
-4. The assets binding in `wrangler.toml` serves `public/`; the Worker owns only
-   `/download`.
+4. Keep the `public/` assets binding and `/download` Worker route intact.
 
 If Cloudflare repository integration is configured to deploy `master`, pushes
-to that branch can auto-deploy. The repository alone does not prove the active
-Cloudflare dashboard configuration, so this README does not treat auto-deploy as
-a repository guarantee.
+to `master` can auto-deploy. The repository itself does not prove the active
+Cloudflare dashboard configuration.
 
-### Direct CLI deploy
+### Direct CLI deployment
 
 ```bash
 npx wrangler deploy
 ```
 
-## Security posture
+A deployment is a separate operational action. Repository changes alone should
+not be described as deployed unless the deployment is observed.
 
-The site is intentionally low-state and low-input:
-
-- no user accounts;
-- no cookies or sessions;
-- no forms;
-- no database;
-- no analytics script;
-- no inline scripts;
-- self-hosted fonts and same-origin static assets;
-- `script-src 'self'` CSP;
-- HSTS, `X-Content-Type-Options`, `X-Frame-Options: DENY`,
-  `Referrer-Policy`, COOP/CORP, and a restrictive `Permissions-Policy`;
-- `/.well-known/security.txt` for vulnerability reports.
-
-### Download route
+## Download integrity
 
 `worker.js` accepts only `GET` and `HEAD` on `/download`.
 
-The route:
+For each request, it:
 
-1. fetches the installer from the exact pinned Git tag URL;
-2. computes SHA-256 over the returned bytes;
-3. compares it with the committed expected digest;
-4. serves the bytes as `application/octet-stream` only on an exact match;
-5. fails closed with a generic error if the upstream fails or the digest differs;
-6. normalizes the cache key so query strings cannot bypass integrity checking.
+1. fetches the installer from the exact pinned Git tag URL
+2. computes SHA-256 over the returned bytes
+3. compares the result with the committed expected digest
+4. serves `application/octet-stream` only on an exact match
+5. fails closed if upstream retrieval fails or the digest differs
+6. normalizes the cache key so query strings cannot bypass the check
 
-The browser is not asked to trust a dynamically discovered release. Integrity
-checking happens on the Worker before the installer is served.
+The browser is never asked to discover a release dynamically.
+
+## Security posture
+
+The site intentionally has very little state and very little input.
+
+- no user accounts
+- no cookies or sessions
+- no forms
+- no database
+- no analytics
+- no inline scripts
+- self-hosted fonts
+- same-origin static assets
+- restrictive Content Security Policy
+- HSTS
+- `X-Content-Type-Options`
+- `X-Frame-Options: DENY`
+- `Referrer-Policy`
+- COOP/CORP
+- restrictive `Permissions-Policy`
+- `/.well-known/security.txt`
+
+Security reports use the central website policy in
+[SECURITY.md](SECURITY.md). General website-support routing is documented in
+[SUPPORT.md](SUPPORT.md).
 
 ## Privacy wording
 
-The website intentionally distinguishes **local inference** from **offline-only**.
-AFK AI's model inference and chat history are local, but setup/model downloads
-use the internet, and optional web search sends search queries to external
-search providers through the local SearXNG service. The landing page should not
-claim that the product makes zero network requests.
+The site deliberately distinguishes **local inference** from **offline-only**.
 
-## Post-deploy hardening
+AFK AI can keep model inference and Open WebUI chat history local. Setup and
+model downloads use the internet. Optional web search sends queries to external
+search providers through the local SearXNG service.
 
-For a future custom domain:
+The page should never claim that AFK AI makes zero network requests or that
+every listening socket is loopback-only.
 
-1. Set minimum TLS to 1.2 or newer.
-2. Keep **Always Use HTTPS** enabled.
-3. Require MFA on both the Cloudflare and GitHub accounts that can deploy.
-4. Watch Worker logs/analytics for unusual download-route failures.
+## Product and design
 
-`workers.dev` is already HTTPS-only.
+The public voice and visual system are documented in:
+
+- [PRODUCT.md](PRODUCT.md)
+- [DESIGN.md](DESIGN.md)
+
+Contribution and support boundaries are documented in:
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [SUPPORT.md](SUPPORT.md)
+
+Core design principles:
+
+- honest product claims
+- clean light and dark themes
+- one strong blue action color
+- emerald reserved for positive state
+- self-hosted typography
+- no third-party page dependencies
+- no fake screenshots or vanity metrics
+- no em dashes in public copy
 
 ## Credits
 
-Built by [allusionsafk](https://github.com/allusionsafk). AFK AI stands on
-[Ollama](https://ollama.com),
-[Open WebUI](https://github.com/open-webui/open-webui),
-[SearXNG](https://github.com/searxng/searxng),
-[Kokoro](https://github.com/remsky/Kokoro-FastAPI), and
-[ComfyUI](https://github.com/comfyanonymous/ComfyUI), each under its own
-licence.
+Built by [allusionsafk](https://github.com/allusionsafk).
 
-AFK AI is not affiliated with, or endorsed by, mudler/LocalAI or localai.io.
-The repository's `localai-*` names are historical/internal naming, not a claim
-of affiliation.
+AFK AI uses:
+
+- [Ollama](https://ollama.com)
+- [Open WebUI](https://github.com/open-webui/open-webui)
+- [SearXNG](https://github.com/searxng/searxng)
+- [Kokoro](https://github.com/remsky/Kokoro-FastAPI)
+- [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
+
+Each project remains under its own license.
+
+AFK AI is not affiliated with or endorsed by mudler/LocalAI or localai.io.
 
 MIT licensed.
