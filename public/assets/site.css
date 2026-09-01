@@ -97,7 +97,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offs
 .btn:active{transform:translateY(1px)}
 .btn.primary{background:var(--text);color:var(--bg);border-color:var(--text);box-shadow:var(--shadow)}
 .btn.primary:hover{border-color:var(--accent)}
-.btn.compact{min-height:40px;padding:0 16px;font-size:.9rem}
+.btn.compact{min-height:var(--tap);padding:0 16px;font-size:.9rem}
 .btn.big{min-height:56px;padding:0 26px;font-size:1.02rem;font-weight:600}
 .ico{width:18px;height:18px;flex:0 0 auto}
 .ico.ok{color:var(--accent-2)}
@@ -124,7 +124,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offs
   border:1px solid rgb(154 91 0 / .34);background:rgb(154 91 0 / .08)}
 .status-chip .dot{width:7px;height:7px;border-radius:9999px;background:var(--warn);flex:0 0 auto}
 .status-name{font-size:.93rem;font-weight:600;color:var(--warn)}
-.status-ver{font-size:.88rem;color:var(--warn);opacity:.85}
+.status-ver{font-size:.88rem;color:var(--warn)}
 [data-theme='dark'] .status-chip{border-color:rgb(251 191 36 / .34);background:rgb(251 191 36 / .10)}
 .status-chip.bare{border:0;background:none;justify-content:flex-start;padding:0;min-height:0}
 
