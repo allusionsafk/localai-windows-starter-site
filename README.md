@@ -8,8 +8,10 @@ The public landing and download surface for
 [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Product](PRODUCT.md) · [Design](DESIGN.md)
 
 AFK AI is a local-first AI workspace for Windows. This repository keeps the
-public site intentionally small: static HTML/CSS/JavaScript plus one Cloudflare
-Worker route for the pinned Friend Beta installer.
+primary AFK AI site intentionally small: static HTML/CSS/JavaScript plus one
+Cloudflare Worker route for the pinned Friend Beta installer. A separate
+Adaptive Media page is currently co-hosted under `/adaptive-media/`; it does
+not own or alter the AFK AI `/download` route.
 
 ## What this site guarantees
 
@@ -42,6 +44,8 @@ For AFK AI, the website's pinned tag and digest define the published Friend Beta
 │   └── design.json
 ├── public/
 │   ├── index.html
+│   ├── adaptive-media/
+│   │   └── index.html
 │   ├── assets/
 │   │   ├── app.js
 │   │   ├── site.css
@@ -63,8 +67,21 @@ For AFK AI, the website's pinned tag and digest define the published Friend Beta
 └── wrangler.toml
 ```
 
-The homepage has no build step. `worker.js` handles `/download`; static assets
-are served from `public/`.
+The AFK AI homepage has no build step. `worker.js` handles `/download`; static
+assets, including `/adaptive-media/`, are served from `public/`.
+
+### Co-hosted Adaptive Media page
+
+`public/adaptive-media/index.html` is a separate static product page with its own
+title, canonical URL, release copy, and download links. It intentionally links
+back to AFK AI, while the AFK AI homepage does not depend on Adaptive Media.
+
+The two products currently share this static-site repository and the starter
+repository's GitHub Releases namespace. That is why neither GitHub
+`releases/latest` nor an Adaptive Media release number is treated as AFK AI
+Friend Beta version authority. Moving Adaptive Media to a dedicated repository
+or site would be a future namespace cleanup, not a prerequisite for the current
+AFK AI pinned-download contract.
 
 Repository documents and developer metadata sit outside `public/` and are not
 part of the deployed webroot.
