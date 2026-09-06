@@ -15,7 +15,11 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => readFileSync(join(root, p), 'utf8');
 
 const headers = read('public/_headers');
-const html = read('public/index.html');
+const htmlPages = [
+  ['index.html', read('public/index.html')],
+  ['adaptive-media/index.html', read('public/adaptive-media/index.html')],
+];
+const html = htmlPages.map(([name, source]) => `<!-- ${name} -->\n${source}`).join('\n');
 const css = read('public/assets/site.css');
 const appJs = read('public/assets/app.js');
 
@@ -61,12 +65,17 @@ check(
   csp
 );
 
+check(
+  'Adaptive Media page is real content, not the placeholder',
+  !/^\s*placeholder\s*$/i.test(read('public/adaptive-media/index.html'))
+);
+
 // Strip comments before scanning markup, so a CSP note in a comment does not
 // read as a violation.
 const htmlNoComments = html.replace(/<!--[\s\S]*?-->/g, '');
 const cssNoComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
 
-console.log('Case B - markup obeys script-src ' + directive('script-src') + ':');
+console.log('Case B - all shipped markup obeys script-src ' + directive('script-src') + ':');
 const scriptTags = [...htmlNoComments.matchAll(/<script\b([^>]*)>/gi)].map((m) => m[1]);
 check('every <script> has a src (no inline script blocks)', scriptTags.every((a) => /\bsrc=/i.test(a)), String(scriptTags));
 const scriptSrcs = [...htmlNoComments.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)].map((m) => m[1]);
@@ -74,7 +83,7 @@ check('every script src is same-origin', scriptSrcs.every((s) => s.startsWith('/
 check('no inline event handlers (onclick=, onload=, ...)', !/\son[a-z]+\s*=\s*["']/i.test(htmlNoComments));
 check('no javascript: URLs', !/javascript:/i.test(htmlNoComments));
 
-console.log('Case C - markup obeys style-src ' + directive('style-src') + ':');
+console.log('Case C - all shipped markup obeys style-src ' + directive('style-src') + ':');
 check('no <style> blocks', !/<style\b/i.test(htmlNoComments));
 check('no inline style="" attributes', !/\sstyle\s*=\s*["']/i.test(htmlNoComments));
 const linkedCss = [...htmlNoComments.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)].map((m) => m[0]);
@@ -98,7 +107,7 @@ check(
   String(cssUrls)
 );
 
-console.log("Case E - the page makes no network calls (connect-src " + directive('connect-src') + '):');
+console.log("Case E - the site makes no client-side network calls (connect-src " + directive('connect-src') + '):');
 // _headers documents this claim; assert it rather than trusting the comment.
 check('app.js has no fetch()', !/\bfetch\s*\(/.test(appJs));
 check('app.js has no XMLHttpRequest', !/XMLHttpRequest/.test(appJs));
@@ -108,7 +117,7 @@ check('app.js sets no inline styles at runtime', !/\.style\s*\.|setAttribute\(\s
 
 console.log("Case F - no analytics or third-party tracking:");
 const trackers = /google-analytics|googletagmanager|gtag\(|plausible|fathom|segment\.com|hotjar|mixpanel|posthog|clarity\.ms|facebook\.net/i;
-check('index.html references no analytics provider', !trackers.test(html));
+check('shipped HTML references no analytics provider', !trackers.test(html));
 check('app.js references no analytics provider', !trackers.test(appJs));
 check('the CSP would block one anyway (no third-party script origin)', !/script-src[^;]*https?:\/\//.test(csp));
 

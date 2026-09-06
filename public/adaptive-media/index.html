@@ -1,1 +1,225 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Media 0.3.2 · Windows media playback</title>
+  <meta name="description" content="Adaptive Media 0.3.2 is a Windows media player build focused on deliberate playback modes, measured fallbacks, and objective playback diagnostics." />
+  <meta property="og:title" content="Adaptive Media 0.3.2" />
+  <meta property="og:description" content="Reference-first Windows playback with deliberate enhancements, compatibility fallback, motion protection, and objective diagnostics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://localai-windows-starter-site.allusionsafk.workers.dev/adaptive-media/" />
+  <link rel="canonical" href="https://localai-windows-starter-site.allusionsafk.workers.dev/adaptive-media/" />
+  <meta name="theme-color" content="#f6f8fc" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header">
+  <div class="wrap topbar">
+    <a class="brand" href="#top" aria-label="Adaptive Media home">
+      <svg class="mark" aria-hidden="true" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="amg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><rect x="3" y="5" width="58" height="54" rx="14" fill="url(#amg)"/><path d="M25 20 45 32 25 44Z" fill="rgba(255,255,255,.94)"/></svg>
+      <span>Adaptive Media</span>
+    </a>
+
+    <nav class="topnav" aria-label="Sections">
+      <a href="#playback">Playback</a>
+      <a href="#diagnostics">Diagnostics</a>
+      <a href="#limits">Known limits</a>
+    </nav>
+
+    <div class="topacts">
+      <a class="btn compact" href="/">AFK AI</a>
+      <a class="btn primary compact" href="https://github.com/allusionsafk/localai-windows-starter/releases/download/v0.3.2/AdaptiveMediaSetup-0.3.2-x64.exe">Download 0.3.2</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">Windows x64 · release 0.3.2</p>
+        <h1>Playback that knows when to get out of the way.</h1>
+        <p class="lede">Adaptive Media is a Windows playback package built around explicit modes, a reference-first baseline, and measured fallbacks when an enhancement path is not presenting cleanly.</p>
+
+        <div class="cta-row">
+          <a class="btn primary big" href="https://github.com/allusionsafk/localai-windows-starter/releases/download/v0.3.2/AdaptiveMediaSetup-0.3.2-x64.exe">
+            <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+            Download Adaptive Media 0.3.2
+          </a>
+          <p class="status-chip">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="status-name">Current release</span>
+            <span class="mono status-ver">0.3.2</span>
+          </p>
+        </div>
+
+        <p class="mono req">x64 installer · 43.9 MB · SHA-256 published with the release</p>
+        <p class="small muted hero-note">The current build was certified on RTX 4080 Laptop hardware. External HDR-TV switching and HDMI bitstream/Atmos passthrough remain hardware-dependent and are not claimed as universally verified.</p>
+      </div>
+
+      <aside class="hero-panel" aria-labelledby="release-h">
+        <p class="kicker" id="release-h">0.3.2 release facts</p>
+        <dl class="portlist">
+          <div class="portrow"><dt>Published</dt><dd class="mono">2026-09-04</dd></div>
+          <div class="portrow"><dt>Installer</dt><dd class="mono">x64 EXE</dd></div>
+          <div class="portrow"><dt>Diagnostics</dt><dd class="mono">included</dd></div>
+          <div class="portrow"><dt>Settings</dt><dd class="mono">persist across upgrades</dd></div>
+        </dl>
+        <p class="panel-foot">
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+          <span>The published installer digest is <span class="mono">8e8cc44359fea1a2bb4f5252f145025bb38ecebb0b0de66e7669c2c319944dbb</span>.</span>
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section band" id="playback">
+    <div class="wrap">
+      <p class="kicker">Playback philosophy</p>
+      <h2>Reference first. Enhancements on purpose.</h2>
+      <p class="lede">The default path is intentionally conservative. Upscaling, cleanup/debanding, RTX Video HDR, RTX Super Resolution, motion smoothing, and HDMI bitstream are explicit choices rather than silent defaults.</p>
+
+      <ol class="steps">
+        <li class="step card pad">
+          <p class="step-head"><span class="mono num" aria-hidden="true">1</span><span class="step-title">Reference</span></p>
+          <p>Start from a reference-first playback path without silently enabling interpolation, cleanup, HDR conversion, or RTX Super Resolution.</p>
+          <p class="mono step-foot">native cadence · decoded PCM default</p>
+        </li>
+        <li class="step card pad">
+          <p class="step-head"><span class="mono num" aria-hidden="true">2</span><span class="step-title">Enhance deliberately</span></p>
+          <p>Turn on high-quality scaling, compression cleanup, RTX Video HDR, RTX Super Resolution, or motion smoothing per video when they are useful.</p>
+          <p class="mono step-foot">opt-in processing</p>
+        </li>
+        <li class="step card pad">
+          <p class="step-head"><span class="mono num" aria-hidden="true">3</span><span class="step-title">Fall back when measured</span></p>
+          <p>If display-synchronised interpolation is measurably unstable and harming playback, the managed path can fall back to native cadence instead of persisting with visible frame problems.</p>
+          <p class="mono step-foot">measured motion guard</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="diagnostics">
+    <div class="wrap">
+      <p class="kicker">What changed in 0.3.2</p>
+      <h2>Two playback defects, measured and corrected.</h2>
+      <p class="lede">The 0.3.2 release was driven by observed renderer and presentation behaviour rather than by changing presets on paper.</p>
+
+      <ul class="proof">
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>
+          <div>
+            <h3>Compatibility now takes the compatibility path</h3>
+            <p>The Compatibility preset now selects the documented D3D11 renderer path instead of accidentally continuing through the managed NVIDIA Vulkan path.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
+          <div>
+            <h3>Motion smoothing can protect itself</h3>
+            <p>Gentle and Smooth motion now require a settling window, measurable display instability, and measurable playback harm before automatically returning to native cadence.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/></svg>
+          <div>
+            <h3>Playback Diagnostics ships with the installer</h3>
+            <p>The Start menu includes Adaptive Media Playback Diagnostics, which launches the production plan, reads renderer/decoder/refresh/frame-timing state over mpv IPC, and writes a support report locally.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+          <div>
+            <h3>Settings remain separate from the install</h3>
+            <p>User settings remain under <span class="mono">%LOCALAPPDATA%\AdaptiveMedia\settings.json</span> and survive upgrades.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section dark" id="limits">
+    <div class="wrap local-grid">
+      <div>
+        <p class="kicker">Measured boundary</p>
+        <h2>Strong claims stop where the measurements stop.</h2>
+        <p class="lede">The release was certified on the current RTX 4080 Laptop validation machine. That is evidence for that path, not a promise about every display, receiver, cable, driver, or HDR chain.</p>
+        <p class="pill-note"><span class="dot ok" aria-hidden="true"></span><span class="mono">measured · explicit · reversible</span></p>
+      </div>
+
+      <ul class="claims">
+        <li>
+          <svg class="ico ok" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+          <div>
+            <h3>Certified managed NVIDIA path</h3>
+            <p>The published build was certified with Vulkan/winvk/FIFO plus NVDEC and steady-state zero output drops, zero decoder drops, and zero delayed frames on the validation machine.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+          <div>
+            <h3>External HDR switching is hardware-dependent</h3>
+            <p>External HDR-TV switching behaviour has not been claimed as universally verified across hardware chains.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+          <div>
+            <h3>HDMI bitstream and Atmos remain optional</h3>
+            <p>Decoded PCM remains the safe audio default. HDMI bitstream/Atmos passthrough is still hardware-dependent and is not presented as universally verified.</p>
+          </div>
+        </li>
+        <li>
+          <svg class="ico warn" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+          <div>
+            <h3>Dolby Vision wording stays literal</h3>
+            <p>mpv/libplacebo Dolby Vision processing is not described as native Windows Dolby Vision or Profile 7 FEL passthrough.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="download-cta">
+    <div class="wrap">
+      <div class="closing card">
+        <div>
+          <p class="kicker">Adaptive Media 0.3.2</p>
+          <h2>Use the player. Keep the diagnostics nearby.</h2>
+          <p class="lede">The release installer and its SHA-256 file are published together. Release notes document the renderer fix, motion fallback, validation path, and remaining hardware-dependent boundaries.</p>
+        </div>
+        <div class="closing-acts">
+          <a class="btn primary big" href="https://github.com/allusionsafk/localai-windows-starter/releases/download/v0.3.2/AdaptiveMediaSetup-0.3.2-x64.exe">
+            <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+            Download 0.3.2
+          </a>
+          <a class="btn" href="https://github.com/allusionsafk/localai-windows-starter/releases/tag/v0.3.2">Read release notes</a>
+          <p class="mono req">AdaptiveMediaSetup-0.3.2-x64.exe</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <a class="brand foot-brand" href="#top" aria-label="Adaptive Media home">
+        <span>Adaptive Media</span>
+      </a>
+      <p class="small muted">A measured Windows playback project. Current public release: 0.3.2.</p>
+    </div>
+    <div class="foot-links">
+      <a href="https://github.com/allusionsafk/localai-windows-starter/releases/tag/v0.3.2">Release notes</a>
+      <a href="https://github.com/allusionsafk/localai-windows-starter/releases/download/v0.3.2/AdaptiveMediaSetup-0.3.2-x64.sha256.txt">SHA-256 file</a>
+      <a href="/">AFK AI</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
