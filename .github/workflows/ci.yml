@@ -1,0 +1,53 @@
+name: CI
+
+# The site is static HTML/CSS/JS plus one Cloudflare Worker route. These checks
+# are the cheap ones that catch things a browser would only reveal in
+# production: a broken download pin, a Worker regression, or markup that the
+# edge Content-Security-Policy silently blocks.
+#
+# Deliberately absent: no deploy, no secrets, no Cloudflare credentials, no
+# analytics, no headless browser, no third-party services.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Worker and site checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          cache: npm
+
+      # `npm ci` rather than `npm install`: the lockfile is the contract, and a
+      # drifted lockfile should fail here rather than resolve differently.
+      - name: Install dependencies
+        run: npm ci
+
+      # Worker behaviour, the fail-closed integrity gate, and the release pin.
+      - name: Run the test suite
+        run: npm test
+
+      - name: Syntax-check shipped JavaScript
+        run: |
+          node --check worker.js
+          node --check public/assets/app.js
+
+      - name: Check whitespace
+        run: git diff --check

@@ -7,7 +7,7 @@ compatibility_date = "2024-11-01"
 workers_dev = true
 
 # Static site in ./public served by the assets binding (also processes _headers).
-# The Worker (worker.js) only runs for non-asset routes, i.e. /api/release.
+# The Worker (worker.js) only runs for non-asset routes, i.e. /download.
 [assets]
 directory = "./public"
 binding = "ASSETS"
