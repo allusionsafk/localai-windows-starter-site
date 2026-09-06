@@ -6,10 +6,11 @@
 //
 // WHY /download EXISTS
 // The friend beta is distributed from a PINNED TAG, not from a GitHub Release.
-// The previous /api/release route resolved through the releases API, which
-// still reports v0.1.5 because no Release was cut for v0.1.6 or v0.1.7rc1 —
-// so the site handed visitors a build three releases behind the candidate.
-// That mechanism is gone. Nothing on this site consults releases/latest.
+// An earlier /api/release route resolved dynamically through the Releases API,
+// which made AFK AI delivery depend on whatever release GitHub considered
+// current rather than on the reviewed Friend Beta candidate. That mechanism is
+// gone. Nothing on this site consults releases/latest, and releases for other
+// work in the starter repository do not change the AFK AI download pin.
 //
 // Serving (rather than redirecting to raw.githubusercontent.com) is deliberate:
 // raw responds text/plain, so a browser DISPLAYS the installer as source
