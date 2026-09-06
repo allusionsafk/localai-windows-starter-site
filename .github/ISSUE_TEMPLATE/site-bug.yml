@@ -1,0 +1,55 @@
+name: Website bug
+description: Report a reproducible problem with the AFK AI website, layout, navigation, or browser behaviour.
+title: "[site] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for the website itself. For installer, hardware, model, Docker, WSL, Ollama, Open WebUI, search, voice, or Control Center support, use the main AFK AI repository instead.
+  - type: input
+    id: page
+    attributes:
+      label: Page or route
+      placeholder: Homepage, /download, or another exact route
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Chrome 152, Firefox 148, Edge 152, Safari 19
+    validations:
+      required: true
+  - type: input
+    id: viewport
+    attributes:
+      label: Device or viewport
+      description: Include the approximate viewport width when the problem is responsive-layout related.
+      placeholder: Desktop 1920x1080, iPhone 430px wide, Android 390px wide
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      description: Include exact visible text or console errors when useful, after removing sensitive information.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed credentials, tokens, cookies, private documents, and unrelated personal or machine information.
+          required: true
