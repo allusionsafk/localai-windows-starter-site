@@ -23,8 +23,10 @@ Worker route for the pinned Friend Beta installer.
 | Failure mode | Fail closed on upstream or hash mismatch |
 | `releases/latest` | Not used for Friend Beta delivery |
 
-The download route is intentionally independent of GitHub
-`releases/latest`, which currently points at an older public release.
+The AFK AI website pin is intentionally independent of GitHub
+`releases/latest`. The starter repository can contain releases for other work,
+so a GitHub "Latest" badge or release version is not an AFK AI version authority.
+For AFK AI, the website's pinned tag and digest define the published Friend Beta.
 
 ## Architecture
 
