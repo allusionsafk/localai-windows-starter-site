@@ -1,229 +1,100 @@
 # AFK AI website
 
-The public landing and download surface for
-[**AFK AI for Windows**](https://github.com/allusionsafk/localai-windows-starter).
+Public landing and download surface for [AFK AI for Windows](https://github.com/allusionsafk/localai-windows-starter).
 
 **Live site:** https://localai-windows-starter-site.allusionsafk.workers.dev/
 
-[Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Product](PRODUCT.md) · [Design](DESIGN.md)
+[Product](PRODUCT.md) · [Design](DESIGN.md) · [Support](SUPPORT.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
 
-AFK AI is a local-first AI workspace for Windows. This repository keeps the
-primary AFK AI site intentionally small: static HTML/CSS/JavaScript plus one
-Cloudflare Worker route for the pinned Friend Beta installer. A separate
-Adaptive Media page is currently co-hosted under `/adaptive-media/`; it does
-not own or alter the AFK AI `/download` route.
+The site is intentionally small: static HTML, CSS, and JavaScript, plus one Cloudflare Worker route for the pinned Friend Beta installer.
 
-## What this site guarantees
+## Public contract
 
 | Surface | Contract |
 |---|---|
-| Homepage | Static, no account system, no forms, no analytics |
-| Download CTA | `/download` |
-| Candidate | Friend Beta `0.1.7rc1` |
-| Installer source | Exact pinned `v0.1.7rc1` tag blob |
-| Integrity | SHA-256 verified before installer bytes are returned |
+| Homepage | Static. No account system, forms, or analytics |
+| Download route | `/download` |
+| Pinned candidate | Friend Beta `0.1.7rc1` |
+| Integrity | SHA-256 checked before installer bytes are returned |
 | Failure mode | Fail closed on upstream or hash mismatch |
-| `releases/latest` | Not used for Friend Beta delivery |
+| Version authority | Website pin, not `releases/latest` |
 
-The AFK AI website pin is intentionally independent of GitHub
-`releases/latest`. The starter repository can contain releases for other work,
-so a GitHub "Latest" badge or release version is not an AFK AI version authority.
-For AFK AI, the website's pinned tag and digest define the published Friend Beta.
+The repository also serves a separate Adaptive Media page under `/adaptive-media/`. That page does not control the AFK AI download route.
 
-## Architecture
+## Structure
 
 ```text
-.
-├── .claude/
-│   └── launch.json
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   └── pull_request_template.md
-├── .impeccable/
-│   ├── config.json
-│   └── design.json
-├── public/
-│   ├── index.html
-│   ├── adaptive-media/
-│   │   └── index.html
-│   ├── assets/
-│   │   ├── app.js
-│   │   ├── site.css
-│   │   ├── fonts/
-│   │   └── og-image.png
-│   ├── .well-known/security.txt
-│   ├── _headers
-│   └── robots.txt
-├── tests/
-├── CONTRIBUTING.md
-├── DESIGN.md
-├── PRODUCT.md
-├── README.md
-├── SECURITY.md
-├── SUPPORT.md
-├── package.json
-├── package-lock.json
-├── worker.js
-└── wrangler.toml
+public/
+  index.html
+  adaptive-media/index.html
+  assets/
+  .well-known/security.txt
+  _headers
+  robots.txt
+
+worker.js
+wrangler.toml
+tests/
 ```
 
-The AFK AI homepage has no build step. `worker.js` handles `/download`; static
-assets, including `/adaptive-media/`, are served from `public/`.
-
-### Co-hosted Adaptive Media page
-
-`public/adaptive-media/index.html` is a separate static product page with its own
-title, canonical URL, release copy, and download links. It intentionally links
-back to AFK AI, while the AFK AI homepage does not depend on Adaptive Media.
-
-The two products currently share this static-site repository and the starter
-repository's GitHub Releases namespace. That is why neither GitHub
-`releases/latest` nor an Adaptive Media release number is treated as AFK AI
-Friend Beta version authority. Moving Adaptive Media to a dedicated repository
-or site would be a future namespace cleanup, not a prerequisite for the current
-AFK AI pinned-download contract.
-
-Repository documents and developer metadata sit outside `public/` and are not
-part of the deployed webroot.
-
-### Checked-in developer metadata
-
-Two dot-directories are intentionally versioned:
-
-- `.claude/launch.json` is a small local-development launcher for `wrangler dev`
-- `.impeccable/` records design-system metadata and deliberate detector exceptions
-  so future visual work can preserve the choices documented in [DESIGN.md](DESIGN.md)
-
-Neither directory is required by the deployed website, and neither contains
-runtime secrets or customer data. They are repository tooling, not public-site
-assets.
+Repository documentation and development metadata sit outside `public/` and are not deployed as site content.
 
 ## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
 npm test
 ```
 
-For a reproducible dependency install that follows the lockfile exactly, use
-`npm ci` instead of `npm install`.
-
-`npm run dev` starts Wrangler with the real Worker route.
-
-A plain static server can preview the visual page, but `/download` will not
-work. That is intentional. The site does not fall back to an unpinned installer.
+`npm run dev` starts Wrangler with the real Worker route. A plain static server can preview the page, but `/download` will not work. The site does not fall back to an unpinned installer.
 
 ## Deployment
 
-### Cloudflare repository integration
-
-1. Import the repository in **Workers & Pages**.
-2. Use `npx wrangler deploy` as the deploy command.
-3. No separate build command is required.
-4. Keep the `public/` assets binding and `/download` Worker route intact.
-
-If Cloudflare repository integration is configured to deploy `master`, pushes
-to `master` can auto-deploy. The repository itself does not prove the active
-Cloudflare dashboard configuration.
-
-### Direct CLI deployment
+Cloudflare Workers can deploy the repository directly with:
 
 ```bash
 npx wrangler deploy
 ```
 
-A deployment is a separate operational action. Repository changes alone should
-not be described as deployed unless the deployment is observed.
+A repository commit is not proof of a live deployment. Deployment status should be verified separately.
 
 ## Download integrity
 
-`worker.js` accepts only `GET` and `HEAD` on `/download`.
+For `GET` or `HEAD` requests to `/download`, `worker.js`:
 
-For each request, it:
-
-1. fetches the installer from the exact pinned Git tag URL
+1. fetches the installer from the exact pinned tag
 2. computes SHA-256 over the returned bytes
-3. compares the result with the committed expected digest
-4. serves `application/octet-stream` only on an exact match
-5. fails closed if upstream retrieval fails or the digest differs
-6. normalizes the cache key so query strings cannot bypass the check
+3. compares it with the committed digest
+4. serves the file only on an exact match
+5. fails closed if retrieval or verification fails
 
-The browser is never asked to discover a release dynamically.
+The browser does not discover a release dynamically.
 
-## Security posture
+## Security and privacy
 
-The site intentionally has very little state and very little input.
+The site has no accounts, cookies, forms, database, or analytics. Fonts and page assets are self-hosted. The deployed headers include a restrictive Content Security Policy and standard browser security controls.
 
-- no user accounts
-- no cookies or sessions
-- no forms
-- no database
-- no analytics
-- no inline scripts
-- self-hosted fonts
-- same-origin static assets
-- restrictive Content Security Policy
-- HSTS
-- `X-Content-Type-Options`
-- `X-Frame-Options: DENY`
-- `Referrer-Policy`
-- COOP/CORP
-- restrictive `Permissions-Policy`
-- `/.well-known/security.txt`
+AFK AI itself is local-first, not offline-only. Model inference and local chat storage can remain on the user's machine. Setup, model downloads, updates, optional web search, and integrations can use the internet.
 
-Security reports use the central website policy in
-[SECURITY.md](SECURITY.md). General website-support routing is documented in
-[SUPPORT.md](SUPPORT.md).
+See [SECURITY.md](SECURITY.md) for private vulnerability reporting and [SUPPORT.md](SUPPORT.md) for issue routing.
 
-## Privacy wording
+## Public copy rules
 
-The site deliberately distinguishes **local inference** from **offline-only**.
+The site should stay direct and evidence-based:
 
-AFK AI can keep model inference and Open WebUI chat history local. Setup and
-model downloads use the internet. Optional web search sends queries to external
-search providers through the local SearXNG service.
+- no fake screenshots
+- no invented usage numbers or testimonials
+- no vague privacy claims
+- no unsupported platform or release claims
+- technical detail only where it helps the visitor make a decision
 
-The page should never claim that AFK AI makes zero network requests or that
-every listening socket is loopback-only.
+## Licence
 
-## Product and design
+MIT. See [LICENSE](LICENSE).
 
-The public voice and visual system are documented in:
+---
 
-- [PRODUCT.md](PRODUCT.md)
-- [DESIGN.md](DESIGN.md)
-
-Contribution and support boundaries are documented in:
-
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [SUPPORT.md](SUPPORT.md)
-
-Core design principles:
-
-- honest product claims
-- clean light and dark themes
-- one strong blue action color
-- emerald reserved for positive state
-- self-hosted typography
-- no third-party page dependencies
-- no fake screenshots or vanity metrics
-- no em dashes in public copy
-
-## Credits
-
-Built by [allusionsafk](https://github.com/allusionsafk).
-
-AFK AI uses:
-
-- [Ollama](https://ollama.com)
-- [Open WebUI](https://github.com/open-webui/open-webui)
-- [SearXNG](https://github.com/searxng/searxng)
-- [Kokoro](https://github.com/remsky/Kokoro-FastAPI)
-- [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
-
-Each project remains under its own license.
-
-AFK AI is not affiliated with or endorsed by mudler/LocalAI or localai.io.
-
-MIT licensed.
+**ALLUSIONS**  
+Independent software by Jidan.  
+[@allusionsafk](https://github.com/allusionsafk)
