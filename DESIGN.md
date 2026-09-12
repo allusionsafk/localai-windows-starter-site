@@ -1,6 +1,6 @@
 ---
 name: AFK AI site
-description: Honest, local-first Windows AI landing page with light and dark themes and no third-party page origins.
+description: Local-first Windows AI landing page with light and dark themes and no third-party page origins.
 colors:
   day-sky: "#f6f8fc"
   day-panel: "#ffffff"
@@ -27,27 +27,11 @@ typography:
 
 # AFK AI design system
 
-## Creative north star
-
-**The Honest Workbench**
-
-AFK AI should look like software that has nothing to hide.
-
-The page is bright and calm in light mode, deep and quiet in dark mode, with a
-small number of deliberate signals:
-
-- blue means action
-- emerald means positive state
-- neutral surfaces carry structure
-- mono type marks machine facts
-- product claims are paired with their tradeoffs
-
-The design avoids decoration that makes the product look more mature than it
-is.
+The site should present AFK AI as straightforward Windows software. Product status, requirements, privacy limits, and download behaviour should be easy to find without decorative complexity.
 
 ## Foundations
 
-### Color
+### Colour
 
 | Role | Light | Dark |
 |---|---|---|
@@ -60,147 +44,89 @@ is.
 | Action | `#2563eb` | `#7aa2ff` |
 | Positive state | `#10b981` | `#5eead4` |
 
-**Color is state.** Decorative color should be rare.
+Use colour to communicate hierarchy or state. Decorative colour should be limited.
 
 ### Typography
 
-**Display:** Bricolage Grotesque
-**Body:** system UI stack
-**Machine facts:** IBM Plex Mono
+- Display: Bricolage Grotesque
+- Body: system UI stack
+- Technical values: IBM Plex Mono
 
-Use mono for:
-
-- ports
-- commands
-- hashes
-- model identifiers
-- versions
-- small machine-status labels
-
-Do not use mono for normal prose.
+Use the mono face for ports, commands, hashes, model identifiers, versions, and compact machine-status labels. Use the body face for normal prose.
 
 ### Shape
 
 - card radius: `12px`
 - pill radius: `9999px`
-- soft hairline borders
-- one restrained shadow voice
-- no glassmorphism
+- one-pixel borders
+- restrained shadows
+- no glass effects
 
-## Hierarchy
+## Page hierarchy
 
-### Hero
+The first screen should answer three questions:
 
-The hero should answer three questions immediately:
-
-1. What is this?
+1. What is AFK AI?
 2. Who is it for?
-3. What do I click?
+3. Where is the download?
 
-The headline stays:
+The current headline is:
 
 > **Your AI. Your PC.**
 
-The supporting copy should explain local inference without implying the product
-is permanently offline.
+Supporting copy must describe local inference without implying that the product is permanently offline.
 
-### Sections
-
-Use one clear idea per section.
-
-Current hierarchy:
+Current section order:
 
 1. hero and download
-2. how installation works
+2. installation overview
 3. Control Center
-4. local and network boundary
-5. closing download CTA
+4. local and network behaviour
+5. closing download action
 
-Deep implementation detail belongs in GitHub docs, not in the first screen.
+Detailed implementation material belongs in GitHub documentation rather than the landing page.
 
 ## Components
 
 ### Buttons
 
-Primary buttons use the main ink/action contrast and pill shape.
-
-Requirements:
-
-- obvious focus state
-- no hidden interaction
-- no urgency tricks
-- text says what happens
+Primary buttons need a visible focus state, clear action text, and no hidden interaction or urgency language.
 
 ### Cards
 
-Cards use:
-
-- neutral panel background
-- one-pixel border
-- 12px radius
-- restrained shadow
-- generous internal padding
-
-Cards should group information, not decorate empty space.
+Cards use neutral surfaces, one-pixel borders, 12px radius, restrained shadow, and enough padding to separate groups of information.
 
 ### Status chips
 
-Use compact chips for real state such as:
+Use chips only for real state such as Friend Beta status, version, local endpoint, or health state.
 
-- Friend Beta
-- version
-- local endpoint
-- positive health state
+### Code and technical values
 
-Do not invent status signals simply to make the page look active.
-
-### Code and machine facts
-
-Code wells stay dark in both themes. This gives terminal material a stable
-surface without turning the whole site into terminal cosplay.
+Code blocks use the dark code surface in both themes. This keeps technical material visually stable without making the overall page resemble a terminal.
 
 ### Progressive disclosure
 
-Use `<details>` only when the secondary material is genuinely optional.
+Use `<details>` only for genuinely optional secondary material. Requirements and risks must remain visible without expansion.
 
-Do not hide a requirement or risk behind an expander.
+## Copy
 
-## Copy rules
+Public copy should be accurate, short, calm, specific, and readable by non-experts.
 
-Public copy must be:
+Avoid hype, fake certainty, privacy absolutes, invented metrics, fake screenshots, fake testimonials, countdowns, scarcity language, and unexplained acronyms in the first screen.
 
-- accurate
-- short
-- calm
-- specific
-- readable by a non-expert
-
-Avoid:
-
-- em dashes
-- hype adjectives
-- fake certainty
-- fake privacy absolutes
-- fake screenshots
-- fake testimonials
-- vanity metrics
-- countdowns or scarcity
-- unexplained acronyms in the first screen
-
-Use punctuation that reads cleanly in compact UI copy: periods, commas,
-semicolons, colons, parentheses, and middle dots for short metadata groups.
+Use simple punctuation. Public copy should not use em dashes.
 
 ## Privacy presentation
 
-The page must distinguish:
+Clearly separate local behaviour from network activity.
 
-**Local by design**
+Local by design:
 
 - model inference
-- Open WebUI local account and chat database
+- Open WebUI account and chat database
 - loopback user-facing services
 
-**Network when needed or enabled**
+Network activity when needed or enabled:
 
 - setup downloads
 - model downloads
@@ -208,7 +134,7 @@ The page must distinguish:
 - optional web search
 - optional online integrations
 
-The current native Ollama host bind is not described as loopback-only.
+Do not describe the current native Ollama host bind as loopback-only.
 
 ## Accessibility
 
@@ -216,57 +142,33 @@ Maintain:
 
 - semantic headings
 - one primary `h1`
-- skip link
+- a skip link
 - visible keyboard focus
 - meaningful button labels
 - sufficient contrast
 - touch-friendly controls
-- reduced-motion respect
-- accessible theme control
+- reduced-motion support
+- accessible theme controls
 - sensible reading order without CSS
 
-Never use color as the only indicator of meaning.
+Do not use colour as the only indicator of meaning.
 
 ## Content Security Policy
 
-The public page is designed for a strict CSP.
+Keep scripts, styles, fonts, and assets same-origin. Avoid inline scripts, inline event handlers, inline styles, third-party embeds, remote analytics, and remote fonts.
 
-Keep:
-
-- scripts same-origin
-- styles same-origin
-- fonts self-hosted
-- no inline scripts
-- no inline event handlers
-- no inline styles
-- no third-party embeds or analytics
-
-A visual enhancement is not worth weakening the CSP.
-
-## Anti-references
-
-Do not drift toward:
-
-- SaaS gradient washes
-- glass cards
-- crypto or AI hype
-- hacker-terminal cosplay
-- giant feature matrices
-- dark-pattern urgency
-- decorative charts with no product evidence
-- fake app screenshots
+Visual changes should not weaken the Content Security Policy.
 
 ## Review checklist
 
-Before shipping a public-facing change:
+Before shipping a public-facing change, confirm that:
 
-- Is every claim supported by current product behavior?
-- Does the first screen still explain the product quickly?
-- Is the download path still obvious?
-- Is local-first wording precise?
-- Are requirements visible?
-- Is Friend Beta status visible?
-- Did any third-party origin appear?
-- Does light and dark mode still work?
-- Did an em dash enter public copy?
-- Did the change create visual noise without adding information?
+- product claims match current behaviour
+- the first screen explains the product quickly
+- the download path is obvious
+- local-first wording is precise
+- requirements and Friend Beta status are visible
+- no third-party page origin was added without review
+- light and dark mode still work
+- public copy contains no em dash
+- the change adds useful information rather than visual noise
