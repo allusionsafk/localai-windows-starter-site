@@ -1,23 +1,19 @@
 ## Problem
 
-<!-- What concrete website, download, accessibility, security, or maintenance problem does this address? -->
+<!-- What website, download, accessibility, security, or maintenance problem does this address? -->
 
 ## Change
 
-<!-- What changed, and what deliberately did not change? -->
+<!-- What changed? Note important exclusions only when they matter to review. -->
 
 ## Verification
 
-<!-- List only checks you actually ran, with results when useful. -->
+<!-- List checks that actually ran and their results. -->
 
-## Risk / boundaries
+## Impact
 
-<!-- Note CSP, privacy, security, download pin, release, deployment, or third-party-origin impact. Write "none" when genuinely none. -->
+<!-- Note any CSP, privacy, security, download pin, release, deployment, or third-party-origin impact. Write "None" when there is none. -->
 
-## Known limitations
+## Remaining work
 
-<!-- What remains unverified, environment-dependent, or intentionally out of scope? -->
-
-## Follow-up
-
-<!-- Deferred work, if any. -->
+<!-- Unverified paths, known limitations, or follow-up work. -->
