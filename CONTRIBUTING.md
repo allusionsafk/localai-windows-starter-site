@@ -1,12 +1,8 @@
 # Contributing to the AFK AI website
 
-This repository is the public website and pinned-download surface for AFK AI for Windows.
+This repository contains the AFK AI public website and pinned Friend Beta download route.
 
-Contributions are welcome when they make that surface clearer, safer, more accessible, or easier to verify.
-
-## Keep product and website work separate
-
-Use this repository for:
+Use it for:
 
 - landing-page content and presentation
 - accessibility and responsive behaviour
@@ -22,61 +18,52 @@ Do not mix product-runtime changes into a website pull request.
 
 ## Before changing the site
 
-1. Establish the current behaviour.
-2. Make the smallest coherent change.
-3. Preserve the pinned Friend Beta download contract unless the pull request is specifically a reviewed release update.
-4. Run the checks that cover the changed surface.
-5. Describe only verification that actually ran.
+1. Confirm the current behaviour.
+2. Make a focused change.
+3. Preserve the pinned Friend Beta download behaviour unless the pull request is a reviewed release update.
+4. Run the checks for the area you changed.
+5. Report only verification that actually ran.
 
 ## Local checks
 
-Install dependencies from the lockfile:
-
 ```bash
 npm ci
-```
-
-Run the repository test contract:
-
-```bash
 npm test
 ```
 
-For JavaScript changes, also check syntax:
+For JavaScript changes:
 
 ```bash
 node --check worker.js
 node --check public/assets/app.js
 ```
 
-Use `git diff --check` before opening a pull request.
+Run `git diff --check` before opening a pull request.
 
-## Public-copy rules
+## Public copy
 
-Public copy should be precise and easy to scan.
+Use **AFK AI** as the product name. Keep public wording short and specific.
 
-- Use **AFK AI** as the product name.
-- Do not claim that the product is offline-only.
-- Distinguish local model inference from setup, downloads, updates, and optional web-search traffic.
-- Do not claim deployment until the live deployment has been observed.
-- Do not use em dashes in public copy.
-- Do not add analytics, trackers, remote fonts, or other third-party page dependencies without explicit review.
+Do not describe AFK AI as offline-only. Separate local inference from setup, downloads, updates, optional web search, and other network activity. Do not claim a deployment until the live site has been checked.
+
+Do not add analytics, trackers, remote fonts, or other third-party page dependencies without explicit review.
+
+Public copy should not use em dashes.
 
 ## Security and privacy
 
 Do not post credentials, tokens, private documents, chats, prompts, cookies, environment values, or unrelated machine information in issues or pull requests.
 
-Security vulnerabilities should follow [SECURITY.md](SECURITY.md) rather than a public issue.
+Report vulnerabilities through [SECURITY.md](SECURITY.md).
 
 ## Pull requests
 
-A useful pull request explains:
+A pull request should state:
 
-1. the concrete problem
-2. what changed
-3. what deliberately did not change
-4. the checks that actually ran and their results
-5. privacy, security, CSP, download, release, or deployment impact
-6. known limitations or follow-up work
+- the problem
+- the change
+- checks run and their results
+- any security, privacy, CSP, download, release, or deployment impact
+- known limitations or follow-up work
 
-Keep unrelated cleanup in separate pull requests so each change remains easy to review and roll back.
+Keep unrelated cleanup separate so each change is easy to review and revert.
